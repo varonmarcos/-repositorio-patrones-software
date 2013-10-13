@@ -1,0 +1,123 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.kallsonys.oms.enterprise</groupId>
+	<artifactId>INT-KallsonnysOMS-Enterprise</artifactId>
+	<packaging>ear</packaging>
+
+	<parent>
+		<groupId>com.kallsonys.oms.master</groupId>
+		<artifactId>POM-KallsonnysOMS-Master</artifactId>
+		<version>v1.0.0-SNAPSHOT</version>
+	</parent>
+
+	<properties>
+		<module.name>KallsonnysOMS-Enterprise</module.name>
+		<module.package.name>KallsonnysOMS-Enterprise</module.package.name>
+	</properties>
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>install-ear</id>
+						<phase>install</phase>
+						<configuration>
+							<tasks>
+								<copy file="${project.build.directory}/${module.name}.ear"
+									tofile="${env.JBOSS_HOME}/server/default/deploy/${module.name}.ear" />
+							</tasks>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!--This plugin's configuration is used to store Eclipse m2e settings 
+				only. It has no influence on the Maven build itself. -->
+			<plugin>
+				<groupId>org.eclipse.m2e</groupId>
+				<artifactId>lifecycle-mapping</artifactId>
+				<version>1.0.0</version>
+				<configuration>
+					<lifecycleMappingMetadata>
+						<pluginExecutions>
+							<pluginExecution>
+								<pluginExecutionFilter>
+									<groupId>org.apache.maven.plugins
+									</groupId>
+									<artifactId>maven-ear-plugin</artifactId>
+									<versionRange>[2.5,)</versionRange>
+									<goals>
+										<goal>generate-application-xml</goal>
+									</goals>
+								</pluginExecutionFilter>
+								<action>
+									<ignore></ignore>
+								</action>
+							</pluginExecution>
+						</pluginExecutions>
+					</lifecycleMappingMetadata>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	<profiles>
+		<profile>
+			<id>ear-no-war</id>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-resources-plugin</artifactId>
+					</plugin>
+					<plugin>
+						<artifactId>maven-assembly-plugin</artifactId>
+						<version>2.4</version>
+						<executions>
+							<execution>
+								<id>ejb-jar</id>
+								<phase>process-resources</phase>
+								<goals>
+									<goal>attached</goal>
+								</goals>
+								<configuration>
+									<descriptors>
+										<descriptor>assembly-descriptor.xml</descriptor>
+									</descriptors>
+									<finalName>ETaskAPI</finalName>
+									<attach>true</attach>
+									<archive>
+										<addMavenDescriptor>true</addMavenDescriptor>
+									</archive>
+								</configuration>
+							</execution>
+							<execution>
+								<id>ear</id>
+								<phase>package</phase>
+								<goals>
+									<goal>single</goal>
+								</goals>
+								<configuration>
+									<descriptors>
+										<descriptor appxml="config/app/META-INF/application-no-war.xml">assembly/assembly-ear-no-war.xml</descriptor>
+									</descriptors>
+									<finalName>${module.name}</finalName>
+									<archiverConfig>
+										<appxml>config/app/META-INF/application.xml</appxml>
+									</archiverConfig>
+									<appendAssemblyId>false</appendAssemblyId>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+	<dependencies>
+	</dependencies>
+</project>
