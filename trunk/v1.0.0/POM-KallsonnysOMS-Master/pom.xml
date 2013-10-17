@@ -13,13 +13,10 @@
 
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-		<spring.core.version>3.1.2.RELEASE</spring.core.version>
-		<spring.security.core.version>3.1.0.RELEASE</spring.security.core.version>
-		<spring.data.jpa.version>1.1.0.RELEASE</spring.data.jpa.version>
 
 		<mysql.connector.version>5.1.21</mysql.connector.version>
 		<hibernate.version>4.1.6.Final</hibernate.version>
-		<c3p0.version>0.9.1.2</c3p0.version>
+
 
 		<slf4j.version>1.6.1</slf4j.version>
 		<log4j.version>1.2.14</log4j.version>
@@ -28,10 +25,6 @@
 		<aspectj.version>1.6.12</aspectj.version>
 
 		<javax.servlet-api.version>2.5</javax.servlet-api.version>
-
-		<!-- Testing -->
-		<mockito.version>1.8.5</mockito.version>
-		<junit.version>4.8.2</junit.version>
 
 		<oms.version>v1.0.0-SNAPSHOT</oms.version>
 	</properties>
@@ -131,39 +124,6 @@
 		</pluginManagement>
 	</build>
 
-	<repositories>
-		<repository>
-			<id>spring-ga</id>
-			<name>spring GA releases</name>
-			<url>http://repo.springsource.org/libs-release/</url>
-		</repository>
-		<repository>
-			<id>spring-release</id>
-			<name>spring GA releases</name>
-			<url>http://repo.springsource.org/libs-release/</url>
-		</repository>
-		<repository>
-			<id>spring-milestone</id>
-			<name>spring milestone releases</name>
-			<url>http://repo.springsource.org/libs-milestone/</url>
-		</repository>
-		<repository>
-			<id>jboss</id>
-			<name>jboss Repository</name>
-			<url>http://repository.jboss.org/maven2</url>
-		</repository>
-		<repository>
-			<id>ibilio maven-2</id>
-			<name>ibilio Repository</name>
-			<url>http://download.java.net/maven/2</url>
-		</repository>
-		<repository>
-			<id>com.springsource.repository.bundles.external</id>
-			<name>SpringSource Enterprise Bundle Repository - External Bundle Releases</name>
-			<url>http://repository.springsource.com/maven/bundles/external</url>
-		</repository>
-	</repositories>
-
 	<dependencyManagement>
 		<dependencies>
 
@@ -175,10 +135,38 @@
 			</dependency>
 
 			<dependency>
+				<groupId>org.kallsonys.oms.entities</groupId>
+				<artifactId>ENT-KallsonnysOMS-Entities</artifactId>
+				<version>${oms.version}</version>
+				<type>ejb</type>
+			</dependency>
+
+			<dependency>
+				<groupId>org.kallsonys.oms.dto</groupId>
+				<artifactId>ENT-KallsonnysOMS-DTO</artifactId>
+				<version>${oms.version}</version>
+			</dependency>
+
+			<dependency>
 				<groupId>org.kallsonys.oms.business</groupId>
 				<artifactId>BUS-KallsonnysOMS-Business</artifactId>
 				<version>${oms.version}</version>
 			</dependency>
+
+			<dependency>
+				<groupId>org.kallsonys.oms.business</groupId>
+				<artifactId>BUS-KallsonnysOMS-Business</artifactId>
+				<version>${oms.version}</version>
+				<type>ejb-client</type>
+			</dependency>
+
+			<dependency>
+				<groupId>org.kallsonys.oms.business</groupId>
+				<artifactId>BUS-KallsonnysOMS-Business</artifactId>
+				<version>${oms.version}</version>
+				<type>ejb</type>
+			</dependency>
+
 
 			<dependency>
 				<groupId>org.kallsonys.oms.web</groupId>
@@ -186,77 +174,11 @@
 				<version>${oms.version}</version>
 			</dependency>
 
+			<!-- MySQL Connector -->
 			<dependency>
-				<groupId>org.hibernate</groupId>
-				<artifactId>ejb3-persistence</artifactId>
-				<version>1.0.2.GA</version>
-			</dependency>
-
-
-			<!-- Spring Core -->
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-core</artifactId>
-				<version>${spring.core.version}</version>
-				<type>jar</type>
-				<scope>compile</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-web</artifactId>
-				<version>${spring.core.version}</version>
-				<type>jar</type>
-				<scope>compile</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-tx</artifactId>
-				<version>${spring.core.version}</version>
-				<type>jar</type>
-				<scope>compile</scope>
-			</dependency>
-
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-jdbc</artifactId>
-				<version>${spring.core.version}</version>
-				<type>jar</type>
-				<scope>compile</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-oxm</artifactId>
-				<version>${spring.core.version}</version>
-				<type>jar</type>
-				<scope>compile</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-aspects</artifactId>
-				<version>${spring.core.version}</version>
-				<type>jar</type>
-				<scope>compile</scope>
-			</dependency>
-
-			<!-- A seamless aspect-oriented extension to the Java programming language -->
-			<dependency>
-				<groupId>org.aspectj</groupId>
-				<artifactId>aspectjrt</artifactId>
-				<version>${aspectj.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.aspectj</groupId>
-				<artifactId>aspectjweaver</artifactId>
-				<version>${aspectj.version}</version>
-			</dependency>
-
-			<!-- Cglib is a powerful, high performance and quality Code Generation 
-				Library, It is used to extend JAVA classes and implements interfaces at runtime. -->
-			<dependency>
-				<groupId>cglib</groupId>
-				<artifactId>cglib-nodep</artifactId>
-				<version>${cglib.version}</version>
+				<groupId>mysql</groupId>
+				<artifactId>mysql-connector-java</artifactId>
+				<version>${mysql.connector.version}</version>
 				<type>jar</type>
 				<scope>compile</scope>
 			</dependency>
@@ -268,6 +190,13 @@
 				<version>${log4j.version}</version>
 				<type>jar</type>
 				<scope>compile</scope>
+			</dependency>
+
+			<!-- EJB -->
+			<dependency>
+				<groupId>javax.ejb</groupId>
+				<artifactId>ejb-api</artifactId>
+				<version>3.0</version>
 			</dependency>
 
 			<!-- Apache -->
@@ -303,111 +232,76 @@
 				<scope>compile</scope>
 			</dependency>
 
-			<!-- Spring Security -->
-			<dependency>
-				<groupId>org.springframework.security</groupId>
-				<artifactId>spring-security-core</artifactId>
-				<version>${spring.security.core.version}</version>
-				<type>jar</type>
-				<scope>compile</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework.security</groupId>
-				<artifactId>spring-security-web</artifactId>
-				<version>${spring.security.core.version}</version>
-				<type>jar</type>
-				<scope>compile</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework.security</groupId>
-				<artifactId>spring-security-config</artifactId>
-				<version>${spring.security.core.version}</version>
-				<type>jar</type>
-				<scope>compile</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework.security</groupId>
-				<artifactId>spring-security-taglibs</artifactId>
-				<version>${spring.security.core.version}</version>
-				<type>jar</type>
-				<scope>compile</scope>
-			</dependency>
-
-			<!-- Spring Data JPA -->
-			<dependency>
-				<groupId>org.springframework.data</groupId>
-				<artifactId>spring-data-jpa</artifactId>
-				<version>${spring.data.jpa.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-orm</artifactId>
-				<version>${spring.core.version}</version>
-			</dependency>
-
-			<!-- Database pooling -->
-			<dependency>
-				<groupId>c3p0</groupId>
-				<artifactId>c3p0</artifactId>
-				<version>${c3p0.version}</version>
-				<type>jar</type>
-				<scope>compile</scope>
-			</dependency>
-
-			<!-- MySQL Connector -->
-			<dependency>
-				<groupId>mysql</groupId>
-				<artifactId>mysql-connector-java</artifactId>
-				<version>${mysql.connector.version}</version>
-				<type>jar</type>
-				<scope>compile</scope>
-			</dependency>
-
 			<!-- Hibernate and JPA -->
+			<dependency>
+				<groupId>javax.persistence</groupId>
+				<artifactId>persistence-api</artifactId>
+				<version>1.0</version>
+			</dependency>
+			<dependency>
+				<groupId>org.hibernate.javax.persistence</groupId>
+				<artifactId>hibernate-jpa-2.0-api</artifactId>
+				<version>1.0.1.Final</version>
+			</dependency>
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>ejb3-persistence</artifactId>
+				<version>1.0.2.GA</version>
+			</dependency>
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-annotations</artifactId>
+				<version>3.4.0.GA</version>
+			</dependency>
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-commons-annotations</artifactId>
+				<version>3.2.0.Final</version>
+			</dependency>
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-core</artifactId>
-				<version>${hibernate.version}</version>
+				<version>3.6.6.Final</version>
 			</dependency>
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-entitymanager</artifactId>
-				<version>${hibernate.version}</version>
+				<version>3.6.6.Final</version>
+			</dependency>
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-validator</artifactId>
+				<version>4.1.0.Final</version>
+			</dependency>
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-validator-legacy</artifactId>
+				<version>4.0.2.GA</version>
 			</dependency>
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-ehcache</artifactId>
-				<version>${hibernate.version}</version>
-			</dependency>
-			<!-- Javax Servlet. This needs to be included for runtime only! -->
-			<dependency>
-				<groupId>javax.servlet</groupId>
-				<artifactId>servlet-api</artifactId>
-				<version>${javax.servlet-api.version}</version>
-				<scope>provided</scope>
-			</dependency>
-
-			<!-- Testing dependencies -->
-			<dependency>
-				<groupId>junit</groupId>
-				<artifactId>junit</artifactId>
-				<version>${junit.version}</version>
-				<type>jar</type>
-				<scope>test</scope>
+				<version>3.3.1.GA</version>
 			</dependency>
 			<dependency>
-				<groupId>org.mockito</groupId>
-				<artifactId>mockito-all</artifactId>
-				<version>${mockito.version}</version>
-				<type>jar</type>
-				<scope>test</scope>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-search</artifactId>
+				<version>3.4.1.Final</version>
 			</dependency>
 			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-test</artifactId>
-				<version>${spring.core.version}</version>
-				<type>jar</type>
-				<scope>test</scope>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-search-infinispan</artifactId>
+				<version>3.4.1.Final</version>
+			</dependency>
+			<dependency>
+				<groupId>org.infinispan</groupId>
+				<artifactId>infinispan-core</artifactId>
+				<version>5.3.0.Final</version>
+			</dependency>
+			<dependency>
+				<groupId>org.infinispan</groupId>
+				<artifactId>infinispan-lucene-directory</artifactId>
+				<version>5.3.0.Final</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

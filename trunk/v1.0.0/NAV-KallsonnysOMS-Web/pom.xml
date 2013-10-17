@@ -76,7 +76,21 @@
 
 
 	<dependencies>
+		<dependency>
+			<groupId>org.kallsonys.oms.dto</groupId>
+			<artifactId>ENT-KallsonnysOMS-DTO</artifactId>
+		</dependency>
 
+		<dependency>
+			<groupId>org.kallsonys.oms.entities</groupId>
+			<artifactId>ENT-KallsonnysOMS-Entities</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.kallsonys.oms.business</groupId>
+			<artifactId>BUS-KallsonnysOMS-Business</artifactId>
+			<type>ejb-client</type>
+		</dependency>
 	</dependencies>
 
 </project>

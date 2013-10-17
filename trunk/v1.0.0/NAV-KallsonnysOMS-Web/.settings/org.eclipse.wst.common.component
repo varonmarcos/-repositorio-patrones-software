@@ -3,6 +3,15 @@
     <wb-module deploy-name="NAV-KallsonnysOMS-Web">
         <wb-resource deploy-path="/" source-path="/dist/m2e-wtp/web-resources"/>
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
+        <dependent-module archiveName="ENT-KallsonnysOMS-DTO-v1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/ENT-KallsonnysOMS-Dto/ENT-KallsonnysOMS-Dto">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ENT-KallsonnysOMS-Entities-v1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/ENT-KallsonnysOMS-Entities/ENT-KallsonnysOMS-Entities">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="BUS-KallsonnysOMS-Business-v1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/BUS-KallsonnysOMS-Business/BUS-KallsonnysOMS-Business">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="context-root" value="NAV-KallsonnysOMS-Web"/>
         <property name="java-output-path" value="/NAV-KallsonnysOMS-Web/bin/classes"/>
     </wb-module>
