@@ -77,8 +77,8 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>org.kallsonys.oms.dto</groupId>
-			<artifactId>ENT-KallsonnysOMS-DTO</artifactId>
+			<groupId>org.kallsonys.oms.commons</groupId>
+			<artifactId>ENT-KallsonnysOMS-Commons</artifactId>
 		</dependency>
 
 		<dependency>

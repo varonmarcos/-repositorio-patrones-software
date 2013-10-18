@@ -3,6 +3,7 @@
 	<name>INT-KallsonnysOMS-Enterprise</name>
 	<comment></comment>
 	<projects>
+		<project>ENT-KallsonnysOMS-Common</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
