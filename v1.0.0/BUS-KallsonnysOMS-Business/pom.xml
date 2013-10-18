@@ -5,6 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.kallsonys.oms.business</groupId>
 	<artifactId>BUS-KallsonnysOMS-Business</artifactId>
+	<packaging>ejb</packaging>
 
 	<name>KallsonnysOMS-Business</name>
 	<parent>
@@ -39,7 +40,7 @@
 					<ejbVersion>3.0</ejbVersion>
 					<generateClient>true</generateClient>
 					<clientIncludes>
-						<clientInclude>**/kallsonnys/**/*</clientInclude>
+						<clientInclude>**/etask/**/*</clientInclude>
 					</clientIncludes>
 				</configuration>
 			</plugin>
@@ -71,19 +72,16 @@
 	</build>
 
 	<dependencies>
-
 		<dependency>
-			<groupId>org.kallsonys.oms.dto</groupId>
-			<artifactId>ENT-KallsonnysOMS-DTO</artifactId>
+			<groupId>org.kallsonys.oms.commons</groupId>
+				<artifactId>ENT-KallsonnysOMS-Commons</artifactId>
 			<scope>provided</scope>
 		</dependency>
-
 		<dependency>
 			<groupId>org.kallsonys.oms.entities</groupId>
 			<artifactId>ENT-KallsonnysOMS-Entities</artifactId>
 			<scope>provided</scope>
 		</dependency>
-
 		<dependency>
 			<groupId>javax.ejb</groupId>
 			<artifactId>ejb-api</artifactId>
@@ -164,7 +162,5 @@
 			<artifactId>infinispan-lucene-directory</artifactId>
 			<scope>provided</scope>
 		</dependency>
-
 	</dependencies>
-
 </project>
