@@ -1,15 +1,24 @@
 package org.kallsonys.oms.commons.locator;
 
+import java.io.Serializable;
 import java.util.Map;
 import java.util.Properties;
 
+import javax.jms.JMSException;
+import javax.jms.ObjectMessage;
+import javax.jms.Queue;
+import javax.jms.QueueConnection;
+import javax.jms.QueueConnectionFactory;
+import javax.jms.QueueSender;
+import javax.jms.QueueSession;
+import javax.jms.Session;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 import org.apache.log4j.Logger;
 
-public class ServiceLocator {
+public class ServiceLocator{
 
 	/** Control and audit log */
 	private static final Logger log = Logger.getLogger(ServiceLocator.class);
@@ -21,6 +30,8 @@ public class ServiceLocator {
 	private Map<String, String> contextParams = null;
 
 	private static ServiceLocator instance;
+	
+	private static final String CONNECTION_FACTORY = "ConnectionFactory";
 
 	/**
 	 * Constant which indicates the application name was recorded in the server
@@ -84,13 +95,64 @@ public class ServiceLocator {
 			log.error(
 					"- General ERROR obtaining reference to remote object ->",
 					e);
-			throw new IllegalArgumentException(
+			throw new LocatorException(
 					"- Could not obtain reference to remote object " + objname);
 
 		} finally {
 			log.debug("getRemoteObject(String objname)::finished");
 		}
 		return (T) retValue;
+	}
+	
+	/**
+	 * Sends a message to a queue.
+	 * 
+	 * @param queueName
+	 * @param key
+	 *            Optional.
+	 * @param obj
+	 *            Mandatory.
+	 */
+	public void sendMsgToQueue(final String queueName, final String key,
+			final Serializable obj) {
+		log.debug("sendMsgToQueue(queueName, key, obj)::started");
+		QueueConnection conn = null;
+		QueueSession session = null;
+		QueueSender sender = null;
+
+		try {
+			final String jndiName = "queue/" + queueName;
+			final Context ctx = getInitialContext(null);
+			final QueueConnectionFactory factory = (QueueConnectionFactory) ctx
+					.lookup(CONNECTION_FACTORY);
+			conn = factory.createQueueConnection();
+			session = conn.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);
+			final Queue queue = (Queue) ctx.lookup(jndiName);
+			sender = session.createSender(queue);
+
+			ObjectMessage message = session.createObjectMessage();
+			if (key == null) {
+				message.setObject((Serializable) obj);
+			} else {
+				message.setObjectProperty(key, obj);
+			}
+
+			sender.send(message);
+
+		} catch (NamingException e) {
+			throw new LocatorException(
+					"A naming exception occured while trying to send message "
+							+ obj + " to queue " + queueName, e);
+		} catch (JMSException e) {
+			throw new LocatorException(
+					"A JMS exception occured while trying to send message "
+							+ obj + " to queue " + queueName, e);
+		} finally {
+			log.debug("sendMsgToQueue(queueName, key, obj)::finished");
+			close(sender);
+			close(session);
+			close(conn);
+		}
 	}
 
 	/**
@@ -106,7 +168,7 @@ public class ServiceLocator {
 	 *             An exception if some of the given parameters could not load
 	 *             in the Context
 	 */
-	private Context getInitialContext(Map<String, String> params)
+	public Context getInitialContext(Map<String, String> params)
 			throws NamingException {
 		Properties properties = new Properties();
 
@@ -140,5 +202,33 @@ public class ServiceLocator {
 	public void setContextParams(Map<String, String> contextParams) {
 		this.contextParams = contextParams;
 	}
+	
+	private void close(QueueSender sender) {
+		try {
+			if (sender != null){
+				sender.close();
+			}			
+		} catch (Exception e) {
+		}
+	}
+
+	private void close(QueueSession session) {
+		try {
+			if (session != null){
+				session.close();
+			}			
+		} catch (Exception e) {
+		}
+	}
+
+	private void close(QueueConnection conn) {
+		try {
+			if (conn != null){
+				conn.close();
+			}			
+		} catch (Exception e) {
+		}
+	}
+
 
 }
