@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
+          http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+	version="2.0">
+
+	<persistence-unit name="kallsonnysOrdersSec">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<jta-data-source>java:/KallsonnysOrdersDS</jta-data-source>
+		<mapping-file>META-INF/orders-orm.xml</mapping-file>
+
+		<class>org.kallsonys.oms.entities.custAndOrders.Address</class>
+		<class>org.kallsonys.oms.entities.custAndOrders.City</class>
+		<class>org.kallsonys.oms.entities.custAndOrders.State</class>
+		<class>org.kallsonys.oms.entities.custAndOrders.Customer</class>
+		<class>org.kallsonys.oms.entities.custAndOrders.CustomerAddress</class>
+		<class>org.kallsonys.oms.entities.custAndOrders.Item</class>
+		<class>org.kallsonys.oms.entities.custAndOrders.Orders</class>
+
+		<exclude-unlisted-classes>true</exclude-unlisted-classes>
+
+		<properties>
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect" />
+
+			<property name="hibernate.hbm2ddl.auto" value="update" />
+
+			<property name="hibernate.search.analyzer"
+				value="org.apache.lucene.analysis.standard.StandardAnalyzer" />
+
+			<property name="cache.provider_class"
+				value="org.hibernate.cache.OptimisticTreeCacheProvider" />
+			<property name="hibernate.cache.use_second_level_cache"
+				value="true" />
+			<property name="hibernate.cache.use_query_cache" value="true" />
+			<property name="transaction.manager_lookup_class"
+				value="org.hibernate.transaction.JBossTSTransactionManagerLookup" />
+			<property name="hibernate.show_sql" value="true" />
+			<property name="jboss.entity.manager.jndi.name" value="java:/kallsonnysOrdersSecEM" />
+		</properties>
+
+	</persistence-unit>
+
+	<persistence-unit name="kallsonnysSecurity">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<jta-data-source>java:/KallsonnysSecurityDS</jta-data-source>
+		<mapping-file>META-INF/orders-orm.xml</mapping-file>
+
+		<class>org.kallsonys.oms.entities.security.OptionMenu</class>
+		<class>org.kallsonys.oms.entities.security.Profile</class>
+		<class>org.kallsonys.oms.entities.security.User</class>
+	
+		<exclude-unlisted-classes>true</exclude-unlisted-classes>
+
+		<properties>
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect" />
+
+			<property name="hibernate.hbm2ddl.auto" value="update" />
+
+			<property name="hibernate.search.analyzer"
+				value="org.apache.lucene.analysis.standard.StandardAnalyzer" />
+
+			<property name="cache.provider_class"
+				value="org.hibernate.cache.OptimisticTreeCacheProvider" />
+			<property name="hibernate.cache.use_second_level_cache"
+				value="true" />
+			<property name="hibernate.cache.use_query_cache" value="true" />
+			<property name="transaction.manager_lookup_class"
+				value="org.hibernate.transaction.JBossTSTransactionManagerLookup" />
+			<property name="hibernate.show_sql" value="true" />
+			<property name="jboss.entity.manager.jndi.name" value="java:/kallsonnysSecurityEM" />
+		</properties>
+
+	</persistence-unit>
+</persistence>

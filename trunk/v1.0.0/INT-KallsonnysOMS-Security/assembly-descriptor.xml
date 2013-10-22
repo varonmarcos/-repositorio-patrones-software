@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assembly>
+	<id>single</id>
+	<formats>
+		<format>jar</format>
+	</formats>
+	<baseDirectory>/</baseDirectory>
+	<fileSets>
+		<fileSet>
+			<directory>config/ejb</directory>
+			<outputDirectory>/</outputDirectory>
+			<includes>
+				<include>**</include>
+			</includes>
+			<useDefaultExcludes>true</useDefaultExcludes>
+		</fileSet>
+	</fileSets>
+	<dependencySets>
+		<dependencySet>
+			<outputDirectory>/</outputDirectory>
+			<unpack>true</unpack>
+			<useTransitiveDependencies>false</useTransitiveDependencies>
+			<unpackOptions>
+				<excludes>
+					<exclude>**/META-INF/**</exclude>
+				</excludes>
+			</unpackOptions>
+			<useProjectArtifact>false</useProjectArtifact>
+			<includes>
+				<include>*:ejb</include>
+				<include>*:ejb-client</include>
+				<include>*:client</include>
+			</includes>
+		</dependencySet>
+	</dependencySets>
+</assembly>
