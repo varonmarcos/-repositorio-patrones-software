@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Configures the Camel Context -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camel="http://camel.apache.org/schema/spring"
+	xmlns:cxf="http://camel.apache.org/schema/cxf"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+       http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd">
+
+	<cxf:cxfEndpoint id="ProductServicesEndpoint"
+		address="http://localhost:8181/cxf/ProductServicesWS" serviceClass="com.integration.kallsonys.productservices.ProductServices"
+		wsdlURL="wsdl/productServices.wsdl" />
+
+	<cxf:cxfEndpoint id="CustomerServicesEndpoint"
+		address="http://localhost:8181/cxf/CustomerServicesWS" serviceClass="com.integration.kallsonys.customerservices.CustomerServices"
+		wsdlURL="wsdl/customerServices.wsdl" />
+		
+	<cxf:cxfEndpoint id="CustomerServicesOMSEndpoint"
+		address="https://localhost:8181/cxf/CustomerServicesWS" wsdlURL="wsdl/oms/customerServices.wsdl" />
+		
+		
+	<!-- the route builder -->
+	<bean id="wsAdapterRouteBuilder" class="com.integration.kallsonys.routes.WsAdapterRouteBuilder" />
+
+	<camel:camelContext xmlns="http://camel.apache.org/schema/spring">
+		<camel:routeBuilder ref="wsAdapterRouteBuilder" />
+	</camel:camelContext>
+
+</beans>
