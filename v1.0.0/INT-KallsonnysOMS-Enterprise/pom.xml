@@ -28,7 +28,7 @@
 						<configuration>
 							<tasks>
 								<copy file="${project.build.directory}/${module.name}.ear"
-									tofile="${env.JBOSS_HOME}/server/default/deploy/${module.name}.ear" />
+									tofile="/usr/local/jboss-6.1.0.Final/server/default/deploy/${module.name}.ear" />
 							</tasks>
 						</configuration>
 						<goals>
@@ -88,7 +88,7 @@
 									<descriptors>
 										<descriptor>assembly-descriptor.xml</descriptor>
 									</descriptors>
-									<finalName>ETaskAPI</finalName>
+									<finalName>KallsonnysOMS</finalName>
 									<attach>true</attach>
 									<archive>
 										<addMavenDescriptor>true</addMavenDescriptor>
@@ -114,14 +114,52 @@
 							</execution>
 						</executions>
 					</plugin>
+					<plugin>
+				   	<groupId>org.apache.maven.plugins</groupId>
+				   	<artifactId>maven-dependency-plugin</artifactId>
+				   	<executions>
+				   		<execution>
+				   			<id>copy</id>
+				   			<phase>process-resources</phase>
+				   			<goals>
+				   				<goal>copy</goal>
+				   			</goals>
+				   			<configuration>
+				   				<artifactItems>
+				   					<artifactItem>
+				   						<groupId>org.kallsonys.oms.resources</groupId>
+				   						<artifactId>INT-KallsonnysOMS-Resources</artifactId>
+				   						<overWrite>true</overWrite>
+						   				<outputDirectory>
+						   					/usr/local/jboss-6.1.0.Final/server/default/lib/
+						   				</outputDirectory>
+						   				<destFileName>KallsonnysResources.jar</destFileName>
+				   					</artifactItem>
+				   				</artifactItems>
+				   				<outputDirectory>
+				   					/usr/local/jboss-6.1.0.Final/server/default/lib/
+				   				</outputDirectory>
+				   				<excludes>*\/*.xml</excludes>
+				   				<overWriteReleases>true</overWriteReleases>
+				   				<overWriteSnapshots>true</overWriteSnapshots>
+				   			</configuration>
+				   		</execution>
+				   	</executions>
+				   </plugin>
 				</plugins>
 			</build>
 		</profile>
 	</profiles>
 	<dependencies>
+
+		<dependency>
+			<groupId>org.kallsonys.oms.dto</groupId>
+			<artifactId>ENT-KallsonnysOMS-DTO</artifactId>
+		</dependency>
+		
 		<dependency>
 			<groupId>org.kallsonys.oms.commons</groupId>
-			<artifactId>ENT-KallsonnysOMS-Commons</artifactId>
+			<artifactId>BUS-KallsonnysOMS-Commons</artifactId>
 		</dependency>
 
 		<dependency>
@@ -135,5 +173,6 @@
 			<artifactId>BUS-KallsonnysOMS-Business</artifactId>
 			<type>ejb</type>
 		</dependency>
+		
 	</dependencies>
 </project>

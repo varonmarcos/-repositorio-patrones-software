@@ -75,13 +75,19 @@
 
 		<dependency>
 			<groupId>org.kallsonys.oms.commons</groupId>
-			<artifactId>ENT-KallsonnysOMS-Commons</artifactId>
+			<artifactId>BUS-KallsonnysOMS-Commons</artifactId>
 			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>org.kallsonys.oms.entities</groupId>
 			<artifactId>ENT-KallsonnysOMS-Entities</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.kallsonys.oms.dto</groupId>
+			<artifactId>ENT-KallsonnysOMS-DTO</artifactId>
 			<scope>provided</scope>
 		</dependency>
 
@@ -104,6 +110,7 @@
 		<dependency>
 			<groupId>org.hibernate.javax.persistence</groupId>
 			<artifactId>hibernate-jpa-2.0-api</artifactId>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>

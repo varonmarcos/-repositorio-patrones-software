@@ -4,6 +4,7 @@
 	<comment></comment>
 	<projects>
 		<project>ENT-KallsonnysOMS-Common</project>
+		<project>BUS-KallsonnysOMS-Commons</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

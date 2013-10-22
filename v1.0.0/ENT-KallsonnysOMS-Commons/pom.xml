@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.kallsonys.oms.commons</groupId>
 	<packaging>jar</packaging>
-	<artifactId>ENT-KallsonnysOMS-Commons</artifactId>
+	<artifactId>BUS-KallsonnysOMS-Commons</artifactId>
 
 	<name>KallsonnysOMS-DTO</name>
 	<parent>
@@ -23,6 +23,11 @@
 		<dependency>
 			<groupId>javax.jms</groupId>
 			<artifactId>javax.jms-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.kallsonys.oms.dto</groupId>
+			<artifactId>ENT-KallsonnysOMS-DTO</artifactId>
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>
