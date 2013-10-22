@@ -4,7 +4,7 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.kallsonys.oms.business</groupId>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 	<artifactId>BUS-KallsonnysOMS-WS</artifactId>
 
 	<parent>
