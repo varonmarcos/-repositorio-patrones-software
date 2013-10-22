@@ -26,12 +26,15 @@ public class ServiceLocator{
 	private static final String LOCATOR_USER = "KALLSONNYS_USER";
 	private static final String LOCATOR_PWD = "KALLSONNYS_PWD";
 	private static final String EAR_JNDI_NAME_KEY = "ear_jndi_name";
+	private static final String PROPERTIES_PATH = "KallsonnysOMS-Enterprise";
 
 	private Map<String, String> contextParams = null;
 
 	private static ServiceLocator instance;
 	
 	private static final String CONNECTION_FACTORY = "ConnectionFactory";
+	
+	private ResourceBundleManager bundleManager;
 
 	/**
 	 * Constant which indicates the application name was recorded in the server
@@ -40,14 +43,16 @@ public class ServiceLocator{
 	 * If EJB is in an ear: earName/ejbInterfaceName/local (or /remote) If EJB
 	 * is in an jar: ejbInterfaceName/local (or /remote)
 	 */
-	private String EAR_JNDI_NAME = ResourceBundleManager
-			.getProperty(EAR_JNDI_NAME_KEY);
+	private String EAR_JNDI_NAME;
 
 	private ServiceLocator() {
-
+		bundleManager = new ResourceBundleManager(PROPERTIES_PATH);
+		EAR_JNDI_NAME = bundleManager.getProperty(EAR_JNDI_NAME_KEY);
 	}
 
 	private ServiceLocator(Map<String, String> params) {
+		bundleManager = new ResourceBundleManager(PROPERTIES_PATH);
+		EAR_JNDI_NAME = bundleManager.getProperty(EAR_JNDI_NAME_KEY);
 		this.setContextParams(params);
 	}
 
@@ -82,9 +87,6 @@ public class ServiceLocator{
 		try {
 
 			Context context = getInitialContext(getContextParams());
-
-			EAR_JNDI_NAME = ResourceBundleManager
-					.getProperty(EAR_JNDI_NAME_KEY);
 
 			log.debug("Getting the remote object " + EAR_JNDI_NAME + "/"
 					+ objname + "/remote");
@@ -184,13 +186,13 @@ public class ServiceLocator{
 
 		}
 
-		properties.put(Context.INITIAL_CONTEXT_FACTORY, ResourceBundleManager
+		properties.put(Context.INITIAL_CONTEXT_FACTORY, bundleManager
 				.getProperty(Context.INITIAL_CONTEXT_FACTORY));
 		properties.put(Context.URL_PKG_PREFIXES,
-				ResourceBundleManager.getProperty(Context.URL_PKG_PREFIXES));
+				bundleManager.getProperty(Context.URL_PKG_PREFIXES));
 
 		properties.put(Context.PROVIDER_URL,
-				ResourceBundleManager.getProperty(Context.PROVIDER_URL));
+				bundleManager.getProperty(Context.PROVIDER_URL));
 
 		return new InitialContext(properties);
 	}

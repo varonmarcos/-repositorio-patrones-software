@@ -4,7 +4,7 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.kallsonys.oms.entities</groupId>
-	<packaging>jar</packaging>
+	<packaging>ejb</packaging>
 	<artifactId>ENT-KallsonnysOMS-Entities</artifactId>
 
 	<name>KallsonnysOMS-Entities</name>
@@ -13,8 +13,59 @@
 		<artifactId>POM-KallsonnysOMS-Master</artifactId>
 		<version>v1.0.0-SNAPSHOT</version>
 	</parent>
+	
+	<build>
+		<resources>
+			<resource>
+				<directory>config</directory>
+			</resource>
+			<resource>
+				<directory>${project.build.sourceDirectory}
+				</directory>
+				<includes>
+					<include>**/*.properties</include>
+					<include>**/*.xml</include>
+				</includes>
+				<excludes>
+					<exclude>**/public/**</exclude>
+				</excludes>
+			</resource>
+		</resources>
+		<plugins>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-ejb-plugin</artifactId>
+				<configuration>
+					<ejbVersion>3.0</ejbVersion>
+					<generateClient>true</generateClient>
+					<clientIncludes>
+						<clientInclude>**/kallsonnys/**/*</clientInclude>
+					</clientIncludes>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 
 	<dependencies>
+
+		<dependency>
+			<groupId>org.kallsonys.oms.dto</groupId>
+			<artifactId>ENT-KallsonnysOMS-DTO</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-search</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<scope>provided</scope>
+		</dependency>
 
 		<dependency>
 			<groupId>org.hibernate</groupId>

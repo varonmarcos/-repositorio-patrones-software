@@ -45,30 +45,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link PagingFilterItem }
-     * 
-     */
-    public PagingFilterItem createPagingFilterItem() {
-        return new PagingFilterItem();
-    }
-
-    /**
-     * Create an instance of {@link Filterlist }
-     * 
-     */
-    public Filterlist createFilterlist() {
-        return new Filterlist();
-    }
-
-    /**
-     * Create an instance of {@link CampaignList }
-     * 
-     */
-    public CampaignList createCampaignList() {
-        return new CampaignList();
-    }
-
-    /**
      * Create an instance of {@link OrderItem }
      * 
      */
@@ -77,83 +53,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link InitialLoginDTO }
-     * 
-     */
-    public InitialLoginDTO createInitialLoginDTO() {
-        return new InitialLoginDTO();
-    }
-
-    /**
-     * Create an instance of {@link Address }
-     * 
-     */
-    public Address createAddress() {
-        return new Address();
-    }
-
-    /**
-     * Create an instance of {@link Customer }
-     * 
-     */
-    public Customer createCustomer() {
-        return new Customer();
-    }
-
-    /**
-     * Create an instance of {@link PagingDto }
-     * 
-     */
-    public PagingDto createPagingDto() {
-        return new PagingDto();
-    }
-
-    /**
-     * Create an instance of {@link Campaign }
-     * 
-     */
-    public Campaign createCampaign() {
-        return new Campaign();
-    }
-
-    /**
      * Create an instance of {@link OrderList }
      * 
      */
     public OrderList createOrderList() {
         return new OrderList();
-    }
-
-    /**
-     * Create an instance of {@link LoginDTO }
-     * 
-     */
-    public LoginDTO createLoginDTO() {
-        return new LoginDTO();
-    }
-
-    /**
-     * Create an instance of {@link Severity }
-     * 
-     */
-    public Severity createSeverity() {
-        return new Severity();
-    }
-
-    /**
-     * Create an instance of {@link Order }
-     * 
-     */
-    public Order createOrder() {
-        return new Order();
-    }
-
-    /**
-     * Create an instance of {@link DescriptionResponse }
-     * 
-     */
-    public DescriptionResponse createDescriptionResponse() {
-        return new DescriptionResponse();
     }
 
     /**
@@ -173,11 +77,107 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link PagingFilterItem }
+     * 
+     */
+    public PagingFilterItem createPagingFilterItem() {
+        return new PagingFilterItem();
+    }
+
+    /**
+     * Create an instance of {@link Campaign }
+     * 
+     */
+    public Campaign createCampaign() {
+        return new Campaign();
+    }
+
+    /**
+     * Create an instance of {@link PagingDto }
+     * 
+     */
+    public PagingDto createPagingDto() {
+        return new PagingDto();
+    }
+
+    /**
+     * Create an instance of {@link Severity }
+     * 
+     */
+    public Severity createSeverity() {
+        return new Severity();
+    }
+
+    /**
+     * Create an instance of {@link LoginDTO }
+     * 
+     */
+    public LoginDTO createLoginDTO() {
+        return new LoginDTO();
+    }
+
+    /**
+     * Create an instance of {@link Customer }
+     * 
+     */
+    public Customer createCustomer() {
+        return new Customer();
+    }
+
+    /**
+     * Create an instance of {@link InitialLoginDTO }
+     * 
+     */
+    public InitialLoginDTO createInitialLoginDTO() {
+        return new InitialLoginDTO();
+    }
+
+    /**
+     * Create an instance of {@link Order }
+     * 
+     */
+    public Order createOrder() {
+        return new Order();
+    }
+
+    /**
      * Create an instance of {@link ProductList }
      * 
      */
     public ProductList createProductList() {
         return new ProductList();
+    }
+
+    /**
+     * Create an instance of {@link DescriptionResponse }
+     * 
+     */
+    public DescriptionResponse createDescriptionResponse() {
+        return new DescriptionResponse();
+    }
+
+    /**
+     * Create an instance of {@link Address }
+     * 
+     */
+    public Address createAddress() {
+        return new Address();
+    }
+
+    /**
+     * Create an instance of {@link Filterlist }
+     * 
+     */
+    public Filterlist createFilterlist() {
+        return new Filterlist();
+    }
+
+    /**
+     * Create an instance of {@link CampaignList }
+     * 
+     */
+    public CampaignList createCampaignList() {
+        return new CampaignList();
     }
 
     /**

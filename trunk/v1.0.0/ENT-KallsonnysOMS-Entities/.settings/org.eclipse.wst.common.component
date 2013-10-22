@@ -2,5 +2,7 @@
 <project-modules id="moduleCoreId" project-version="1.5.0">
     <wb-module deploy-name="ENT-KallsonnysOMS-Entities-v1.0.0-SNAPSHOT">
         <wb-resource deploy-path="/" source-path="/src"/>
+        <wb-resource deploy-path="/" source-path="/config" tag="defaultRootSource"/>
+        <property name="java-output-path" value="/ENT-KallsonnysOMS-Entities/bin/classes"/>
     </wb-module>
 </project-modules>

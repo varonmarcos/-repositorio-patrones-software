@@ -5,18 +5,26 @@
           http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
 	version="2.0">
 
-	<persistence-unit name="KallsonnysOrders">
+	<persistence-unit name="kallsonnysOrders">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		<jta-data-source>java:/KallsonnysOrdersDS</jta-data-source>
-		<mapping-file>META-INF/orm.xml</mapping-file>
+		<mapping-file>META-INF/orders-orm.xml</mapping-file>
+
+		<class>org.kallsonys.oms.entities.custAndOrders.Address</class>
+		<class>org.kallsonys.oms.entities.custAndOrders.City</class>
+		<class>org.kallsonys.oms.entities.custAndOrders.State</class>
+		<class>org.kallsonys.oms.entities.custAndOrders.Customer</class>
+		<class>org.kallsonys.oms.entities.custAndOrders.CustomerAddress</class>
+		<class>org.kallsonys.oms.entities.custAndOrders.Item</class>
+		<class>org.kallsonys.oms.entities.custAndOrders.Orders</class>
+		
+		<exclude-unlisted-classes>true</exclude-unlisted-classes>
+
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect" />
 
 			<property name="hibernate.hbm2ddl.auto" value="update" />
 
-			<property name="hibernate.search.default.directory_provider"
-				value="com.etask.util.search.store.ETaskFSDirectoryProvider" />
-			<property name="hibernate.search.default.indexBase" value="LuceneETaskIndex.properties" />
 			<property name="hibernate.search.analyzer"
 				value="org.apache.lucene.analysis.standard.StandardAnalyzer" />
 
@@ -28,22 +36,25 @@
 			<property name="transaction.manager_lookup_class"
 				value="org.hibernate.transaction.JBossTSTransactionManagerLookup" />
 			<property name="hibernate.show_sql" value="true" />
-			<property name="jboss.entity.manager.jndi.name" value="java:/eTaskApiEM" />
+			<property name="jboss.entity.manager.jndi.name" value="java:/kallsonnysOrdersEM" />
 		</properties>
+
 	</persistence-unit>
-	
-	<persistence-unit name="KallsonnysProducts">
+
+	<persistence-unit name="kallsonnysProducts">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
-		<jta-data-source>java:/KallsonnysProducts</jta-data-source>
-		<mapping-file>META-INF/orm.xml</mapping-file>
+		<jta-data-source>java:/KallsonnysProductsDS</jta-data-source>
+		<mapping-file>META-INF/products-orm.xml</mapping-file>
+		
+		<class>org.kallsonys.oms.entities.products.Product</class>
+		
+		<exclude-unlisted-classes>true</exclude-unlisted-classes>
+		
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect" />
 
 			<property name="hibernate.hbm2ddl.auto" value="update" />
 
-			<property name="hibernate.search.default.directory_provider"
-				value="com.etask.util.search.store.ETaskFSDirectoryProvider" />
-			<property name="hibernate.search.default.indexBase" value="LuceneETaskIndex.properties" />
 			<property name="hibernate.search.analyzer"
 				value="org.apache.lucene.analysis.standard.StandardAnalyzer" />
 
@@ -55,7 +66,8 @@
 			<property name="transaction.manager_lookup_class"
 				value="org.hibernate.transaction.JBossTSTransactionManagerLookup" />
 			<property name="hibernate.show_sql" value="true" />
-			<property name="jboss.entity.manager.jndi.name" value="java:/eTaskApiEM" />
+			<property name="jboss.entity.manager.jndi.name" value="java:/kallsonnysProductsEM" />
 		</properties>
+
 	</persistence-unit>
 </persistence>

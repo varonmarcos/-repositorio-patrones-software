@@ -3,16 +3,16 @@
     <wb-module deploy-name="INT-KallsonnysOMS-Enterprise-v1.0.0-SNAPSHOT">
         <wb-resource deploy-path="/" source-path="/dist/m2e-wtp/ear-resources"/>
         <wb-resource deploy-path="/" source-path="/src/main/application" tag="defaultRootSource"/>
-        <dependent-module archiveName="ENT-KallsonnysOMS-Commons-v1.0.0-SNAPSHOT.jar" deploy-path="/" handle="module:/resource/ENT-KallsonnysOMS-Commons/ENT-KallsonnysOMS-Commons">
+        <dependent-module archiveName="ENT-KallsonnysOMS-DTO-v1.0.0-SNAPSHOT.jar" deploy-path="/" handle="module:/resource/ENT-KallsonnysOMS-DTO/ENT-KallsonnysOMS-DTO">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="BUS-KallsonnysOMS-Commons-v1.0.0-SNAPSHOT.jar" deploy-path="/" handle="module:/resource/BUS-KallsonnysOMS-Commons/BUS-KallsonnysOMS-Commons">
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <dependent-module archiveName="ENT-KallsonnysOMS-Entities-v1.0.0-SNAPSHOT.jar" deploy-path="/" handle="module:/resource/ENT-KallsonnysOMS-Entities/ENT-KallsonnysOMS-Entities">
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <dependent-module archiveName="BUS-KallsonnysOMS-Business-v1.0.0-SNAPSHOT.jar" deploy-path="/" handle="module:/resource/BUS-KallsonnysOMS-Business/BUS-KallsonnysOMS-Business">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="hibernate-jpa-2.0-api-1.0.1.Final.jar" deploy-path="/" handle="module:/classpath/var/M2_REPO/org/hibernate/javax/persistence/hibernate-jpa-2.0-api/1.0.1.Final/hibernate-jpa-2.0-api-1.0.1.Final.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
     </wb-module>

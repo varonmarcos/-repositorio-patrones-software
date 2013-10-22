@@ -94,8 +94,16 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.kallsonys.oms.commons</groupId>
-			<artifactId>ENT-KallsonnysOMS-Commons</artifactId>
-			<scope>provided</scope>
+			<artifactId>BUS-KallsonnysOMS-Commons</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.kallsonys.oms.security</groupId>
+			<artifactId>COM-KallsonnysOMS-Security</artifactId>
+			<type>ejb-client</type>
+		</dependency>
+		<dependency>
+			<groupId>org.kallsonys.oms.dto</groupId>
+			<artifactId>ENT-KallsonnysOMS-DTO</artifactId>
 		</dependency>
 	</dependencies>
 </project>

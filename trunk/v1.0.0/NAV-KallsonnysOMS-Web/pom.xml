@@ -15,13 +15,13 @@
 	</parent>
 
 	<properties>
-		<module.name>EtaskAPI-Web</module.name>
-		<module.package.name>EtaskAPI-Web</module.package.name>
+		<module.name>KallsonnysOMS-Web</module.name>
+		<module.package.name>KallsonnysOMS-Web</module.package.name>
 	</properties>
 
 
 	<build>
-		<finalName>EtaskAPI-Web</finalName>
+		<finalName>KallsonnysOMS-Web</finalName>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -78,7 +78,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.kallsonys.oms.commons</groupId>
-			<artifactId>ENT-KallsonnysOMS-Commons</artifactId>
+			<artifactId>BUS-KallsonnysOMS-Commons</artifactId>
 		</dependency>
 
 		<dependency>
@@ -91,6 +91,56 @@
 			<artifactId>BUS-KallsonnysOMS-Business</artifactId>
 			<type>ejb-client</type>
 		</dependency>
+
+		<dependency>
+			<groupId>org.kallsonys.oms.security</groupId>
+			<artifactId>COM-KallsonnysOMS-Security</artifactId>
+			<type>ejb-client</type>
+		</dependency>
+
+		<dependency>
+			<groupId>org.kallsonys.oms.dto</groupId>
+			<artifactId>ENT-KallsonnysOMS-DTO</artifactId>
+		</dependency>
+
+		<!-- PrimeFaces -->
+		<dependency>
+			<groupId>org.primefaces</groupId>
+			<artifactId>primefaces</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.primefaces</groupId>
+			<artifactId>primefaces-mobile</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax.faces</groupId>
+			<artifactId>jsf-api</artifactId>
+		</dependency>
+
+
+		<!-- PrimeFaces File Upload -->
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- PrimeFaces Themes (All) -->
+		<dependency>
+			<groupId>org.primefaces.themes</groupId>
+			<artifactId>all-themes</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
 	</dependencies>
+
+	<repositories>
+		<repository>
+			<id>prime-repo</id>
+			<name>PrimeFaces Maven Repository</name>
+			<url>http://repository.primefaces.org</url>
+			<layout>default</layout>
+		</repository>
+	</repositories>
 
 </project>
