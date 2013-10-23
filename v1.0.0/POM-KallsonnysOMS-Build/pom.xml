@@ -1,0 +1,24 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  
+  <groupId>com.kallsonys.oms.build</groupId>
+  <artifactId>POM-KallsonnysOMS-Build</artifactId>
+  <packaging>pom</packaging>
+  
+  <parent>
+    <groupId>com.kallsonys.oms.master</groupId>
+    <artifactId>POM-KallsonnysOMS-Master</artifactId>
+    <version>v1.0.0-SNAPSHOT</version>
+  </parent>
+  
+  <modules>
+  	<module>../BUS-KallsonnysOMS-Commons</module>
+  	<module>../ENT-KallsonnysOMS-DTO</module>
+  	<module>../ENT-KallsonnysOMS-Entities</module>
+  	<module>../BUS-KallsonnysOMS-Business</module>
+  	<module>../COM-KallsonnysOMS-Security</module>
+  	<module>../INT-KallsonnysOMS-Resources</module>
+  	<module>../BUS-KallsonnysOMS-WS</module>
+  	<module>../NAV-KallsonnysOMS-Web</module>
+  </modules>
+</project>
