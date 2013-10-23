@@ -7,7 +7,6 @@
 	<packaging>ejb</packaging>
 	<artifactId>ENT-KallsonnysOMS-Entities</artifactId>
 
-	<name>KallsonnysOMS-Entities</name>
 	<parent>
 		<groupId>com.kallsonys.oms.master</groupId>
 		<artifactId>POM-KallsonnysOMS-Master</artifactId>
