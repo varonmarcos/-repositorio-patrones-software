@@ -12,13 +12,13 @@
 		<artifactId>POM-KallsonnysOMS-Master</artifactId>
 		<version>v1.0.0-SNAPSHOT</version>
 	</parent>
-	
-	
+
+
 	<properties>
 		<module.name>KallsonnysOMS-WS</module.name>
 		<module.package.name>KallsonnysOMS-WS</module.package.name>
 	</properties>
-	
+
 	<build>
 		<finalName>KallsonnysOMS-WS</finalName>
 		<defaultGoal>install</defaultGoal>
@@ -125,6 +125,11 @@
 		<dependency>
 			<groupId>org.kallsonys.oms.security</groupId>
 			<artifactId>COM-KallsonnysOMS-Security</artifactId>
+			<type>ejb-client</type>
+		</dependency>
+		<dependency>
+			<groupId>org.kallsonys.oms.business</groupId>
+			<artifactId>BUS-KallsonnysOMS-Business</artifactId>
 			<type>ejb-client</type>
 		</dependency>
 		<dependency>
