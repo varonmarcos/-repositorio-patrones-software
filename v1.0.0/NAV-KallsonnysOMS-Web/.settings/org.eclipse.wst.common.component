@@ -18,7 +18,7 @@
         <dependent-module archiveName="ENT-KallsonnysOMS-DTO-v1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/ENT-KallsonnysOMS-DTO/ENT-KallsonnysOMS-DTO">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <property name="context-root" value="NAV-KallsonnysOMS-Web"/>
         <property name="java-output-path" value="/NAV-KallsonnysOMS-Web/bin/classes"/>
+        <property name="context-root" value="KallsonnysOMS-Web"/>
     </wb-module>
 </project-modules>
