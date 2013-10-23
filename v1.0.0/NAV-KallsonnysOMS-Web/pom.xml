@@ -37,7 +37,7 @@
 						<configuration>
 							<tasks>
 								<copy file="${project.build.directory}/${project.artifactId}.war"
-									tofile="${env.JBOSS_HOME}/server/default/deploy/${project.artifactId}.war" />
+									tofile="/usr/local/jboss-6.1.0.Final/server/default/deploy/${project.artifactId}.war" />
 							</tasks>
 						</configuration>
 						<goals>
