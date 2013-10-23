@@ -12,6 +12,13 @@
 		<artifactId>POM-KallsonnysOMS-Master</artifactId>
 		<version>v1.0.0-SNAPSHOT</version>
 	</parent>
+	
+	
+	<properties>
+		<module.name>KallsonnysOMS-WS</module.name>
+		<module.package.name>KallsonnysOMS-WS</module.package.name>
+	</properties>
+	
 	<build>
 		<finalName>KallsonnysOMS-WS</finalName>
 		<defaultGoal>install</defaultGoal>
@@ -31,8 +38,8 @@
 						<phase>install</phase>
 						<configuration>
 							<tasks>
-								<copy file="${project.build.directory}/${project.artifactId}.war"
-									tofile="/usr/local/jboss-6.1.0.Final/server/default/deploy/${project.artifactId}.war" />
+								<copy file="${project.build.directory}/${module.name}.war"
+									tofile="/usr/local/jboss-6.1.0.Final/server/default/deploy/${module.name}.war" />
 							</tasks>
 						</configuration>
 						<goals>
