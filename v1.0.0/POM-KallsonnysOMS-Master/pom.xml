@@ -148,6 +148,12 @@
 
 			<dependency>
 				<groupId>org.kallsonys.oms.business</groupId>
+				<artifactId>BUS-KallsonnysOMS-WS</artifactId>
+				<version>${oms.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.kallsonys.oms.business</groupId>
 				<artifactId>BUS-KallsonnysOMS-Business</artifactId>
 				<version>${oms.version}</version>
 				<type>ejb-client</type>
@@ -179,7 +185,6 @@
 				<artifactId>COM-KallsonnysOMS-Security</artifactId>
 				<version>${oms.version}</version>
 			</dependency>
-
 
 			<dependency>
 				<groupId>org.kallsonys.oms.web</groupId>
@@ -238,9 +243,9 @@
 				<version>3.0</version>
 			</dependency>
 			<dependency>
-				<groupId>javax.jms</groupId>
-				<artifactId>javax.jms-api</artifactId>
-				<version>2.0</version>
+				<groupId>org.jboss.spec.javax.jms</groupId>
+				<artifactId>jboss-jms-api_1.1_spec</artifactId>
+				<version>1.0.1.Final</version>
 			</dependency>
 
 			<!-- Apache -->

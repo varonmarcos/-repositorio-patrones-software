@@ -4,8 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.kallsonys.oms.resources</groupId>
 	<artifactId>INT-KallsonnysOMS-Resources</artifactId>
-	<name>KallsonnysOMS-Resources Project</name>
-	<description>KallsonnysOMS-Resources Project</description>
+	
 	<parent>
 		<artifactId>POM-KallsonnysOMS-Master</artifactId>
 		<groupId>com.kallsonys.oms.master</groupId>

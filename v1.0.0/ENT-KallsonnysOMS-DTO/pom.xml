@@ -7,7 +7,6 @@
 	<packaging>jar</packaging>
 	<artifactId>ENT-KallsonnysOMS-DTO</artifactId>
 
-	<name>KallsonnysOMS-DTO</name>
 	<parent>
 		<groupId>com.kallsonys.oms.master</groupId>
 		<artifactId>POM-KallsonnysOMS-Master</artifactId>

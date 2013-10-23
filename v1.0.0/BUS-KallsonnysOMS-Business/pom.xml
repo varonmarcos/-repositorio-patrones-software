@@ -7,7 +7,6 @@
 	<packaging>ejb</packaging>
 	<artifactId>BUS-KallsonnysOMS-Business</artifactId>
 
-	<name>KallsonnysOMS-Business</name>
 	<parent>
 		<groupId>com.kallsonys.oms.master</groupId>
 		<artifactId>POM-KallsonnysOMS-Master</artifactId>

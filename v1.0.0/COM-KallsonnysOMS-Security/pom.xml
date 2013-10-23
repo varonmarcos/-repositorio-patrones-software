@@ -6,8 +6,7 @@
 	<groupId>org.kallsonys.oms.security</groupId>
 	<packaging>ejb</packaging>
 	<artifactId>COM-KallsonnysOMS-Security</artifactId>
-
-	<name>KallsonnysOMS-Business</name>
+	
 	<parent>
 		<groupId>com.kallsonys.oms.master</groupId>
 		<artifactId>POM-KallsonnysOMS-Master</artifactId>

@@ -6,8 +6,6 @@
 	<artifactId>NAV-KallsonnysOMS-Web</artifactId>
 	<packaging>war</packaging>
 
-	<name>KallsonnysOMS Web</name>
-
 	<parent>
 		<groupId>com.kallsonys.oms.master</groupId>
 		<artifactId>POM-KallsonnysOMS-Master</artifactId>
