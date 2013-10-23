@@ -17,6 +17,31 @@
 		<defaultGoal>install</defaultGoal>
 		<plugins>
 			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>install-war</id>
+						<phase>install</phase>
+						<configuration>
+							<tasks>
+								<copy file="${project.build.directory}/${project.artifactId}.war"
+									tofile="/usr/local/jboss-6.1.0.Final/server/default/deploy/${project.artifactId}.war" />
+							</tasks>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
 				<configuration>
@@ -39,57 +64,52 @@
 					</archive>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-resources-plugin</artifactId>
-				<configuration>
-					<encoding>UTF-8</encoding>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.cxf</groupId>
-				<artifactId>cxf-codegen-plugin</artifactId>
-				<version>2.6.3</version>
-				<executions>
-					<execution>
-						<phase>generate-sources</phase>
-						<configuration>
-							<!-- Update source root to specify where generated source code should 
-								be placed -->
-							<sourceRoot>${basedir}/src</sourceRoot>
-							<wsdlOptions>
-								<wsdlOption>
-									<!-- Update wsdl tag with appropriate wsdl file -->
-									<wsdl>${basedir}/resources/wsdl/productServices.wsdl</wsdl>
-									<extraargs>
-										<extraarg>-verbose</extraarg>
-									</extraargs>
-								</wsdlOption>
-								<wsdlOption>
-									<!-- Update wsdl tag with appropriate wsdl file -->
-									<wsdl>${basedir}/resources/wsdl/customerServices.wsdl</wsdl>
-									<extraargs>
-										<extraarg>-verbose</extraarg>
-									</extraargs>
-								</wsdlOption>
-							</wsdlOptions>
-						</configuration>
-						<goals>
-							<goal>wsdl2java</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
 		</plugins>
 	</build>
+
+	<profiles>
+		<profile>
+			<id>generate-ws</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.cxf</groupId>
+						<artifactId>cxf-codegen-plugin</artifactId>
+						<version>2.6.3</version>
+						<executions>
+							<execution>
+								<phase>generate-sources</phase>
+								<configuration>
+									<!-- Update source root to specify where generated source code should 
+										be placed -->
+									<sourceRoot>${basedir}/src</sourceRoot>
+									<wsdlOptions>
+										<wsdlOption>
+											<!-- Update wsdl tag with appropriate wsdl file -->
+											<wsdl>${basedir}/resources/wsdl/productServices.wsdl</wsdl>
+											<extraargs>
+												<extraarg>-verbose</extraarg>
+											</extraargs>
+										</wsdlOption>
+										<wsdlOption>
+											<!-- Update wsdl tag with appropriate wsdl file -->
+											<wsdl>${basedir}/resources/wsdl/customerServices.wsdl</wsdl>
+											<extraargs>
+												<extraarg>-verbose</extraarg>
+											</extraargs>
+										</wsdlOption>
+									</wsdlOptions>
+								</configuration>
+								<goals>
+									<goal>wsdl2java</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 	<dependencies>
 		<dependency>
 			<groupId>org.kallsonys.oms.commons</groupId>
