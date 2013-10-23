@@ -26,7 +26,7 @@ public class OptionMenu extends AbstractEntity {
 	
 	@Field(store = Store.NO, index = Index.TOKENIZED)
 	@Column(nullable = false, length = 120)
-	private String option;
+	private String options;
 	
 	@Field(store = Store.NO, index = Index.TOKENIZED)
 	@Column(nullable = false, length = 120)
@@ -58,12 +58,12 @@ public class OptionMenu extends AbstractEntity {
 		this.id = id;
 	}
 
-	public String getOption() {
-		return option;
+	public String getOptions() {
+		return options;
 	}
 
-	public void setOption(String option) {
-		this.option = option;
+	public void setOptions(String options) {
+		this.options = options;
 	}
 
 	public String getUrl() {

@@ -36,11 +36,11 @@ public class Profile extends AbstractEntity {
 	private StatusEnum  status;
 
 	@ManyToMany
-	@JoinTable(name="User_profile", joinColumns = @JoinColumn(name = "profile_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
+	@JoinTable(name="user_profile", joinColumns = @JoinColumn(name = "profile_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
 	private List<User> users;
 	
 	@ManyToMany
-	@JoinTable(name = "OptionsMenu_profile", joinColumns = @JoinColumn(name = "profile_id"), inverseJoinColumns = @JoinColumn(name = "optionsMenu_id"))
+	@JoinTable(name = "optionsMenu_profile", joinColumns = @JoinColumn(name = "profile_id"), inverseJoinColumns = @JoinColumn(name = "optionsMenu_id"))
 	private List<OptionMenu> optionsMenu;
 
 	public Profile() {
