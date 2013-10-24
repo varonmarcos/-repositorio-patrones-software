@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="BUS-KallsonnysOMS-WS">
+        <wb-resource deploy-path="/" source-path="/dist/m2e-wtp/web-resources"/>
+        <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
+        <dependent-module archiveName="BUS-KallsonnysOMS-Commons-v1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/BUS-KallsonnysOMS-Commons/BUS-KallsonnysOMS-Commons">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="COM-KallsonnysOMS-Security-v1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/COM-KallsonnysOMS-Security/COM-KallsonnysOMS-Security">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="BUS-KallsonnysOMS-Business-v1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/BUS-KallsonnysOMS-Business/BUS-KallsonnysOMS-Business">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ENT-KallsonnysOMS-DTO-v1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/ENT-KallsonnysOMS-DTO/ENT-KallsonnysOMS-DTO">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <property name="java-output-path" value="/BUS-KallsonnysOMS-WS/bin/classes"/>
+        <property name="context-root" value="KallsonnysOMS-WS"/>
+    </wb-module>
+</project-modules>
