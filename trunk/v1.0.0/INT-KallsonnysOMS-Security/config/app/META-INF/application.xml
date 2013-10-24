@@ -6,6 +6,6 @@
 	<display-name>KallsonnysOMS-Security</display-name>
 	<description></description>
 	<module>
-		<ejb>KallsonnysOMS-single.jar</ejb>
+		<ejb>KallsonnysOMS-Security-single.jar</ejb>
 	</module>
 </application>

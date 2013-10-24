@@ -39,10 +39,11 @@
 					<ejbVersion>3.0</ejbVersion>
 					<generateClient>true</generateClient>
 					<clientIncludes>
-						<clientInclude>**/services/**/*</clientInclude>
+						<clientInclude>**/kallsonnys/**/*</clientInclude>
 					</clientIncludes>
 					<clientExcludes>
-						<clientInclude>**/services/**/*Bean*</clientInclude>
+						<clientInclude>**/kallsonnys/**/*Bean*</clientInclude>
+						<clientInclude>**/**/casclient/**/**</clientInclude>
 					</clientExcludes>
 				</configuration>
 			</plugin>

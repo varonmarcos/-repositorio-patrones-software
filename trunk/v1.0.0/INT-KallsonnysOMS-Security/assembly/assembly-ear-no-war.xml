@@ -39,8 +39,8 @@
 			<outputDirectory>/</outputDirectory>
 			<unpack>false</unpack>
 			<includes>
-				<include>*:KallsonynsOMS:*</include>
-				<include>KallsonynsOMS</include>
+				<include>*:KallsonnysOMS-Security:*</include>
+				<include>KallsonnysOMS-Security</include>
 			</includes>
 		</dependencySet>
 	</dependencySets>

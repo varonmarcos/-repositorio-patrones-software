@@ -10,22 +10,47 @@
        http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd">
 
 	<cxf:cxfEndpoint id="ProductServicesEndpoint"
-		address="http://localhost:8181/cxf/ProductServicesWS" serviceClass="com.integration.kallsonys.productservices.ProductServices"
-		wsdlURL="wsdl/productServices.wsdl" />
+		address="http://localhost:8181/cxf/ProductServicesWS" endpointName="s:ProductServicesSOAP"
+		serviceName="s:ProductServices" wsdlURL="http://localhost:8181/cxf/ProductServicesWS?wsdl"
+		xmlns:s="http://kallsonys.integration.com/productservices">
+		 <cxf:properties>
+            <entry key="dataFormat" value="PAYLOAD"/>
+        </cxf:properties>
+	</cxf:cxfEndpoint>
 
 	<cxf:cxfEndpoint id="CustomerServicesEndpoint"
-		address="http://localhost:8181/cxf/CustomerServicesWS" serviceClass="com.integration.kallsonys.customerservices.CustomerServices"
-		wsdlURL="wsdl/customerServices.wsdl" />
-		
+		address="http://localhost:8181/cxf/CustomerServicesWS" endpointName="s:CustomerServicesSOAP"
+		serviceName="s:CustomerServices" wsdlURL="http://localhost:8181/cxf/CustomerServicesWS?wsdl"
+		xmlns:s="http://kallsonys.integration.com/customerservices">
+		 <cxf:properties>
+            <entry key="dataFormat" value="PAYLOAD"/>
+        </cxf:properties>
+	</cxf:cxfEndpoint>
+	
 	<cxf:cxfEndpoint id="CustomerServicesOMSEndpoint"
-		address="https://localhost:8181/cxf/CustomerServicesWS" wsdlURL="wsdl/oms/customerServices.wsdl" />
-		
-		
-	<!-- the route builder -->
-	<bean id="wsAdapterRouteBuilder" class="com.integration.kallsonys.routes.WsAdapterRouteBuilder" />
+		address="http://localhost:8080/KallsonnysOMS-WS/CustomerServices"
+		endpointName="s:CustomerServicesSOAP" serviceName="s:CustomerServices"
+		wsdlURL="http://localhost:8080/KallsonnysOMS-WS/CustomerServices?wsdl"
+		xmlns:s="http://ws.oms.kallsonys.org/customerservices">
+		<cxf:properties>
+			<entry key="dataFormat" value="PAYLOAD" />
+		</cxf:properties>
+	</cxf:cxfEndpoint>
 
 	<camel:camelContext xmlns="http://camel.apache.org/schema/spring">
-		<camel:routeBuilder ref="wsAdapterRouteBuilder" />
+		<camel:route>
+			<camel:from uri="cxf:bean:CustomerServicesEndpoint" />
+			
+			<setHeader headerName="operationName">
+				<simple>getInitialLoginInfo</simple>
+			</setHeader>
+
+			<setHeader headerName="operationNamespace">
+				<simple>http://ws.oms.kallsonys.org/customerservices</simple>
+			</setHeader>
+
+			<camel:to uri="cxf:bean:CustomerServicesOMSEndpoint" />
+		</camel:route>
 	</camel:camelContext>
 
 </beans>

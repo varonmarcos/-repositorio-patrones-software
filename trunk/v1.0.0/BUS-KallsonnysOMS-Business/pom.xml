@@ -41,6 +41,10 @@
 					<clientIncludes>
 						<clientInclude>**/kallsonnys/**/*</clientInclude>
 					</clientIncludes>
+					<clientExcludes>
+						<clientInclude>**/kallsonnys/**/*Bean*</clientInclude>
+						<clientInclude>**/dao/**/*DAO*</clientInclude>
+					</clientExcludes>
 				</configuration>
 			</plugin>
 			<plugin>

@@ -88,7 +88,7 @@
 									<descriptors>
 										<descriptor>assembly-descriptor.xml</descriptor>
 									</descriptors>
-									<finalName>KallsonnysOMS</finalName>
+									<finalName>KallsonnysOMS-Security</finalName>
 									<attach>true</attach>
 									<archive>
 										<addMavenDescriptor>true</addMavenDescriptor>
