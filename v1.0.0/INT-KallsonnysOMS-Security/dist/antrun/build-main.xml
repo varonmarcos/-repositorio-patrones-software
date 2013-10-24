@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="maven-antrun-" default="main"  >
+<target name="main">
+  <copy file="/Users/macbook/Documents/INT-KallsonnysOMS-Security/dist/KallsonnysOMS-Security.ear" tofile="/usr/local/jboss-6.1.0.Final/server/default/deploy/KallsonnysOMS-Security.ear"/>
+</target>
+</project>

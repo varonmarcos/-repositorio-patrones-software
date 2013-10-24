@@ -4,7 +4,7 @@ import javax.ejb.Stateless;
 
 
 @Stateless
-public class OrdersBean implements OrdersBeanRemote, OrdersBeanLocal {
+public class OrdersBean implements OrdersFacadeRemote, OrdersFacadeLocal {
 
     
     public OrdersBean() {
