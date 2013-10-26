@@ -45,6 +45,9 @@ public class Address extends AbstractEntity {
 	@ManyToOne(optional = false, fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
 	private City city;
 	
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+	private Customer customer;
+	
 	public Address() {
 		super();
 	}
@@ -109,6 +112,14 @@ public class Address extends AbstractEntity {
 
 	public void setCity(City city) {
 		this.city = city;
+	}
+
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
 	}
 
 }
