@@ -8,6 +8,7 @@ package org.kallsonys.oms.ws.customerservices;
 
 import java.util.logging.Logger;
 
+import org.kallsonnys.oms.dto.security.IntialCustomerLoginDTO;
 import org.kallsonnys.security.services.SecurityGuardFacadeRemote;
 import org.kallsonys.oms.commons.locator.SecurityLocator;
 
@@ -38,17 +39,17 @@ public class CustomerServicesImpl implements CustomerServices {
     	SecurityGuardFacadeRemote securityGuardFacade = SecurityLocator.getInstance()
 				.getRemoteObject("SecurityGuardBean");
 		
-//		IntialCustomerLoginDTO customerLogin = securityGuardFacade
-//				.getCustomerLogin(getInitialLoginRequest.getUserUid(),
-//						getInitialLoginRequest.getPassword());
+		IntialCustomerLoginDTO customerLogin = securityGuardFacade
+				.getCustomerLogin(getInitialLoginRequest.getUserUid(),
+						getInitialLoginRequest.getPassword());
 		
 		InitialLoginDTO initialLoginDTO = new InitialLoginDTO();
 		
 		Customer customer =  new Customer();
-		customer.setName("HOLA  MUNDO!!!");
-
+		customer.setEmail(customerLogin.getCustomer().getEmail());
+		customer.setName(customerLogin.getCustomer().getName()+" "+customerLogin.getCustomer().getSurname());
 		initialLoginDTO.setCustomerInfo(customer);
-		initialLoginDTO.setTgt("XXXX");
+		initialLoginDTO.setTgt(customerLogin.getServiceTicket());
 		
 		return initialLoginDTO;
     }
