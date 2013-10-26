@@ -44,6 +44,7 @@
 					<clientExcludes>
 						<clientInclude>**/kallsonnys/**/*Bean*</clientInclude>
 						<clientInclude>**/dao/**/*DAO*</clientInclude>
+						<clientInclude>**/mapper/**/*Mapper*</clientInclude>
 					</clientExcludes>
 				</configuration>
 			</plugin>
