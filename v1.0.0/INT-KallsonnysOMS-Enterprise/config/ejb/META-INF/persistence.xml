@@ -14,7 +14,6 @@
 		<class>org.kallsonys.oms.entities.custAndOrders.City</class>
 		<class>org.kallsonys.oms.entities.custAndOrders.State</class>
 		<class>org.kallsonys.oms.entities.custAndOrders.Customer</class>
-		<class>org.kallsonys.oms.entities.custAndOrders.CustomerAddress</class>
 		<class>org.kallsonys.oms.entities.custAndOrders.Item</class>
 		<class>org.kallsonys.oms.entities.custAndOrders.Orders</class>
 		
