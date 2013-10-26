@@ -65,7 +65,7 @@ public class Customer extends AbstractEntity {
 	private CustomerStatusEnum status;
 	
 	@OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, cascade = {CascadeType.REFRESH})
-	private List<CustomerAddress> customerAddress;
+	private List<Address> customerAddress;
 	
 	@OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, cascade = {CascadeType.REFRESH})
 	private List<Orders> orders;
@@ -152,21 +152,21 @@ public class Customer extends AbstractEntity {
 		this.status = status;
 	}
 
-	public List<CustomerAddress> getCustomerAddress() {
+	public List<Address> getCustomerAddress() {
 		if (customerAddress == null) {
-			customerAddress = new ArrayList<CustomerAddress>();
+			customerAddress = new ArrayList<Address>();
 		}
 		return customerAddress;
 	}
 
-	public void setCustomerAddress(List<CustomerAddress> customerAddress) {
+	public void setCustomerAddress(List<Address> customerAddress) {
 		this.customerAddress = customerAddress;
 	}
 
 	/**
 	 * Associate Customer with customerAddress
 	 */
-	public void addCustomerAddress(CustomerAddress customerAddress) {
+	public void addCustomerAddress(Address customerAddress) {
 		if (customerAddress == null) return;
 		getCustomerAddress().add(customerAddress);
 		customerAddress.setCustomer(this);
@@ -175,7 +175,7 @@ public class Customer extends AbstractEntity {
 	/**
 	 * Unassociate Customer from customerAddress
 	 */
-	public void removeCustomerAddress(CustomerAddress customerAddress) {
+	public void removeCustomerAddress(Address customerAddress) {
 		if (customerAddress == null) return;
 		getCustomerAddress().remove(customerAddress);
 		customerAddress.setCustomer(this);
@@ -185,9 +185,9 @@ public class Customer extends AbstractEntity {
 	 * Remove All
 	 */
 	public void removeAllCustomerAddress() {
-		List<CustomerAddress> remove = new java.util.ArrayList<CustomerAddress>();
+		List<Address> remove = new ArrayList<Address>();
 		remove.addAll(getCustomerAddress());
-		for (CustomerAddress element : remove) {
+		for (Address element : remove) {
 			removeCustomerAddress(element);
 		}
 	}
