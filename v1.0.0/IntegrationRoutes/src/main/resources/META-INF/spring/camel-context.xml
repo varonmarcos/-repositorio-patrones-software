@@ -42,7 +42,7 @@
 			<camel:from uri="cxf:bean:CustomerServicesEndpoint" />
 			
 			<setHeader headerName="operationName">
-				<simple>getInitialLoginInfo</simple>
+				<simple>${header.operationName}</simple>
 			</setHeader>
 
 			<setHeader headerName="operationNamespace">
