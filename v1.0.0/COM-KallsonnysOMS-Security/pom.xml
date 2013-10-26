@@ -6,7 +6,7 @@
 	<groupId>org.kallsonys.oms.security</groupId>
 	<packaging>ejb</packaging>
 	<artifactId>COM-KallsonnysOMS-Security</artifactId>
-	
+
 	<parent>
 		<groupId>com.kallsonys.oms.master</groupId>
 		<artifactId>POM-KallsonnysOMS-Master</artifactId>
@@ -87,10 +87,17 @@
 			<artifactId>ENT-KallsonnysOMS-Entities</artifactId>
 			<scope>provided</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.kallsonys.oms.dto</groupId>
 			<artifactId>ENT-KallsonnysOMS-DTO</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.kallsonys.oms.business</groupId>
+			<artifactId>BUS-KallsonnysOMS-Business</artifactId>
+			<type>ejb-client</type>
 			<scope>provided</scope>
 		</dependency>
 
