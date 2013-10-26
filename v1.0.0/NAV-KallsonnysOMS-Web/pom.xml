@@ -15,6 +15,8 @@
 	<properties>
 		<module.name>KallsonnysOMS-Web</module.name>
 		<module.package.name>KallsonnysOMS-Web</module.package.name>
+		<primefaces.theme.version>1.0.9</primefaces.theme.version>
+		<jsf.version>2.1.13</jsf.version>
 	</properties>
 
 
@@ -80,19 +82,8 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.kallsonys.oms.entities</groupId>
-			<artifactId>ENT-KallsonnysOMS-Entities</artifactId>
-		</dependency>
-
-		<dependency>
 			<groupId>org.kallsonys.oms.business</groupId>
 			<artifactId>BUS-KallsonnysOMS-Business</artifactId>
-			<type>ejb-client</type>
-		</dependency>
-
-		<dependency>
-			<groupId>org.kallsonys.oms.security</groupId>
-			<artifactId>COM-KallsonnysOMS-Security</artifactId>
 			<type>ejb-client</type>
 		</dependency>
 
@@ -101,33 +92,83 @@
 			<artifactId>ENT-KallsonnysOMS-DTO</artifactId>
 		</dependency>
 
-		<!-- PrimeFaces -->
 		<dependency>
-			<groupId>org.primefaces</groupId>
-			<artifactId>primefaces</artifactId>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.1</version>
 		</dependency>
 		<dependency>
-			<groupId>org.primefaces</groupId>
-			<artifactId>primefaces-mobile</artifactId>
+			<groupId>com.sun.faces</groupId>
+			<artifactId>jsf-impl</artifactId>
+			<version>${jsf.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>jstl</groupId>
+					<artifactId>jstl</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
-			<groupId>javax.faces</groupId>
+			<groupId>com.sun.faces</groupId>
 			<artifactId>jsf-api</artifactId>
+			<version>${jsf.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>jstl</groupId>
+					<artifactId>jstl</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
 		</dependency>
 
 
-		<!-- PrimeFaces File Upload -->
+		<dependency>
+			<groupId>rome</groupId>
+			<artifactId>rome</artifactId>
+			<version>1.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>3.7</version>
+		</dependency>
+		<dependency>
+			<groupId>com.lowagie</groupId>
+			<artifactId>itext</artifactId>
+			<version>1.4.8</version>
+		</dependency>
+
 		<dependency>
 			<groupId>commons-fileupload</groupId>
 			<artifactId>commons-fileupload</artifactId>
-			<scope>provided</scope>
+			<version>1.2.2</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.4</version>
 		</dependency>
 
-		<!-- PrimeFaces Themes (All) -->
 		<dependency>
-			<groupId>org.primefaces.themes</groupId>
-			<artifactId>all-themes</artifactId>
-			<scope>provided</scope>
+			<groupId>org.primefaces</groupId>
+			<artifactId>primefaces</artifactId>
+			<version>3.4.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.primefaces.extensions</groupId>
+			<artifactId>primefaces-extensions</artifactId>
+			<version>0.6.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.primefaces.extensions</groupId>
+			<artifactId>resources-codemirror</artifactId>
+			<version>0.6.2</version>
 		</dependency>
 
 	</dependencies>
@@ -140,5 +181,4 @@
 			<layout>default</layout>
 		</repository>
 	</repositories>
-
 </project>
