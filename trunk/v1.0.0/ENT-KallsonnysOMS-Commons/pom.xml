@@ -29,5 +29,10 @@
 			<artifactId>ENT-KallsonnysOMS-DTO</artifactId>
 			<scope>provided</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.kallsonys.oms.entities</groupId>
+			<artifactId>ENT-KallsonnysOMS-Entities</artifactId>
+			<scope>provided</scope>
+		</dependency>
 	</dependencies>
 </project>
