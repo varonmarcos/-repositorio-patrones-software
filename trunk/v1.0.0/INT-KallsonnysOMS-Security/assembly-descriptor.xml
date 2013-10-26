@@ -28,8 +28,6 @@
 			<useProjectArtifact>false</useProjectArtifact>
 			<includes>
 				<include>*:ejb</include>
-				<include>*:ejb-client</include>
-				<include>*:client</include>
 			</includes>
 		</dependencySet>
 	</dependencySets>

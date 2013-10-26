@@ -131,6 +131,12 @@
 		</dependency>
 
 		<dependency>
+			<groupId>org.kallsonys.oms.business</groupId>
+			<artifactId>BUS-KallsonnysOMS-Business</artifactId>
+			<type>ejb-client</type>
+		</dependency>
+
+		<dependency>
 			<groupId>org.kallsonys.oms.entities</groupId>
 			<artifactId>ENT-KallsonnysOMS-Entities</artifactId>
 			<type>ejb</type>
@@ -140,6 +146,11 @@
 			<groupId>org.kallsonys.oms.security</groupId>
 			<artifactId>COM-KallsonnysOMS-Security</artifactId>
 			<type>ejb</type>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-httpclient</groupId>
+			<artifactId>commons-httpclient</artifactId>
 		</dependency>
 	</dependencies>
 </project>

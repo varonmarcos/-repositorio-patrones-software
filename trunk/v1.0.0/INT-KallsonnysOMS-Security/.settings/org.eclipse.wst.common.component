@@ -9,10 +9,22 @@
         <dependent-module archiveName="BUS-KallsonnysOMS-Commons-v1.0.0-SNAPSHOT.jar" deploy-path="/" handle="module:/resource/BUS-KallsonnysOMS-Commons/BUS-KallsonnysOMS-Commons">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="BUS-KallsonnysOMS-Business-v1.0.0-SNAPSHOT-client.jar" deploy-path="/" handle="module:/resource/BUS-KallsonnysOMS-Business/BUS-KallsonnysOMS-Business">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <dependent-module archiveName="ENT-KallsonnysOMS-Entities-v1.0.0-SNAPSHOT.jar" deploy-path="/" handle="module:/resource/ENT-KallsonnysOMS-Entities/ENT-KallsonnysOMS-Entities">
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <dependent-module archiveName="COM-KallsonnysOMS-Security-v1.0.0-SNAPSHOT.jar" deploy-path="/" handle="module:/resource/COM-KallsonnysOMS-Security/COM-KallsonnysOMS-Security">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="commons-httpclient-3.1.jar" deploy-path="/" handle="module:/classpath/var/M2_REPO/commons-httpclient/commons-httpclient/3.1/commons-httpclient-3.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="commons-logging-1.0.4.jar" deploy-path="/" handle="module:/classpath/var/M2_REPO/commons-logging/commons-logging/1.0.4/commons-logging-1.0.4.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="commons-codec-1.2.jar" deploy-path="/" handle="module:/classpath/var/M2_REPO/commons-codec/commons-codec/1.2/commons-codec-1.2.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
     </wb-module>
