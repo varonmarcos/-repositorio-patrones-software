@@ -9,7 +9,9 @@ import java.util.List;
 public enum ErrorCodesEnum {
 
 	ENTITY_NOT_FOUND("ERR001",""),
-	SECURITY_INITIAL_ERROR("ERR002","Ocurrio un error al obtener el contexto inicial de seguridad");
+	SECURITY_INITIAL_ERROR("ERR002","Ocurrio un error al obtener el contexto inicial de seguridad"),
+	PARSING_DATE_ERROR("ERR003","Ocurrio un error al intentar parsea una fecha formato aceptado: yyyy-MM-dd"),
+	USER_ALREADY_EXISTS("ERR004","EL cliente que se desea registrar ya se encuentra registrado en el sistema");
 
 	private String code;
 	private String msg;
