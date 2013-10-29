@@ -53,6 +53,10 @@ public class Orders extends AbstractEntity {
 	@OneToMany(mappedBy = "order", fetch = FetchType.LAZY, cascade = {CascadeType.REFRESH})
 	private List<Item> items;
 	
+	@Field(store = Store.NO, index = Index.TOKENIZED)
+	@Column(nullable = true, length = 120)
+	private String shippingProvider;
+	
 	public Orders() {
 		super();
 	}
@@ -149,5 +153,13 @@ public class Orders extends AbstractEntity {
 		for (Item element : remove) {
 			removeItem(element);
 		}
+	}
+
+	public String getShippingProvider() {
+		return shippingProvider;
+	}
+
+	public void setShippingProvider(String shippingProvider) {
+		this.shippingProvider = shippingProvider;
 	}
 }
