@@ -16,6 +16,7 @@
 		<class>org.kallsonys.oms.entities.custAndOrders.Customer</class>
 		<class>org.kallsonys.oms.entities.custAndOrders.Item</class>
 		<class>org.kallsonys.oms.entities.custAndOrders.Orders</class>
+		<class>org.kallsonys.oms.entities.custAndOrders.Campaign</class>
 		
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 
@@ -46,6 +47,7 @@
 		<mapping-file>META-INF/products-orm.xml</mapping-file>
 		
 		<class>org.kallsonys.oms.entities.products.Product</class>
+		<class>org.kallsonys.oms.entities.products.Top5</class>
 		
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 		
