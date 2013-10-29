@@ -7,4 +7,6 @@ public interface CustomersFacade {
 	
 	CustomerDTO getCustomerBasicInfo(String email);
 
+	CustomerDTO createCustomer(CustomerDTO customerDTO);
+
 }
