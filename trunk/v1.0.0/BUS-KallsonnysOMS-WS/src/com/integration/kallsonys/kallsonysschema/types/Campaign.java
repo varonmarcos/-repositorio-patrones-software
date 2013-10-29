@@ -22,7 +22,6 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="description" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="initDate" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="endDate" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="state" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="urlImage" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="productDetail" type="{http://kallsonys.integration.com/kallsonysschema/types}product"/>
  *       &lt;/sequence>
@@ -40,7 +39,6 @@ import javax.xml.bind.annotation.XmlType;
     "description",
     "initDate",
     "endDate",
-    "state",
     "urlImage",
     "productDetail"
 })
@@ -56,8 +54,6 @@ public class Campaign {
     protected String initDate;
     @XmlElement(required = true)
     protected String endDate;
-    @XmlElement(required = true)
-    protected String state;
     @XmlElement(required = true)
     protected String urlImage;
     @XmlElement(required = true)
@@ -181,30 +177,6 @@ public class Campaign {
      */
     public void setEndDate(String value) {
         this.endDate = value;
-    }
-
-    /**
-     * Gets the value of the state property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getState() {
-        return state;
-    }
-
-    /**
-     * Sets the value of the state property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setState(String value) {
-        this.state = value;
     }
 
     /**

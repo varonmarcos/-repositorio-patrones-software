@@ -20,6 +20,8 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="maxSize" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="startPage" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="filter" type="{http://kallsonys.integration.com/kallsonysschema/types}filterlist"/>
+ *         &lt;element name="sorterType" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="columnSorter" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -32,7 +34,9 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "pagingDto", propOrder = {
     "maxSize",
     "startPage",
-    "filter"
+    "filter",
+    "sorterType",
+    "columnSorter"
 })
 public class PagingDto {
 
@@ -42,6 +46,10 @@ public class PagingDto {
     protected String startPage;
     @XmlElement(required = true)
     protected Filterlist filter;
+    @XmlElement(required = true)
+    protected String sorterType;
+    @XmlElement(required = true)
+    protected String columnSorter;
 
     /**
      * Gets the value of the maxSize property.
@@ -113,6 +121,54 @@ public class PagingDto {
      */
     public void setFilter(Filterlist value) {
         this.filter = value;
+    }
+
+    /**
+     * Gets the value of the sorterType property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getSorterType() {
+        return sorterType;
+    }
+
+    /**
+     * Sets the value of the sorterType property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setSorterType(String value) {
+        this.sorterType = value;
+    }
+
+    /**
+     * Gets the value of the columnSorter property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getColumnSorter() {
+        return columnSorter;
+    }
+
+    /**
+     * Sets the value of the columnSorter property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setColumnSorter(String value) {
+        this.columnSorter = value;
     }
 
 }

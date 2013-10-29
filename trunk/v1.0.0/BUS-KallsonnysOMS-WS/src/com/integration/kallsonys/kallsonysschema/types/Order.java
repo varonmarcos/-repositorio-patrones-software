@@ -25,6 +25,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="comment" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="totalPrice" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="orderItem" type="{http://kallsonys.integration.com/kallsonysschema/types}orderItem" maxOccurs="unbounded"/>
+ *         &lt;element name="shippingProvider" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -40,7 +41,8 @@ import javax.xml.bind.annotation.XmlType;
     "status",
     "comment",
     "totalPrice",
-    "orderItem"
+    "orderItem",
+    "shippingProvider"
 })
 public class Order {
 
@@ -56,6 +58,8 @@ public class Order {
     protected String totalPrice;
     @XmlElement(required = true)
     protected List<OrderItem> orderItem;
+    @XmlElement(required = true)
+    protected String shippingProvider;
 
     /**
      * Gets the value of the id property.
@@ -204,6 +208,30 @@ public class Order {
             orderItem = new ArrayList<OrderItem>();
         }
         return this.orderItem;
+    }
+
+    /**
+     * Gets the value of the shippingProvider property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getShippingProvider() {
+        return shippingProvider;
+    }
+
+    /**
+     * Sets the value of the shippingProvider property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setShippingProvider(String value) {
+        this.shippingProvider = value;
     }
 
 }

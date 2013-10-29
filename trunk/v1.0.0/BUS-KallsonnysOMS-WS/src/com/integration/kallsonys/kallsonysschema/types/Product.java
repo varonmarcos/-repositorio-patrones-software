@@ -25,6 +25,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="producer" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="urlFull" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="urlThumb" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="top5" type="{http://kallsonys.integration.com/kallsonysschema/types}top5"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -42,7 +43,8 @@ import javax.xml.bind.annotation.XmlType;
     "category",
     "producer",
     "urlFull",
-    "urlThumb"
+    "urlThumb",
+    "top5"
 })
 public class Product {
 
@@ -62,6 +64,8 @@ public class Product {
     protected String urlFull;
     @XmlElement(required = true)
     protected String urlThumb;
+    @XmlElement(required = true)
+    protected Top5 top5;
 
     /**
      * Gets the value of the id property.
@@ -253,6 +257,30 @@ public class Product {
      */
     public void setUrlThumb(String value) {
         this.urlThumb = value;
+    }
+
+    /**
+     * Gets the value of the top5 property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Top5 }
+     *     
+     */
+    public Top5 getTop5() {
+        return top5;
+    }
+
+    /**
+     * Sets the value of the top5 property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Top5 }
+     *     
+     */
+    public void setTop5(Top5 value) {
+        this.top5 = value;
     }
 
 }

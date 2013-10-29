@@ -2,8 +2,7 @@
 <wsdl:definitions name="customerServices"
 	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:tns="http://ws.oms.kallsonys.org/customerservices"
-	xmlns:typens="http://kallsonys.integration.com/kallsonysschema/types"
+	xmlns:tns="http://ws.oms.kallsonys.org/customerservices" xmlns:typens="http://kallsonys.integration.com/kallsonysschema/types"
 	targetNamespace="http://ws.oms.kallsonys.org/customerservices">
 	<wsdl:types>
 		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -13,13 +12,22 @@
 		</xsd:schema>
 	</wsdl:types>
 	<wsdl:message name="getInitialLoginInfoRequest">
-		<wsdl:part element="typens:infoLogin" name="getInitialLoginRequest" />
+		<wsdl:part name="getInitialLoginRequest" element="typens:infoLogin" />
 	</wsdl:message>
 	<wsdl:message name="getInitialLoginInfoResponse">
-		<wsdl:part element="typens:infoIntialLogin" name="getInitialLoginResponse" />
+		<wsdl:part name="getInitialLoginResponse" element="typens:infoIntialLogin" />
 	</wsdl:message>
 	<wsdl:message name="getInitialLoginInfoFault">
 		<wsdl:part name="getIntialLoginFault" element="typens:CustomerException"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="createCustomerRequest">
+		<wsdl:part name="createCustomerRequest" element="typens:infoCustomer"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="createCustomerResponse">
+		<wsdl:part name="createCustomerResponse" element="typens:infoCustomer"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="createCustomerFault">
+		<wsdl:part name="createCustomerFault" element="typens:CustomerException"></wsdl:part>
 	</wsdl:message>
 	<wsdl:portType name="CustomerServices">
 		<wsdl:operation name="getInitialLoginInfo">
@@ -27,11 +35,24 @@
 			<wsdl:output message="tns:getInitialLoginInfoResponse" />
 			<wsdl:fault name="fault" message="tns:getInitialLoginInfoFault"></wsdl:fault>
 		</wsdl:operation>
+		<wsdl:operation name="createCustomer">
+			<wsdl:input message="tns:createCustomerRequest"></wsdl:input>
+			<wsdl:output message="tns:createCustomerResponse"></wsdl:output>
+			<wsdl:fault name="fault" message="tns:createCustomerFault"></wsdl:fault>
+		</wsdl:operation>
 	</wsdl:portType>
 	<wsdl:binding name="CustomerServicesSOAP" type="tns:CustomerServices">
 		<soap:binding style="document"
 			transport="http://schemas.xmlsoap.org/soap/http" />
 		<wsdl:operation name="getInitialLoginInfo">
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="createCustomer">
 			<wsdl:input>
 				<soap:body use="literal" />
 			</wsdl:input>
