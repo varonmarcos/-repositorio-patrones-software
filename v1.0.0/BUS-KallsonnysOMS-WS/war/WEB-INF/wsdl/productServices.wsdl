@@ -11,18 +11,22 @@
 				schemaLocation="schema/kallSonysSchema.xsd">
 			</xsd:import>
 		</xsd:schema>
-	</wsdl:types>
+    </wsdl:types>
 	<wsdl:message name="getProductsRequest">
 		<wsdl:part element="typens:infoPaging" name="getProductsRequest" />
 	</wsdl:message>
 	<wsdl:message name="getProductsResponse">
 		<wsdl:part element="typens:infoProductList" name="getProductsResponse" />
 	</wsdl:message>
+	<wsdl:message name="ProductFault">
+		<wsdl:part name="ProductRequestFault" element="typens:ProductException"></wsdl:part>
+	</wsdl:message>
 	<wsdl:portType name="ProductServices">
 		<wsdl:operation name="getProducts">
 			<wsdl:input message="tns:getProductsRequest" />
 			<wsdl:output message="tns:getProductsResponse" />
-		</wsdl:operation>
+            <wsdl:fault name="fault" message="tns:ProductFault"></wsdl:fault>
+        </wsdl:operation>
 	</wsdl:portType>
 	<wsdl:binding name="ProductServicesSOAP" type="tns:ProductServices">
 		<soap:binding style="document"

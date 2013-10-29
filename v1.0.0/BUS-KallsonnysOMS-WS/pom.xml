@@ -105,6 +105,13 @@
 												<extraarg>-verbose</extraarg>
 											</extraargs>
 										</wsdlOption>
+										<wsdlOption>
+											<!-- Update wsdl tag with appropriate wsdl file -->
+											<wsdl>${basedir}/war/WEB-INF/wsdl/campaignServices.wsdl</wsdl>
+											<extraargs>
+												<extraarg>-verbose</extraarg>
+											</extraargs>
+										</wsdlOption>
 									</wsdlOptions>
 								</configuration>
 								<goals>

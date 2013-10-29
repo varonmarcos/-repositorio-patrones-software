@@ -25,5 +25,14 @@
 		<servlet-name>ProductServices</servlet-name>
 		<url-pattern>/ProductServices</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<display-name>CampaignServices</display-name>
+		<servlet-name>CampaignServices</servlet-name>
+		<servlet-class>org.kallsonys.oms.ws.campaignservices.CampaignServicesImpl</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CampaignServices</servlet-name>
+		<url-pattern>/CampaignServices</url-pattern>
+	</servlet-mapping>
 
 </web-app>

@@ -13,6 +13,7 @@
     		<element name="producer" type="string"></element>
     		<element name="urlFull" type="string"></element>
     		<element name="urlThumb" type="string"></element>
+    		<element name="top5" type="tns:top5"></element>
     	</sequence>
     </complexType>
 
@@ -26,6 +27,7 @@
     		<element name="comment" type="string"></element>
     		<element name="totalPrice" type="string"></element>
     		<element name="orderItem" type="tns:orderItem" maxOccurs="unbounded" minOccurs="1"></element>
+    		<element name="shippingProvider" type="string"></element>
     	</sequence>
     </complexType>
 
@@ -63,6 +65,8 @@
     		<element name="maxSize" type="string"></element>
     		<element name="startPage" type="string"></element>
     		<element name="filter" type="tns:filterlist"></element>
+    		<element name="sorterType" type="string"></element>
+    		<element name="columnSorter" type="string"></element>
     	</sequence>
     </complexType>
 
@@ -118,7 +122,6 @@
     		<element name="description" type="string"></element>
     		<element name="initDate" type="string"></element>
     		<element name="endDate" type="string"></element>
-    		<element name="state" type="string"></element>
     		<element name="urlImage" type="string"></element>
     		<element name="productDetail" type="tns:product"></element>
     	</sequence>
@@ -160,8 +163,10 @@
     	</sequence>
     </complexType>
 
-
-    <element name="CustomerException" type="tns:globalException"></element>
+	<element name="CustomerException" type="tns:globalException"></element>
+	<element name="ProductException" type="tns:globalException"></element>
+	<element name="CampaignException" type="tns:globalException"></element>
+	<element name="OrderException" type="tns:globalException"></element>
     
     <complexType name="globalException">
     	<sequence>
@@ -177,5 +182,15 @@
     		<element name="UNKWON" type="string"></element>
     		<element name="VALIDATION" type="string"></element>
     	</choice>
+    </complexType>
+
+    <complexType name="top5">
+    	<sequence>
+    		<element name="top1" type="tns:product"></element>
+    		<element name="top2" type="tns:product"></element>
+    		<element name="top3" type="tns:product"></element>
+    		<element name="top4" type="tns:product"></element>
+    		<element name="top5" type="tns:product"></element>
+    	</sequence>
     </complexType>
 </schema>
