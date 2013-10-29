@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
-import javax.persistence.PersistenceContext;
 
 import org.kallsonys.oms.commons.Exception.OMSException;
 import org.kallsonys.oms.entities.security.OptionMenu;
@@ -15,7 +14,6 @@ import org.kallsonys.oms.entities.security.User;
 
 public class UserDAO {
 
-	@PersistenceContext(unitName = "kallsonnysSecurity")
 	private EntityManager em;
 
 	public UserDAO() {
