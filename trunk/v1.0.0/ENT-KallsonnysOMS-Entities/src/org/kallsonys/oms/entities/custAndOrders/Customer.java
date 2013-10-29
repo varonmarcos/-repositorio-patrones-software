@@ -53,11 +53,9 @@ public class Customer extends AbstractEntity {
 	@Length(min = 0, max = 255)
 	private String password;
 	
-	@NotNull
 	@Enumerated
 	private CreditCardTypeEnum cardType;
 	
-	@NotNull
 	@Length(min = 0, max = 255)
 	private String creditCardToken;
 	
