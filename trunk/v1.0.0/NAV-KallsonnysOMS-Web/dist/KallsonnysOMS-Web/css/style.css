@@ -1,0 +1,138 @@
+/*
+Theme Name: Mediador
+Theme URI:
+Author: Marco T Varon - intergrupo
+Version: 1.0
+
+*/ /*...........................
+	html
+............................*/
+* {
+	margin: 0;
+	padding: 0;
+	border: none;
+}
+
+html {
+	text-shadow: #000 0px 0px 0px; /* Elimina el efecto bold en Safari */
+	background: #FFF;
+}
+
+body {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	/*padding-top:25px;*/
+}
+
+/* Clases utiles */
+.p_relative {
+	position: relative;
+}
+
+/*...........................
+	Site
+............................*/
+#wrapper {
+	width: 1024px;
+	margin: 0 auto;
+	background: #FFF;
+	/*border:1px solid #bbcbdb;*/
+	overflow: hidden;
+}
+
+#wrapper:after {
+	content: ".";
+	display: block;
+	clear: both;
+	visibility: hidden;
+	height: 0;
+}
+
+#header {
+	margin: 0 auto;
+	width: 1024px;
+	height: 139px;
+	background: #041737;
+}
+
+/*#nav_top{
+    width:1024px;
+    height:50px;
+    margin:10px 0px 0px 0px;
+    background: #CC3300;
+}*/
+#aux {
+	width: 0;
+	height: 441px;
+}
+
+#content {
+	width: 1024px;
+	height: 500px;
+}
+
+#content:after {
+	content: ".";
+	display: block;
+	clear: both;
+	visibility: hidden;
+	height: 0;
+}
+
+#nav_left {
+	width: 230px;
+	padding: 5px 5px 5px 0px;
+}
+
+#col_two {
+	width: 760px;
+	padding: 5px 5px 10px 15px;
+	background: #FFF;
+	color: #fff;
+}
+
+#row_info {
+	width: 760px;
+	height: 27px;
+	padding: 4px 5px 0px 5px;
+}
+
+#nav_left,#col_two,#content:after {
+	float: left;
+	margin: 0;
+}
+
+/*#col_two,#content:after{
+    float:left;
+    margin:0;
+}*/
+#footer {
+	clear: both;
+	height: 70px;
+	width: 1024px;
+	background: #fff;
+}
+
+
+/**************************
+     stilos menu
+**************************/
+.style_text_menu {
+	font-size: 8pt;
+	font-weight: normal;
+	color: #0A285C;
+	padding: 0px 2px 0px 10px;
+}
+
+.style_text_menu li a {
+	text-decoration: none;
+}
+
+.style_text_menu  li a:link,.style_text_menu  li a:visited {
+	color: #0A285C;
+}
+
+.style_text_menu  li a:hover,.style_text_menu li #current {
+	color: #0A285C;
+	text-decoration: none;
+}
