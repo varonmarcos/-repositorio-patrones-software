@@ -39,7 +39,7 @@
 						<configuration>
 							<tasks>
 								<copy file="${project.build.directory}/${module.name}.war"
-									tofile="/usr/local/jboss-6.1.0.Final/server/default/deploy/${module.name}.war" />
+									tofile="C:\jboss-6.1.0.Final\server\default\deploy\${module.name}.war" />
 							</tasks>
 						</configuration>
 						<goals>
