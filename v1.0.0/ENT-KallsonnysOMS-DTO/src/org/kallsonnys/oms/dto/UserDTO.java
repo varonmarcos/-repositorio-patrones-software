@@ -1,5 +1,7 @@
 package org.kallsonnys.oms.dto;
 
+import java.util.List;
+
 import org.kallsonnys.oms.enums.StatusEnum;
 
 public class UserDTO extends BaseDTO {
@@ -19,14 +21,17 @@ public class UserDTO extends BaseDTO {
 	
 	private StatusEnum  status;
 	
+	private List<OptionMenuDTO> listamenu;
+	
 	public UserDTO() {
 
 	}
 
-	public UserDTO(Long id, String email) {
+	public UserDTO(Long id, String email, List<OptionMenuDTO> listamenu) {
 		super();
 		this.id = id;
 		this.email = email;
+		this.listamenu = listamenu;
 	}
 
 	public Long getId() {
@@ -75,6 +80,14 @@ public class UserDTO extends BaseDTO {
 
 	public void setStatus(StatusEnum status) {
 		this.status = status;
+	}
+
+	public List<OptionMenuDTO> getListamenu() {
+		return listamenu;
+	}
+
+	public void setListamenu(List<OptionMenuDTO> listamenu) {
+		this.listamenu = listamenu;
 	}
 	
 	
