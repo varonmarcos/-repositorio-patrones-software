@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions name="orderservices"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tns="http://ws.oms.kallsonys.org/orderservices"
+	xmlns:typens="http://kallsonys.integration.com/kallsonysschema/types"
+	targetNamespace="http://ws.oms.kallsonys.org/orderservices">
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="http://kallsonys.integration.com/kallsonysschema/types"
+				schemaLocation="schema/kallSonysSchema.xsd">
+			</xsd:import>
+		</xsd:schema>
+    </wsdl:types>
+	<wsdl:message name="getOrdersRequest">
+		<wsdl:part  name="getOrdersRequest" element="typens:infoPaging"  />
+	</wsdl:message>
+	<wsdl:message name="getOrdersResponse">
+		<wsdl:part name="getOrdersResponse" element="typens:infoOrderList" />
+	</wsdl:message>
+	<wsdl:message name="createOrderRequest">
+		<wsdl:part name="createOrderRequest" element="typens:infoOrder"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="createOrderResponse">
+		<wsdl:part name="createOrderResponse" element="typens:infoDescriptionResponse"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="getOrderStatusRequest">
+		<wsdl:part name="getOrderStatusRequest" element="typens:infoOrderStatusResponse"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="getOrderStatusResponse">
+		<wsdl:part name="getOrderStatusResponse" element="typens:infoOrder"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="getOrderStatusFault">
+		<wsdl:part name="getOrderStatusFault" element="typens:OrderException"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="createOrderFault">
+		<wsdl:part name="createOrderFault" element="typens:OrderException"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="getOrdersFault">
+		<wsdl:part name="getOrderFault" element="typens:OrderException"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="getOrderDetailRequest">
+		<wsdl:part name="getOrderDetailRequest" element="typens:getOrderInfoId"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="getOrderDetailResponse">
+		<wsdl:part name="getOrderDetailResponse" element="typens:infoOrderDetailResponse"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="getOrderDetailFault">
+		<wsdl:part name="getOrderDetailFault" element="typens:OrderException"></wsdl:part>
+	</wsdl:message>
+	<wsdl:portType name="OrderServices">
+		<wsdl:operation name="getOrders">
+			<wsdl:input message="tns:getOrdersRequest" />
+			<wsdl:output message="tns:getOrdersResponse" />
+            <wsdl:fault name="fault" message="tns:getOrdersFault"></wsdl:fault>
+        </wsdl:operation>
+		<wsdl:operation name="createOrder">
+			<wsdl:input message="tns:createOrderRequest"></wsdl:input>
+			<wsdl:output message="tns:createOrderResponse"></wsdl:output>
+            <wsdl:fault name="fault" message="tns:createOrderFault"></wsdl:fault>
+        </wsdl:operation>
+		<wsdl:operation name="getOrderStatus">
+			<wsdl:input message="tns:getOrderStatusRequest"></wsdl:input>
+			<wsdl:output message="tns:getOrderStatusResponse"></wsdl:output>
+            <wsdl:fault name="fault" message="tns:getOrderStatusFault"></wsdl:fault>
+        </wsdl:operation>
+		<wsdl:operation name="getOrderDetail">
+			<wsdl:input message="tns:getOrderDetailRequest"></wsdl:input>
+			<wsdl:output message="tns:getOrderDetailResponse"></wsdl:output>
+            <wsdl:fault name="fault" message="tns:getOrderDetailFault"></wsdl:fault>
+        </wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="OrderServicesSOAP" type="tns:OrderServices">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="getOrders">
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="createOrder">
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getOrderStatus">
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getOrderDetail">
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="OrderServices">
+		<wsdl:port binding="tns:OrderServicesSOAP" name="OrderServicesSOAP">
+			<soap:address location="http://localhost:8080/OrderServicesWS" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>
