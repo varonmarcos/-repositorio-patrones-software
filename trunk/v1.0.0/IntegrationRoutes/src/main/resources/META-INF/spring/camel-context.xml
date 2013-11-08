@@ -9,69 +9,24 @@
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
        http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd">
 
-	<cxf:cxfEndpoint id="ProductServicesEndpoint"
-		address="http://localhost:8181/cxf/ProductServicesWS" endpointName="s:ProductServicesSOAP"
-		serviceName="s:ProductServices" wsdlURL="http://localhost:8181/cxf/ProductServicesWS?wsdl"
-		xmlns:s="http://kallsonys.integration.com/productservices">
-		<cxf:properties>
-			<entry key="dataFormat" value="PAYLOAD" />
-		</cxf:properties>
-	</cxf:cxfEndpoint>
-
-	<cxf:cxfEndpoint id="CustomerServicesEndpoint"
-		address="http://localhost:8181/cxf/CustomerServicesWS" endpointName="s:CustomerServicesSOAP"
-		serviceName="s:CustomerServices" wsdlURL="http://localhost:8181/cxf/CustomerServicesWS?wsdl"
-		xmlns:s="http://kallsonys.integration.com/customerservices">
-		<cxf:properties>
-			<entry key="dataFormat" value="PAYLOAD" />
-		</cxf:properties>
-	</cxf:cxfEndpoint>
-	
-	<cxf:cxfEndpoint id="CampaignServicesEndpoint"
-		address="http://localhost:8181/cxf/CampaignServicesWS" endpointName="s:CampaignServicesSOAP"
-		serviceName="s:CampaignServices" wsdlURL="http://localhost:8181/cxf/CampaignServicesWS?wsdl"
-		xmlns:s="http://kallsonys.integration.com/campaignservices">
-		<cxf:properties>
-			<entry key="dataFormat" value="PAYLOAD" />
-		</cxf:properties>
-	</cxf:cxfEndpoint>
-	
-
-	<cxf:cxfEndpoint id="CustomerServicesOMSEndpoint"
-		address="http://localhost:8080/KallsonnysOMS-WS/CustomerServices"
-		endpointName="s:CustomerServicesSOAP" serviceName="s:CustomerServices"
-		wsdlURL="http://localhost:8080/KallsonnysOMS-WS/CustomerServices?wsdl"
-		xmlns:s="http://ws.oms.kallsonys.org/customerservices">
-		<cxf:properties>
-			<entry key="dataFormat" value="PAYLOAD" />
-		</cxf:properties>
-	</cxf:cxfEndpoint>
-
-	<cxf:cxfEndpoint id="ProductServicesOMSEndpoint"
-		address="http://localhost:8080/KallsonnysOMS-WS/ProductServices"
-		endpointName="s:ProductServicesSOAP" serviceName="s:ProductServices"
-		wsdlURL="http://localhost:8080/KallsonnysOMS-WS/ProductServices?wsdl"
-		xmlns:s="http://ws.oms.kallsonys.org/productservices">
-		<cxf:properties>
-			<entry key="dataFormat" value="PAYLOAD" />
-		</cxf:properties>
-	</cxf:cxfEndpoint>
-	
-	<cxf:cxfEndpoint id="CampaignServicesOMSEndpoint"
-		address="http://localhost:8080/KallsonnysOMS-WS/CampaignServices"
-		endpointName="s:CampaignServicesSOAP" serviceName="s:CampaignServices"
-		wsdlURL="http://localhost:8080/KallsonnysOMS-WS/CampaignServices?wsdl"
-		xmlns:s="http://ws.oms.kallsonys.org/campaignservices">
-		<cxf:properties>
-			<entry key="dataFormat" value="PAYLOAD" />
-		</cxf:properties>
-	</cxf:cxfEndpoint>
+	<!-- import the other spring xml files -->
+	<import resource="classpath:META-INF/spring/camel-cxf.xml" />
 
 
+	<!-- Exceptions -->
 	<bean id="authException" class="java.lang.IllegalArgumentException">
 		<constructor-arg index="0"
 			value="EL USUARIO NO ESTA AUTORIZADO POR FAVOR INGRESE SUS CREDENCIALES" />
 	</bean>
+
+	<bean id="tcVerificationFailed" class="java.lang.IllegalArgumentException">
+		<constructor-arg index="0"
+			value="EL PROCESO DE VALIDACION DE LA TARJETA DE CREDITO HA FALLADO" />
+	</bean>
+
+	<!-- Processors -->
+	<bean id="loadTcParameters" class="org.kallsonnys.integration.processors.LoadTcParameters" />
+	<bean id="verifyTcProcessor" class="org.kallsonnys.integration.processors.VerifyTcProcessor" />
 
 	<camel:camelContext xmlns="http://camel.apache.org/schema/spring">
 		<camel:route handleFault="true">
@@ -109,7 +64,7 @@
 			<camel:to uri="cxf:bean:ProductServicesOMSEndpoint" />
 
 		</camel:route>
-		
+
 		<camel:route handleFault="true">
 
 			<camel:from uri="cxf:bean:CampaignServicesEndpoint" />
@@ -130,6 +85,53 @@
 			<camel:to uri="cxf:bean:CampaignServicesOMSEndpoint" />
 
 		</camel:route>
+
+
+		<camel:route handleFault="true">
+
+			<camel:from uri="cxf:bean:OrderServicesEndpoint" />
+
+			<!-- <when> -->
+			<!-- <simple>${header.klstauthoken} == null</simple> -->
+			<!-- <throwException ref="authException" /> -->
+			<!-- </when> -->
+
+<!-- 			<to uri="log:input?showHeaders=true" /> -->
+
+			<choice>
+				<when>
+					<simple>${header.operationName} == 'createOrder'</simple>
+					
+					<to uri="log:input" />
+
+					<to uri="bean:loadTcParameters" />
+					
+					<to uri="log:input" />
+
+					<to uri="bean:verifyTcProcessor" />
+					
+					<to uri="log:input" />
+
+				</when>
+			</choice>
+
+			<camel:when>
+				<camel:simple>${header.validationTC} == 'false'</camel:simple>
+				<throwException ref="tcVerificationFailed" />
+			</camel:when>
+
+			<setHeader headerName="operationName">
+				<simple>${header.operationName}</simple>
+			</setHeader>
+
+			<setHeader headerName="operationNamespace">
+				<simple>http://ws.oms.kallsonys.org/orderservices</simple>
+			</setHeader>
+
+			<camel:to uri="cxf:bean:OrderServicesOMSEndpoint" />
+
+		</camel:route>
+
 	</camel:camelContext>
 
 </beans>
