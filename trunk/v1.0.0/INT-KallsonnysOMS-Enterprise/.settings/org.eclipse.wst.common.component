@@ -15,5 +15,8 @@
         <dependent-module archiveName="BUS-KallsonnysOMS-Business-v1.0.0-SNAPSHOT.jar" deploy-path="/" handle="module:/resource/BUS-KallsonnysOMS-Business/BUS-KallsonnysOMS-Business">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="COM-KallsonnysOMS-Security-v1.0.0-SNAPSHOT-client.jar" deploy-path="/" handle="module:/resource/COM-KallsonnysOMS-Security/COM-KallsonnysOMS-Security">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
     </wb-module>
 </project-modules>
