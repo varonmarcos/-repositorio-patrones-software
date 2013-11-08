@@ -17,6 +17,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 import org.apache.log4j.Logger;
+import org.kallsonys.oms.commons.util.ResourceBundleManager;
 
 public class ServiceLocator{
 
@@ -27,6 +28,7 @@ public class ServiceLocator{
 	private static final String LOCATOR_PWD = "KALLSONNYS_PWD";
 	private static final String EAR_JNDI_NAME_KEY = "ear_jndi_name";
 	private static final String PROPERTIES_PATH = "KallsonnysOMS-Enterprise";
+	public static final String ORDERS_ENGINE_QUEUE = "OrdersEngineQueue";
 
 	private Map<String, String> contextParams = null;
 
@@ -102,6 +104,42 @@ public class ServiceLocator{
 
 		} finally {
 			log.debug("getRemoteObject(String objname)::finished");
+		}
+		return (T) retValue;
+	}
+	
+	/**
+	 * Method used to obtain a remote reference to a platform object (eTask) is
+	 * considered EJB that implements the interface
+	 * 
+	 * @param objname
+	 *            JNDI name of the object to obtain.
+	 * @return A server remote reference found under the name parameter passed.
+	 */
+	@SuppressWarnings("unchecked")
+	public <T> T getLocalObject(String objname) {
+
+		log.debug("getLocalObject(String objname)::started");
+		Object retValue = null;
+
+		try {
+
+			Context context = getInitialContext(getContextParams());
+
+			log.debug("Getting the local object " + EAR_JNDI_NAME + "/"
+					+ objname + "/local");
+			retValue = context
+					.lookup(EAR_JNDI_NAME + "/" + objname + "/local");
+
+		} catch (Exception e) {
+			log.error(
+					"- General ERROR obtaining reference to local object ->",
+					e);
+			throw new LocatorException(
+					"- Could not obtain reference to local object " + objname);
+
+		} finally {
+			log.debug("getLocalObject(String objname)::finished");
 		}
 		return (T) retValue;
 	}

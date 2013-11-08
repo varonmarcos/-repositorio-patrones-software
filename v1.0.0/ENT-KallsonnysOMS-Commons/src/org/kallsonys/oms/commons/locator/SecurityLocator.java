@@ -8,6 +8,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 import org.apache.log4j.Logger;
+import org.kallsonys.oms.commons.util.ResourceBundleManager;
 
 public class SecurityLocator{
 

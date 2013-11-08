@@ -1,4 +1,4 @@
-package org.kallsonys.oms.commons;
+package org.kallsonys.oms.commons.util;
 
 import static org.kallsonys.oms.commons.Exception.ErrorCodesEnum.PARSING_DATE_ERROR;
 
