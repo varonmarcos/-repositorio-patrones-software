@@ -32,11 +32,10 @@ body {
 /*...........................
 	Site
 ............................*/
-#wrapper {
+/*#wrapper {
 	width: 1024px;
 	margin: 0 auto;
 	background: #FFF;
-	/*border:1px solid #bbcbdb;*/
 	overflow: hidden;
 }
 
@@ -55,12 +54,7 @@ body {
 	background: #041737;
 }
 
-/*#nav_top{
-    width:1024px;
-    height:50px;
-    margin:10px 0px 0px 0px;
-    background: #CC3300;
-}*/
+
 #aux {
 	width: 0;
 	height: 441px;
@@ -104,10 +98,6 @@ body {
 	margin: 0;
 }
 
-/*#col_two,#content:after{
-    float:left;
-    margin:0;
-}*/
 #footer {
 	clear: both;
 	height: 70px;
@@ -115,27 +105,4 @@ body {
 	background: #fff;
 	color: #fff;
 }
-
-
-/**************************
-     stilos menu
-**************************/
-.style_text_menu {
-	font-size: 8pt;
-	font-weight: normal;
-	color: #0A285C;
-	padding: 0px 2px 0px 10px;
-}
-
-.style_text_menu li a {
-	text-decoration: none;
-}
-
-.style_text_menu  li a:link,.style_text_menu  li a:visited {
-	color: #0A285C;
-}
-
-.style_text_menu  li a:hover,.style_text_menu li #current {
-	color: #0A285C;
-	text-decoration: none;
-}
+*/
