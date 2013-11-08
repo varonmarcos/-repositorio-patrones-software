@@ -1,4 +1,4 @@
-package org.kallsonys.oms.commons.locator;
+package org.kallsonys.oms.commons.util;
 
 import java.util.Enumeration;
 import java.util.HashMap;
