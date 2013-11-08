@@ -8,7 +8,8 @@ import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.log4j.Logger;
-import org.kallsonys.oms.commons.locator.ResourceBundleManager;
+import org.kallsonnys.oms.dto.security.CasTokensDTO;
+import org.kallsonys.oms.commons.util.ResourceBundleManager;
 
 public class CasClientUtil {
 	
