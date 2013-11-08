@@ -235,6 +235,18 @@
 				<version>3.5.2</version>
 			</dependency>
 
+			<dependency>
+				<groupId>javax.mail</groupId>
+				<artifactId>mail</artifactId>
+				<version>1.4.7</version>
+			</dependency>
+
+
+			<dependency>
+				<groupId>org.apache.velocity</groupId>
+				<artifactId>velocity</artifactId>
+				<version>1.6.4</version>
+			</dependency>
 
 			<!-- EJB -->
 			<dependency>
@@ -250,9 +262,9 @@
 
 			<!-- Apache -->
 			<dependency>
-				<groupId>org.apache.commons</groupId>
-				<artifactId>commons-lang3</artifactId>
-				<version>3.1</version>
+				<groupId>commons-lang</groupId>
+				<artifactId>commons-lang</artifactId>
+				<version>2.3</version>
 			</dependency>
 
 			<!-- The Simple Logging Facade for Java or (SLF4J) serves as a simple 
