@@ -95,13 +95,6 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.kallsonys.oms.business</groupId>
-			<artifactId>BUS-KallsonnysOMS-Business</artifactId>
-			<type>ejb-client</type>
-			<scope>provided</scope>
-		</dependency>
-
-		<dependency>
 			<groupId>commons-httpclient</groupId>
 			<artifactId>commons-httpclient</artifactId>
 			<scope>provided</scope>
