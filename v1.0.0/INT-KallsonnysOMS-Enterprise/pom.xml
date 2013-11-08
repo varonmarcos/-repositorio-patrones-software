@@ -174,5 +174,11 @@
 			<type>ejb</type>
 		</dependency>
 		
+		<dependency>
+			<groupId>org.kallsonys.oms.security</groupId>
+			<artifactId>COM-KallsonnysOMS-Security</artifactId>
+			<type>ejb-client</type>
+		</dependency>
+		
 	</dependencies>
 </project>

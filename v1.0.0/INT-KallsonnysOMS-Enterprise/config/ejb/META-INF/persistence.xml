@@ -25,8 +25,8 @@
 
 			<property name="hibernate.hbm2ddl.auto" value="update" />
 
-			<property name="hibernate.search.analyzer"
-				value="org.apache.lucene.analysis.standard.StandardAnalyzer" />
+<!-- 			<property name="hibernate.search.analyzer" -->
+<!-- 				value="org.apache.lucene.analysis.standard.StandardAnalyzer" /> -->
 
 			<property name="cache.provider_class"
 				value="org.hibernate.cache.OptimisticTreeCacheProvider" />
