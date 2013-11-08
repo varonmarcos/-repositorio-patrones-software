@@ -21,6 +21,7 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Store;
 import org.kallsonnys.oms.enums.OrderStatusEnum;
+import org.kallsonnys.oms.enums.ProducerTypeEnum;
 import org.kallsonys.oms.entities.base.AbstractEntity;
 
 @Entity
@@ -56,6 +57,9 @@ public class Orders extends AbstractEntity {
 	@Field(store = Store.NO, index = Index.TOKENIZED)
 	@Column(nullable = true, length = 120)
 	private String shippingProvider;
+	
+	@Enumerated
+	private ProducerTypeEnum producer;
 	
 	public Orders() {
 		super();
@@ -161,5 +165,13 @@ public class Orders extends AbstractEntity {
 
 	public void setShippingProvider(String shippingProvider) {
 		this.shippingProvider = shippingProvider;
+	}
+
+	public ProducerTypeEnum getProducer() {
+		return producer;
+	}
+
+	public void setProducer(ProducerTypeEnum producer) {
+		this.producer = producer;
 	}
 }
