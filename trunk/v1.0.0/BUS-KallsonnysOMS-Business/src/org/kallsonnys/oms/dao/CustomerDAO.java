@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 
 import org.kallsonnys.oms.dto.AddressDTO;
+import org.kallsonnys.oms.enums.AddressTypeEnum;
 import org.kallsonnys.oms.enums.CountryEnum;
 import org.kallsonys.oms.commons.Exception.OMSException;
 import org.kallsonys.oms.entities.custAndOrders.Address;
@@ -44,8 +45,7 @@ public class CustomerDAO implements BaseDAO {
 
 			return customer;
 		} catch (final NoResultException e) {
-			throw new OMSException(ENTITY_NOT_FOUND.getCode(),
-					ENTITY_NOT_FOUND.getMsg());
+			return null;
 		}
 	}
 
@@ -63,10 +63,26 @@ public class CustomerDAO implements BaseDAO {
 				: resultList;
 	}
 	
+
+	@SuppressWarnings("unchecked")
+	public Address getCustomerAddress(final Long id, final AddressTypeEnum addresstype) {
+		if (id == null)
+			return null;
+
+		final List<Address> resultList = em
+				.createQuery(
+						"SELECT address FROM Address address WHERE address.customer.id = :id AND address.addresstype = :addresstype")
+				.setParameter("id", id)
+				.setParameter("addresstype", addresstype).getResultList();
+
+		return resultList.size() == 0 || resultList.get(0) == null ? null
+				: resultList.get(0);
+	}
+	
 	public Address persistAddress(final AddressDTO addressDTO){
 		final Address address = new Address();
 		address.setAddresstype(addressDTO.getAddresstype());
-		address.setStreet(address.getStreet());
+		address.setStreet(addressDTO.getStreet());
 		address.setZip(addressDTO.getZip());
 		address.setCountry(addressDTO.getCountry());
 		address.setState(getStateByName(addressDTO.getStateName(), addressDTO.getCountry()));
@@ -87,7 +103,7 @@ public class CustomerDAO implements BaseDAO {
 					.createQuery(
 							"SELECT st FROM State st WHERE UPPER(st.name) = UPPER(:name) AND st.country = :country")
 					.setParameter("name", name)
-					.setParameter("country", "country").getSingleResult();
+					.setParameter("country", country).getSingleResult();
 
 			return state;
 		} catch (final NoResultException e) {

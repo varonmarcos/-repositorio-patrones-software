@@ -11,7 +11,7 @@ import javax.persistence.Query;
 
 import org.kallsonnys.oms.dto.CampaignDTO;
 import org.kallsonnys.oms.mapper.OMSMapper;
-import org.kallsonys.oms.commons.DateUtil;
+import org.kallsonys.oms.commons.util.DateUtil;
 import org.kallsonys.oms.entities.custAndOrders.Campaign;
 
 
