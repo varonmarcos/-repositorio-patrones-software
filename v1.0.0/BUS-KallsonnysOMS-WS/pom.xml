@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.kallsonys.oms.business</groupId>
+	<artifactId>BUS-KallsonnysOMS-WS</artifactId>
+	<packaging>war</packaging>
+
+	<parent>
+		<groupId>com.kallsonys.oms.master</groupId>
+		<artifactId>POM-KallsonnysOMS-Master</artifactId>
+		<version>v1.0.0-SNAPSHOT</version>
+	</parent>
+
+
+	<properties>
+		<module.name>KallsonnysOMS-WS</module.name>
+		<module.package.name>KallsonnysOMS-WS</module.package.name>
+	</properties>
+
+	<build>
+		<finalName>KallsonnysOMS-WS</finalName>
+		<defaultGoal>install</defaultGoal>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>install-war</id>
+						<phase>install</phase>
+						<configuration>
+							<tasks>
+								<copy file="${project.build.directory}/${module.name}.war"
+									tofile="/usr/local/jboss-6.1.0.Final/server/default/deploy/${module.name}.war" />
+							</tasks>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<configuration>
+					<warName>${module.name}</warName>
+					<outputDirectory>
+						${project.build.directory}
+					</outputDirectory>
+					<webResources>
+						<resource>
+							<directory>war</directory>
+							<excludes>
+								<exclude>WEB-INF/lib/*</exclude>
+							</excludes>
+						</resource>
+					</webResources>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<profiles>
+		<profile>
+			<id>generate-ws</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.cxf</groupId>
+						<artifactId>cxf-codegen-plugin</artifactId>
+						<version>2.6.3</version>
+						<executions>
+							<execution>
+								<phase>generate-sources</phase>
+								<configuration>
+									<!-- Update source root to specify where generated source code should 
+										be placed -->
+									<sourceRoot>${basedir}/src</sourceRoot>
+									<wsdlOptions>
+										<wsdlOption>
+											<!-- Update wsdl tag with appropriate wsdl file -->
+											<wsdl>${basedir}/war/WEB-INF/wsdl/productServices.wsdl</wsdl>
+											<extraargs>
+												<extraarg>-verbose</extraarg>
+											</extraargs>
+										</wsdlOption>
+										<wsdlOption>
+											<!-- Update wsdl tag with appropriate wsdl file -->
+											<wsdl>${basedir}/war/WEB-INF/wsdl/customerServices.wsdl</wsdl>
+											<extraargs>
+												<extraarg>-verbose</extraarg>
+											</extraargs>
+										</wsdlOption>
+										<wsdlOption>
+											<!-- Update wsdl tag with appropriate wsdl file -->
+											<wsdl>${basedir}/war/WEB-INF/wsdl/campaignServices.wsdl</wsdl>
+											<extraargs>
+												<extraarg>-verbose</extraarg>
+											</extraargs>
+										</wsdlOption>
+										<wsdlOption>
+											<!-- Update wsdl tag with appropriate wsdl file -->
+											<wsdl>${basedir}/war/WEB-INF/wsdl/orderServices.wsdl</wsdl>
+											<extraargs>
+												<extraarg>-verbose</extraarg>
+											</extraargs>
+										</wsdlOption>
+									</wsdlOptions>
+								</configuration>
+								<goals>
+									<goal>wsdl2java</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+	<dependencies>
+		<dependency>
+			<groupId>org.kallsonys.oms.commons</groupId>
+			<artifactId>BUS-KallsonnysOMS-Commons</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.kallsonys.oms.entities</groupId>
+			<artifactId>ENT-KallsonnysOMS-Entities</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.kallsonys.oms.security</groupId>
+			<artifactId>COM-KallsonnysOMS-Security</artifactId>
+			<type>ejb-client</type>
+		</dependency>
+		<dependency>
+			<groupId>org.kallsonys.oms.business</groupId>
+			<artifactId>BUS-KallsonnysOMS-Business</artifactId>
+			<type>ejb-client</type>
+		</dependency>
+		<dependency>
+			<groupId>org.kallsonys.oms.dto</groupId>
+			<artifactId>ENT-KallsonnysOMS-DTO</artifactId>
+		</dependency>
+		
+	</dependencies>
+</project>

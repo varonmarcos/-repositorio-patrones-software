@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://kallsonys.integration.com/kallsonysschema/types"
+	xmlns:tns="http://kallsonys.integration.com/kallsonysschema/types"
+	elementFormDefault="qualified">
+
+	<element name="infoProduct" type="tns:product"></element>
+
+	<complexType name="product">
+		<sequence>
+			<element name="id" type="string"></element>
+			<element name="name" type="string"></element>
+			<element name="price" type="string"></element>
+			<element name="description" type="string"></element>
+			<element name="category" type="string"></element>
+			<element name="producer" type="string"></element>
+			<element name="urlFull" type="string"></element>
+			<element name="urlThumb" type="string"></element>
+			<element name="top5" type="tns:top5"></element>
+		</sequence>
+	</complexType>
+
+	<element name="infoOrder" type="tns:order"></element>
+	<element name="infoOrderStatusResponse" type="tns:order"></element>
+	<element name="infoOrderDetailResponse" type="tns:order"></element>
+
+	<complexType name="order">
+		<sequence>
+			<element name="id" type="string"></element>
+			<element name="date" type="string"></element>
+			<element name="status" type="string"></element>
+			<element name="comment" type="string"></element>
+			<element name="totalPrice" type="string"></element>
+			<element name="orderItem" type="tns:orderItem" maxOccurs="unbounded"
+				minOccurs="1"></element>
+			<element name="shippingProvider" type="string"></element>
+			<element name="customerInfo" type="tns:customer"></element>
+		</sequence>
+	</complexType>
+
+
+	<element name="getCustomerInfoEmail" type="tns:customerInfoEmail"></element>
+
+	<complexType name="customerInfoEmail">
+		<sequence>
+			<element name="email" type="string"></element>
+		</sequence>
+	</complexType>
+	
+	<element name="getOrderInfoId" type="tns:orderInfoId"></element>
+
+	<complexType name="orderInfoId">
+		<sequence>
+			<element name="id" type="string"></element>
+		</sequence>
+	</complexType>
+
+	<element name="infoCustomerUpdated" type="tns:customer"></element>
+
+	<element name="infoCustomer" type="tns:customer"></element>
+
+	<complexType name="customer">
+		<sequence>
+			<element name="login" type="string"></element>
+			<element name="name" type="string"></element>
+			<element name="surname" type="string"></element>
+			<element name="email" type="string"></element>
+			<element name="password" type="string"></element>
+			<element name="phoneNumber" type="string"></element>
+			<element name="creditCardType" type="string"></element>
+			<element name="creditCardToken" type="string"></element>
+			<element name="shipTo" type="tns:address"></element>
+			<element name="billTo" type="tns:address"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="address">
+		<sequence>
+			<element name="id" type="string"></element>
+			<element name="street" type="string"></element>
+			<element name="state" type="string"></element>
+			<element name="zip" type="string"></element>
+			<element name="country" type="string"></element>
+			<element name="city" type="string"></element>
+		</sequence>
+	</complexType>
+
+	<element name="infoPaging" type="tns:pagingDto"></element>
+
+	<complexType name="pagingDto">
+		<sequence>
+			<element name="maxSize" type="string"></element>
+			<element name="startPage" type="string"></element>
+			<element name="filter" type="tns:filterlist"></element>
+			<element name="sorterType" type="string"></element>
+			<element name="columnSorter" type="string"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="filterlist">
+		<sequence>
+			<element name="params" type="tns:pagingFilterItem" minOccurs="0"
+				maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+
+	<complexType name="pagingFilterItem">
+		<sequence>
+			<element name="key" type="string"></element>
+			<element name="value" type="string"></element>
+		</sequence>
+	</complexType>
+
+	<element name="infoProductList" type="tns:productList"></element>
+
+	<complexType name="productList">
+		<sequence>
+			<element name="productsResult" type="tns:product" minOccurs="0"
+				maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+
+	<element name="infoOrderList" type="tns:orderList"></element>
+
+	<complexType name="orderList">
+		<sequence>
+			<element name="ordersResult" type="tns:order" minOccurs="0"
+				maxOccurs="unbounded"></element>
+		</sequence>
+	</complexType>
+
+	<element name="infoDescriptionResponse" type="tns:descriptionResponse">
+	</element>
+
+	<complexType name="descriptionResponse">
+		<sequence>
+			<element name="code" type="string"></element>
+			<element name="description" type="string"></element>
+		</sequence>
+	</complexType>
+
+	<element name="infoCampaign" type="tns:campaign"></element>
+
+	<complexType name="campaign">
+		<sequence>
+			<element name="id" type="string"></element>
+			<element name="name" type="string"></element>
+			<element name="description" type="string"></element>
+			<element name="initDate" type="string"></element>
+			<element name="endDate" type="string"></element>
+			<element name="urlImage" type="string"></element>
+			<element name="productDetail" type="tns:product"></element>
+		</sequence>
+	</complexType>
+
+	<element name="infoCampaignList" type="tns:campaignList"></element>
+
+	<complexType name="campaignList">
+		<sequence>
+			<element name="campaignRessult" type="tns:campaign"
+				minOccurs="0" maxOccurs="unbounded"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="orderItem">
+		<sequence>
+			<element name="id" type="string"></element>
+			<element name="productDetail" type="tns:product"></element>
+			<element name="quantity" type="string"></element>
+			<element name="total" type="string"></element>
+		</sequence>
+	</complexType>
+
+	<element name="infoLogin" type="tns:loginDTO"></element>
+
+	<complexType name="loginDTO">
+		<sequence>
+			<element name="userUid" type="string"></element>
+			<element name="password" type="string"></element>
+		</sequence>
+	</complexType>
+
+	<element name="infoIntialLogin" type="tns:initialLoginDTO"></element>
+
+	<complexType name="initialLoginDTO">
+		<sequence>
+			<element name="customerInfo" type="tns:customer"></element>
+			<element name="tgt" type="string"></element>
+		</sequence>
+	</complexType>
+
+	<element name="CustomerException" type="tns:globalException"></element>
+	<element name="ProductException" type="tns:globalException"></element>
+	<element name="CampaignException" type="tns:globalException"></element>
+	<element name="OrderException" type="tns:globalException"></element>
+
+	<complexType name="globalException">
+		<sequence>
+			<element name="message" type="string"></element>
+			<element name="code" type="string"></element>
+			<element name="severity" type="tns:severity"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="severity">
+		<choice>
+			<element name="FATAL" type="string"></element>
+			<element name="UNKWON" type="string"></element>
+			<element name="VALIDATION" type="string"></element>
+		</choice>
+	</complexType>
+
+	<complexType name="top5">
+		<sequence>
+			<element name="top1" type="tns:product"></element>
+			<element name="top2" type="tns:product"></element>
+			<element name="top3" type="tns:product"></element>
+			<element name="top4" type="tns:product"></element>
+			<element name="top5" type="tns:product"></element>
+		</sequence>
+	</complexType>
+</schema>
