@@ -12,7 +12,6 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Store;
-import org.hibernate.validator.constraints.Length;
 import org.kallsonys.oms.entities.base.AbstractEntity;
 
 @Entity
@@ -36,11 +35,10 @@ public class Item extends AbstractEntity {
 	private String  productName;
 	
 	@Field(store = Store.NO, index = Index.TOKENIZED)
-	@Column(nullable = false, length = 120)
+	@Column(nullable = true, length = 120)
 	private String partNum;
 	
 	@NotNull
-	@Length(min = 1)
 	private Integer quantity;
 	
 	@NotNull
@@ -63,6 +61,14 @@ public class Item extends AbstractEntity {
 	@Override
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public Long getProdId() {
+		return prodId;
+	}
+
+	public void setProdId(Long prodId) {
+		this.prodId = prodId;
 	}
 
 	public Orders getOrder() {

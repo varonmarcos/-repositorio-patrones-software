@@ -49,7 +49,6 @@ public class Customer extends AbstractEntity {
 	@Column(unique = true, precision = 0, scale = 0, nullable = false, insertable = true, updatable = true)
 	private String email;
 	
-	@NotNull
 	@Length(min = 0, max = 255)
 	private String password;
 	
@@ -60,6 +59,7 @@ public class Customer extends AbstractEntity {
 	private String creditCardToken;
 	
 	@Enumerated
+	@NotNull
 	private CustomerStatusEnum status;
 	
 	@OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, cascade = {CascadeType.REFRESH})

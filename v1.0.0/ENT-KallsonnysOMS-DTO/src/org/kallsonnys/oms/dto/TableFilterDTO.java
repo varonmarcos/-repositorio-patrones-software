@@ -44,6 +44,14 @@ public class TableFilterDTO implements Serializable{
 		return (String) filters.get(key);
 	}
 	
+	@SuppressWarnings("unchecked")
+	public <T> T getVal(String key){
+		Object value = filters.get(key);
+		if(value == null)
+			return null;
+		return (T) filters.get(key);
+	}
+	
 	public void addFilter(String key, Object value){
 		filters.put(key, value);
 	}
