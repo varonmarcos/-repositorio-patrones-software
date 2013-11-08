@@ -7,16 +7,15 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 	<h:head>
-		<title>.::Ingreso OMS Web::.</title>
+		<title>.::Sistema Administracion de Ordenes OMS::.</title>
 		<meta http-equiv="Content-Type"	content="text/html; charset=ISO-8859-1" />
-		<link rel="stylesheet" type="text/css" href="/KallsonnysOMS-Web/css/style.css" /> 
 	</h:head>
 		
 	<h:body>
 		<h:form>	
-			<div align="center">
-			<ui:include src="/templates/header.xhtml" />
-		</div>
+		<p:layoutUnit position="north" size="142" id="north">
+					<ui:include src="/templates/header.xhtml" />
+		</p:layoutUnit>
 		<br/>
 		<br/>
 		<div align="center">
@@ -25,10 +24,10 @@
 		<div align="center">
 		    <h:panelGrid id="grid" columns="3" cellpadding="4">
 		    	<h:outputText id="labelUserName" value="Nombre de usuario" /> 
-		    	<p:inputText id="inputUserName" size="20" maxlength="50" required="true" value="#{loginBean.inputUserName}" /> 
+		    	<p:inputText id="inputUserName" size="30" maxlength="50" required="true" value="#{loginBean.inputUserName}" /> 
 		    	<p:message for="inputUserName" /> 
 		    	<h:outputText id="labelPassword" value="Contraseña" /> 
-		    	<p:password id="inputPassword" size="20" maxlength="20" required="true" value="#{loginBean.inputPassword}"/>
+		    	<p:password id="inputPassword" size="30" maxlength="20" required="true" value="#{loginBean.inputPassword}"/>
 				<p:message for="inputPassword" />     	
 		    </h:panelGrid> 
 		    <br/> 
