@@ -45,6 +45,7 @@
 						<clientInclude>**/kallsonnys/**/*Bean*</clientInclude>
 						<clientInclude>**/dao/**/*DAO*</clientInclude>
 						<clientInclude>**/mapper/**/*Mapper*</clientInclude>
+						<clientInclude>**/mdb/**/*MDB*</clientInclude>
 					</clientExcludes>
 				</configuration>
 			</plugin>
@@ -96,6 +97,13 @@
 		</dependency>
 
 		<dependency>
+			<groupId>org.kallsonys.oms.security</groupId>
+			<artifactId>COM-KallsonnysOMS-Security</artifactId>
+			<type>ejb-client</type>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
 			<groupId>javax.ejb</groupId>
 			<artifactId>ejb-api</artifactId>
 			<scope>provided</scope>
@@ -103,6 +111,13 @@
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		
+		
+		<dependency>
+			<groupId>org.jboss.spec.javax.jms</groupId>
+			<artifactId>jboss-jms-api_1.1_spec</artifactId>
 			<scope>provided</scope>
 		</dependency>
 
