@@ -27,6 +27,9 @@
 				<directory>config/security</directory>
 			</resource>
 			<resource>
+				<directory>config/mail</directory>
+			</resource>
+			<resource>
 				<directory>${project.build.sourceDirectory}</directory>
 				<includes>
 					<include>**/*.properties</include>
@@ -96,6 +99,18 @@
 						<configuration>
 							<descriptors>
 								<descriptor>assembly/assembly-enterprise.xml</descriptor>
+							</descriptors>
+						</configuration>
+					</execution>
+					<execution>
+						<id>jar-mail</id>
+						<phase>package</phase>
+						<goals>
+							<goal>attached</goal>
+						</goals>
+						<configuration>
+							<descriptors>
+								<descriptor>assembly/assembly-mail.xml</descriptor>
 							</descriptors>
 						</configuration>
 					</execution>
