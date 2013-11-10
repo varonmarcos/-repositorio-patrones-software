@@ -3,7 +3,7 @@ package org.kallsonnys.oms.dto;
 import org.kallsonnys.oms.enums.AddressTypeEnum;
 import org.kallsonnys.oms.enums.CountryEnum;
 
-public class AddressDTO extends BaseDTO {
+public class AddressDTO  extends BaseDTO {
 	
 	private static final long serialVersionUID = 1L;
 	
