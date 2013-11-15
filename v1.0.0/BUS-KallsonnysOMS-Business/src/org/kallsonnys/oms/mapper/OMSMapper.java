@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.kallsonnys.integration.util.WSConstants;
+import org.kallsonnys.oms.dto.AddressDTO;
 import org.kallsonnys.oms.dto.CampaignDTO;
 import org.kallsonnys.oms.dto.CustomerDTO;
 import org.kallsonnys.oms.dto.ItemDTO;
@@ -12,6 +14,7 @@ import org.kallsonnys.oms.dto.MailDTO;
 import org.kallsonnys.oms.dto.OrderDTO;
 import org.kallsonnys.oms.dto.ProductDTO;
 import org.kallsonnys.oms.dto.Top5DTO;
+import org.kallsonnys.oms.dto.agent.SoapMessageDTO;
 import org.kallsonnys.oms.enums.AddressTypeEnum;
 import org.kallsonnys.oms.enums.OrderStatusEnum;
 import org.kallsonnys.oms.services.customers.CustomersFacadeLocal;
@@ -36,8 +39,39 @@ public class OMSMapper {
 		customerDTO.setName(customer.getName());
 		customerDTO.setSurname(customer.getSurname());
 		customerDTO.setEmail(customer.getEmail());
+		customerDTO.setStatus(customer.getStatus());
 		return customerDTO;
 
+	}
+	
+	public static CustomerDTO mapCustomer(Customer customer) {
+		final CustomerDTO customerDTO = new CustomerDTO();
+
+		customerDTO.setId(customer.getId());
+		customerDTO.setName(customer.getName());
+		customerDTO.setSurname(customer.getSurname());
+		customerDTO.setEmail(customer.getEmail());
+		customerDTO.setCardType(customer.getCardType());
+		customerDTO.setPhoneNumber(customer.getPhoneNumber());
+		customerDTO.setCreditCardToken(customer.getCreditCardToken());
+		
+		for (Address address : customer.getCustomerAddress()) {
+			customerDTO.addCustomerAddress(mapAddress(address));
+		}
+		
+		return customerDTO;
+	}
+
+	private static AddressDTO mapAddress(Address address) {
+		AddressDTO addressDTO = new AddressDTO();
+		addressDTO.setId(address.getId());
+		addressDTO.setAddresstype(address.getAddresstype());
+		addressDTO.setStreet(address.getStreet());
+		addressDTO.setCountry(address.getCountry());
+		addressDTO.setStateName(address.getState().getName());
+		addressDTO.setCityName(address.getCity().getName());
+		addressDTO.setZip(address.getZip());
+		return addressDTO;
 	}
 
 	public static ProductDTO mapProduct(final Product product) {
@@ -103,6 +137,8 @@ public class OMSMapper {
 		
 		final OrderDTO orderDTO = new OrderDTO();
 		orderDTO.setId(order.getId());
+		orderDTO.setStatus(order.getStatus());
+		orderDTO.setShippingProvider(order.getShippingProvider());
 		orderDTO.setComments(order.getComments());
 		orderDTO.setOrderDate(order.getOrderDate());
 		orderDTO.setPrice(order.getPrice());
@@ -112,6 +148,9 @@ public class OMSMapper {
 
 	public static OrderDTO mapOrder(final Orders order) {
 		final OrderDTO orderDTO = new OrderDTO();
+		orderDTO.setId(order.getId());
+		orderDTO.setStatus(order.getStatus());
+		orderDTO.setShippingProvider(order.getShippingProvider());
 		orderDTO.setComments(order.getComments());
 		orderDTO.setOrderDate(order.getOrderDate());
 		orderDTO.setPrice(order.getPrice());
@@ -135,6 +174,19 @@ public class OMSMapper {
 		itemDTO.setQuantity(item.getQuantity());
 		itemDTO.setPrice(item.getPrice());
 		return itemDTO;
+	}
+	
+	public static SoapMessageDTO createShippingProviderMessageForStatus(Orders order){
+		
+		SoapMessageDTO soapMessageDTO = new SoapMessageDTO();
+		
+		soapMessageDTO.setServiceDir(WSConstants.DHL_SERVICE_URI);
+		soapMessageDTO.setServiceOp(WSConstants.DHL_SERVICE_OP_CHECK_SHIPMENT);
+		soapMessageDTO.setServiceTempl(WSConstants.DHL_SERVICE_TEMPL_CHECK_SHIPMENT);
+		soapMessageDTO.addParam("orderId", order.getId());
+		
+		return soapMessageDTO;
+		
 	}
 
 	public static MailDTO createOrderEmail(final Orders order) {

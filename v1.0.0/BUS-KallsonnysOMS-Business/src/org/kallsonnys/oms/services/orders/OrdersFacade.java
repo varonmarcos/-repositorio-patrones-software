@@ -17,5 +17,9 @@ public interface OrdersFacade {
 	TableResultDTO<OrderDTO> getOrdersList(TableFilterDTO filter);
 
 	OrderDTO getOrderDetail(Long orderId);
+
+	OrderDTO fabricOrder(OrderDTO orderDTO, ShipmentCotizationDTO shipmentCotizationDTO);
+
+	OrderDTO sendOrder(OrderDTO orderDTO);
 	
 }
