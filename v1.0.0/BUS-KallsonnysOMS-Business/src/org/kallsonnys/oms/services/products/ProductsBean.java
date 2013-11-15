@@ -12,6 +12,7 @@ import org.kallsonnys.oms.dto.ProductDTO;
 import org.kallsonnys.oms.dto.TableFilterDTO;
 import org.kallsonnys.oms.dto.TableResultDTO;
 import org.kallsonnys.oms.mapper.OMSMapper;
+import org.kallsonys.oms.commons.image.ImagesLoadManager;
 import org.kallsonys.oms.entities.products.Product;
 import org.kallsonys.oms.entities.products.Top5;
 
@@ -52,12 +53,61 @@ public class ProductsBean implements ProductsRemote, ProductsLocal {
 		product.setPrice(productDTO.getPrice());
 		product.setProducer(productDTO.getProducer());
 		
+		String image_full_url = null;
 		if(productDTO.getProduct_image_full().length>0){
-			
+			image_full_url = ImagesLoadManager.getInstance().uploadJPG(productDTO.getProduct_image_full(), productDTO.getName());
 		}
+		
+		product.setImage_url_full(image_full_url);
+		
+		String image_full_thumbl = null;
+		if(productDTO.getProduct_image_thumb().length>0){
+			image_full_thumbl = ImagesLoadManager.getInstance().uploadJPG(productDTO.getProduct_image_thumb(), productDTO.getName());
+		}
+		
+		product.setImage_url_thumb(image_full_thumbl);
 		
 		em.persist(product);
 		
+		
+		return productDTO;
+		
+	}
+	
+	public ProductDTO updateProduct(ProductDTO productDTO){
+		
+		Product product = em.find(Product.class, productDTO.getId());
+		
+		
+		if(!product.getName().equals(productDTO.getName())){
+			
+		}
+		
+		product.setName(productDTO.getName());
+		product.setDescription(productDTO.getDescription());
+		product.setCategory(productDTO.getCategory());
+		product.setPrice(productDTO.getPrice());
+		product.setProducer(productDTO.getProducer());
+		
+		String image_full_url = null;
+		if(productDTO.getProduct_image_full().length>0){
+			image_full_url = ImagesLoadManager.getInstance().uploadJPG(productDTO.getProduct_image_full(), productDTO.getName());
+		}
+		
+		product.setImage_url_full(image_full_url);
+		productDTO.setImage_url_full(image_full_url);
+		productDTO.setProduct_image_full(null);
+		
+		String image_full_thumbl = null;
+		if(productDTO.getProduct_image_thumb().length>0){
+			image_full_thumbl = ImagesLoadManager.getInstance().uploadJPG(productDTO.getProduct_image_thumb(), productDTO.getName());
+		}
+		
+		product.setImage_url_thumb(image_full_thumbl);
+		productDTO.setImage_url_full(image_full_thumbl);
+		productDTO.setProduct_image_thumb(null);
+		
+		em.persist(product);
 		
 		return productDTO;
 		
