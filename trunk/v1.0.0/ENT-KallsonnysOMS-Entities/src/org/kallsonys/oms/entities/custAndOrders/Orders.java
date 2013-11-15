@@ -145,7 +145,7 @@ public class Orders extends AbstractEntity {
 	public void removeItem(Item item) {
 		if (item == null) return;
 		getItems().remove(item);
-		item.setOrder(this);
+		item.setOrder(null);
 	}
 	
 	/**
