@@ -21,17 +21,39 @@
 	<wsdl:message name="ProductFault">
 		<wsdl:part name="ProductRequestFault" element="typens:ProductException"></wsdl:part>
 	</wsdl:message>
+	<wsdl:message name="getProductDetailRequest">
+		<wsdl:part name="getProductDetailRequest" element="typens:getProductDetailId"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="getProductDetailResponse">
+		<wsdl:part name="getProductDetailResponse" element="typens:productDetailResponse"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="getProductDetailFault">
+		<wsdl:part name="getProductDetailFault" element="typens:ProductException"></wsdl:part>
+	</wsdl:message>
 	<wsdl:portType name="ProductServices">
 		<wsdl:operation name="getProducts">
 			<wsdl:input message="tns:getProductsRequest" />
 			<wsdl:output message="tns:getProductsResponse" />
             <wsdl:fault name="fault" message="tns:ProductFault"></wsdl:fault>
         </wsdl:operation>
+		<wsdl:operation name="getProductDetail">
+			<wsdl:input message="tns:getProductDetailRequest"></wsdl:input>
+			<wsdl:output message="tns:getProductDetailResponse"></wsdl:output>
+            <wsdl:fault name="fault" message="tns:getProductDetailFault"></wsdl:fault>
+        </wsdl:operation>
 	</wsdl:portType>
 	<wsdl:binding name="ProductServicesSOAP" type="tns:ProductServices">
 		<soap:binding style="document"
 			transport="http://schemas.xmlsoap.org/soap/http" />
 		<wsdl:operation name="getProducts">
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getProductDetail">
 			<wsdl:input>
 				<soap:body use="literal" />
 			</wsdl:input>

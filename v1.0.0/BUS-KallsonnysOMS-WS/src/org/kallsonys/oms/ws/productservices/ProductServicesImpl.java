@@ -15,6 +15,8 @@ import org.kallsonys.oms.commons.locator.ServiceLocator;
 import org.kallsonys.oms.ws.mapper.WSMapper;
 
 import com.integration.kallsonys.kallsonysschema.types.PagingDto;
+import com.integration.kallsonys.kallsonysschema.types.Product;
+import com.integration.kallsonys.kallsonysschema.types.ProductDetailId;
 import com.integration.kallsonys.kallsonysschema.types.ProductList;
 
 /**
@@ -48,9 +50,28 @@ public class ProductServicesImpl implements ProductServices {
         	return productList;
 			
 		} catch (Exception e) {
-			throw new ProductFault("OCURRIO UN ERROR GENERAL EN LA OPERACION:getProducts", e);
+			throw new ProductFault("OCURRIO UN ERROR GENERAL OBTENIENDO LOS PRODUCTOS", e);
 		}finally{
 			logger.info("getProducts:Operation finish");
+		}
+		
+	}
+
+	public Product getProductDetail(ProductDetailId getProductDetailRequest)
+			throws GetProductDetailFault {
+		try {
+
+			logger.info("getProductDetail:Operation start");
+			
+			ProductsRemote productsBeanRemote = ServiceLocator.getInstance().getRemoteObject("ProductsBean");
+			ProductDTO productDTO = productsBeanRemote.getProductDetail(Long.parseLong(getProductDetailRequest.getId()));
+			
+			return WSMapper.mapProduct(productDTO);
+
+		} catch (Exception e) {
+			throw new GetProductDetailFault("OCURRIO UN ERROR GENERAL AL OBTENER EL DETALLE DEL PRODUCTO", e);
+		} finally {
+			logger.info("getProductDetail:Operation finish");
 		}
 		
 	}

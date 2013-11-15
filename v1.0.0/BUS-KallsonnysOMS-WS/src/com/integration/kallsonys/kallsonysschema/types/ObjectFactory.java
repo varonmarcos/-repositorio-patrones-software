@@ -37,12 +37,14 @@ public class ObjectFactory {
     private final static QName _OrderException_QNAME = new QName("http://kallsonys.integration.com/kallsonysschema/types", "OrderException");
     private final static QName _InfoIntialLogin_QNAME = new QName("http://kallsonys.integration.com/kallsonysschema/types", "infoIntialLogin");
     private final static QName _InfoCustomerUpdated_QNAME = new QName("http://kallsonys.integration.com/kallsonysschema/types", "infoCustomerUpdated");
+    private final static QName _GetProductDetailId_QNAME = new QName("http://kallsonys.integration.com/kallsonysschema/types", "getProductDetailId");
     private final static QName _InfoProductList_QNAME = new QName("http://kallsonys.integration.com/kallsonysschema/types", "infoProductList");
     private final static QName _InfoLogin_QNAME = new QName("http://kallsonys.integration.com/kallsonysschema/types", "infoLogin");
     private final static QName _ProductException_QNAME = new QName("http://kallsonys.integration.com/kallsonysschema/types", "ProductException");
     private final static QName _GetCustomerInfoEmail_QNAME = new QName("http://kallsonys.integration.com/kallsonysschema/types", "getCustomerInfoEmail");
     private final static QName _InfoCampaignList_QNAME = new QName("http://kallsonys.integration.com/kallsonysschema/types", "infoCampaignList");
     private final static QName _InfoProduct_QNAME = new QName("http://kallsonys.integration.com/kallsonysschema/types", "infoProduct");
+    private final static QName _ProductDetailResponse_QNAME = new QName("http://kallsonys.integration.com/kallsonysschema/types", "productDetailResponse");
     private final static QName _InfoDescriptionResponse_QNAME = new QName("http://kallsonys.integration.com/kallsonysschema/types", "infoDescriptionResponse");
 
     /**
@@ -50,6 +52,14 @@ public class ObjectFactory {
      * 
      */
     public ObjectFactory() {
+    }
+
+    /**
+     * Create an instance of {@link DescriptionResponse }
+     * 
+     */
+    public DescriptionResponse createDescriptionResponse() {
+        return new DescriptionResponse();
     }
 
     /**
@@ -61,43 +71,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link PagingDto }
-     * 
-     */
-    public PagingDto createPagingDto() {
-        return new PagingDto();
-    }
-
-    /**
-     * Create an instance of {@link OrderItem }
-     * 
-     */
-    public OrderItem createOrderItem() {
-        return new OrderItem();
-    }
-
-    /**
-     * Create an instance of {@link OrderList }
-     * 
-     */
-    public OrderList createOrderList() {
-        return new OrderList();
-    }
-
-    /**
      * Create an instance of {@link Severity }
      * 
      */
     public Severity createSeverity() {
         return new Severity();
-    }
-
-    /**
-     * Create an instance of {@link ProductList }
-     * 
-     */
-    public ProductList createProductList() {
-        return new ProductList();
     }
 
     /**
@@ -109,6 +87,46 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ProductDetailId }
+     * 
+     */
+    public ProductDetailId createProductDetailId() {
+        return new ProductDetailId();
+    }
+
+    /**
+     * Create an instance of {@link ProductList }
+     * 
+     */
+    public ProductList createProductList() {
+        return new ProductList();
+    }
+
+    /**
+     * Create an instance of {@link OrderList }
+     * 
+     */
+    public OrderList createOrderList() {
+        return new OrderList();
+    }
+
+    /**
+     * Create an instance of {@link Filterlist }
+     * 
+     */
+    public Filterlist createFilterlist() {
+        return new Filterlist();
+    }
+
+    /**
+     * Create an instance of {@link PagingDto }
+     * 
+     */
+    public PagingDto createPagingDto() {
+        return new PagingDto();
+    }
+
+    /**
      * Create an instance of {@link Campaign }
      * 
      */
@@ -117,19 +135,27 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link PagingFilterItem }
+     * Create an instance of {@link Order }
      * 
      */
-    public PagingFilterItem createPagingFilterItem() {
-        return new PagingFilterItem();
+    public Order createOrder() {
+        return new Order();
     }
 
     /**
-     * Create an instance of {@link CustomerInfoEmail }
+     * Create an instance of {@link GlobalException }
      * 
      */
-    public CustomerInfoEmail createCustomerInfoEmail() {
-        return new CustomerInfoEmail();
+    public GlobalException createGlobalException() {
+        return new GlobalException();
+    }
+
+    /**
+     * Create an instance of {@link InitialLoginDTO }
+     * 
+     */
+    public InitialLoginDTO createInitialLoginDTO() {
+        return new InitialLoginDTO();
     }
 
     /**
@@ -149,35 +175,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link InitialLoginDTO }
+     * Create an instance of {@link PagingFilterItem }
      * 
      */
-    public InitialLoginDTO createInitialLoginDTO() {
-        return new InitialLoginDTO();
-    }
-
-    /**
-     * Create an instance of {@link GlobalException }
-     * 
-     */
-    public GlobalException createGlobalException() {
-        return new GlobalException();
-    }
-
-    /**
-     * Create an instance of {@link DescriptionResponse }
-     * 
-     */
-    public DescriptionResponse createDescriptionResponse() {
-        return new DescriptionResponse();
-    }
-
-    /**
-     * Create an instance of {@link Filterlist }
-     * 
-     */
-    public Filterlist createFilterlist() {
-        return new Filterlist();
+    public PagingFilterItem createPagingFilterItem() {
+        return new PagingFilterItem();
     }
 
     /**
@@ -186,14 +188,6 @@ public class ObjectFactory {
      */
     public Customer createCustomer() {
         return new Customer();
-    }
-
-    /**
-     * Create an instance of {@link Order }
-     * 
-     */
-    public Order createOrder() {
-        return new Order();
     }
 
     /**
@@ -210,6 +204,22 @@ public class ObjectFactory {
      */
     public LoginDTO createLoginDTO() {
         return new LoginDTO();
+    }
+
+    /**
+     * Create an instance of {@link CustomerInfoEmail }
+     * 
+     */
+    public CustomerInfoEmail createCustomerInfoEmail() {
+        return new CustomerInfoEmail();
+    }
+
+    /**
+     * Create an instance of {@link OrderItem }
+     * 
+     */
+    public OrderItem createOrderItem() {
+        return new OrderItem();
     }
 
     /**
@@ -330,6 +340,15 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ProductDetailId }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://kallsonys.integration.com/kallsonysschema/types", name = "getProductDetailId")
+    public JAXBElement<ProductDetailId> createGetProductDetailId(ProductDetailId value) {
+        return new JAXBElement<ProductDetailId>(_GetProductDetailId_QNAME, ProductDetailId.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link ProductList }{@code >}}
      * 
      */
@@ -381,6 +400,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://kallsonys.integration.com/kallsonysschema/types", name = "infoProduct")
     public JAXBElement<Product> createInfoProduct(Product value) {
         return new JAXBElement<Product>(_InfoProduct_QNAME, Product.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Product }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://kallsonys.integration.com/kallsonysschema/types", name = "productDetailResponse")
+    public JAXBElement<Product> createProductDetailResponse(Product value) {
+        return new JAXBElement<Product>(_ProductDetailResponse_QNAME, Product.class, null, value);
     }
 
     /**

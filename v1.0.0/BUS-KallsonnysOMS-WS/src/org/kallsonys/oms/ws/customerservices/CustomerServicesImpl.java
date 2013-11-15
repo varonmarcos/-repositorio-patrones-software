@@ -7,10 +7,13 @@ package org.kallsonys.oms.ws.customerservices;
 
 import java.util.logging.Logger;
 
+import org.kallsonnys.oms.dto.CustomerDTO;
 import org.kallsonnys.oms.dto.security.IntialCustomerLoginDTO;
 import org.kallsonnys.oms.services.customers.CustomersFacadeRemote;
+import org.kallsonys.oms.commons.Exception.OMSException;
 import org.kallsonys.oms.commons.locator.ServiceLocator;
 import org.kallsonys.oms.ws.mapper.WSMapper;
+import org.kallsonys.oms.ws.orderservices.GetOrdersFault;
 
 import com.integration.kallsonys.kallsonysschema.types.Customer;
 import com.integration.kallsonys.kallsonysschema.types.CustomerInfoEmail;
@@ -47,13 +50,20 @@ public class CustomerServicesImpl implements CustomerServices {
 
 			Customer customer = new Customer();
 			customer.setEmail(customerLogin.getCustomer().getEmail());
-			customer.setName(customerLogin.getCustomer().getName() + " "+ customerLogin.getCustomer().getSurname());
+			customer.setName(customerLogin.getCustomer().getName() + " "
+					+ customerLogin.getCustomer().getSurname());
 			initialLoginDTO.setCustomerInfo(customer);
 			initialLoginDTO.setTgt(customerLogin.getServiceTicket());
 
 			return initialLoginDTO;
 
-		} finally {
+		} catch (java.lang.Exception ex) {
+			 ex.printStackTrace();
+			if(ex.getCause() instanceof OMSException){
+				 throw new GetInitialLoginInfoFault(ex.getCause().getMessage());
+			}
+            throw new GetInitialLoginInfoFault("OCURRIO UN ERROR INESPERADO EN LISTADO DE LAS ORDENES");
+        }finally {
 			logger.info("getInitialLoginInfo:Operation finish");
 		}
 
@@ -62,26 +72,57 @@ public class CustomerServicesImpl implements CustomerServices {
 	public Customer createCustomer(Customer customer)
 			throws CreateCustomerFault {
 
-		CustomersFacadeRemote customersFacadeRemote = ServiceLocator
-				.getInstance().getRemoteObject("CustomersBean");
-		
-		customersFacadeRemote.createCustomer(WSMapper.mapCustomerDTO(customer));
-		
-		return customer;
+		try {
+
+			logger.info("createCustomer:Operation start");
+
+			CustomersFacadeRemote customersFacadeRemote = ServiceLocator
+					.getInstance().getRemoteObject("CustomersBean");
+
+			customersFacadeRemote.createCustomer(WSMapper
+					.mapCustomerDTO(customer));
+
+			return customer;
+
+		} finally {
+			logger.info("createCustomer:Operation finish");
+		}
 	}
 
-	
-	public Customer getCustomerInfo( CustomerInfoEmail getCustomerInfoRequest)
+	public Customer getCustomerInfo(CustomerInfoEmail getCustomerInfoRequest)
 			throws GetCustomerInfoFault {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+
+			logger.info("getCustomerInfo:Operation start");
+
+			CustomersFacadeRemote customersFacadeRemote = ServiceLocator
+					.getInstance().getRemoteObject("CustomersBean");
+
+			CustomerDTO customerDTO = customersFacadeRemote.getCustomerDetail(getCustomerInfoRequest.getEmail());
+			
+			return WSMapper.mapCustomer(customerDTO);
+			
+
+		} finally {
+			logger.info("getCustomerInfo:Operation finish");
+		}
 	}
 
-	
 	public Customer updateCustomer(Customer updateCustomerResquest)
 			throws UpdateCustomerFault {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+
+			logger.info("getCustomerInfo:Operation start");
+
+			CustomerDTO customerDTO = WSMapper.mapCustomerDTO(updateCustomerResquest);
+			
+			CustomersFacadeRemote customersFacadeRemote = ServiceLocator
+					.getInstance().getRemoteObject("CustomersBean");
+			
+			return WSMapper.mapCustomer(customersFacadeRemote.updateCustomer(customerDTO));
+		} finally {
+			logger.info("getCustomerInfo:Operation finish");
+		}
 	}
 
 }
