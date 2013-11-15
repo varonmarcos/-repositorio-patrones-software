@@ -57,8 +57,6 @@ public class OrderServicesImpl implements OrderServices {
 
   
     public OrderList getOrders(PagingDto pagingDto) throws GetOrdersFault    { 
-        logger.info("Executing operation getOrders");
-   
         try {
         	
         	logger.info("getOrders:Operation start");

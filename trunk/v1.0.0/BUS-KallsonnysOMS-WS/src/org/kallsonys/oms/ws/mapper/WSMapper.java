@@ -37,35 +37,47 @@ import com.integration.kallsonys.kallsonysschema.types.Top5;
 public class WSMapper {
 
 	public static TableFilterDTO mapTableFilterDTO(PagingDto pagingDto) {
-
+		
 		TableFilterDTO filterDTO = new TableFilterDTO();
-
-		if (pagingDto.getStartPage() == null) {
+		if(pagingDto==null){
 			filterDTO.setStart(1);
-		} else {
-			filterDTO.setStart(Integer.valueOf(pagingDto.getStartPage()));
-		}
-
-		if (pagingDto.getMaxSize() == null) {
 			filterDTO.setPageSize(30);
-		} else {
-			filterDTO.setPageSize(Integer.valueOf(pagingDto.getMaxSize()));
-		}
-
-		if (pagingDto.getColumnSorter() == null) {
 			filterDTO.setColumnSorter(ID);
-		} else {
-			filterDTO.setColumnSorter(pagingDto.getColumnSorter());
-		}
-
-		if (pagingDto.getFilter() != null) {
-			for (PagingFilterItem pagingFilterItem : pagingDto.getFilter()
-					.getParams()) {
-				filterDTO.addFilter(pagingFilterItem.getKey(),
-						pagingFilterItem.getValue());
+		}else{
+			
+			if (pagingDto.getStartPage() == null || pagingDto.getStartPage().equals("")) {
+				filterDTO.setStart(1);
+			} else {
+				filterDTO.setStart(Integer.valueOf(pagingDto.getStartPage()));
 			}
-
+			
+			if (pagingDto.getMaxSize() == null || pagingDto.getMaxSize().equals("")) {
+				filterDTO.setPageSize(30);
+			} else {
+				filterDTO.setPageSize(Integer.valueOf(pagingDto.getMaxSize()));
+			}
+			
+			if (pagingDto.getColumnSorter() == null || pagingDto.getColumnSorter().equals("")) {
+				filterDTO.setColumnSorter(ID);
+			} else {
+				filterDTO.setColumnSorter(pagingDto.getColumnSorter());
+			}
+			
+			if (pagingDto.getFilter() != null) {
+				for (PagingFilterItem pagingFilterItem : pagingDto.getFilter()
+						.getParams()) {
+					if (pagingFilterItem.getKey() != null
+							&& !pagingFilterItem.getKey().equals("")
+							&& pagingFilterItem.getValue() != null
+							&& !pagingFilterItem.getValue().equals("")) {
+						filterDTO.addFilter(pagingFilterItem.getKey(),
+								pagingFilterItem.getValue());
+					}
+				}
+				
+			}
 		}
+
 
 		return filterDTO;
 	}
@@ -180,7 +192,7 @@ public class WSMapper {
 		addressDTO.setAddresstype(type);
 		addressDTO.setStreet(address.getStreet());
 		addressDTO.setZip(address.getZip());
-		addressDTO.setCountry(CountryEnum.valueOf(address.getCountry()));
+		addressDTO.setCountry(CountryEnum.valueOf(address.getCountry().toUpperCase()));
 		addressDTO.setStateName(address.getState());
 		addressDTO.setCityName(address.getCity());
 		
@@ -249,6 +261,8 @@ public class WSMapper {
 	
 	public static Order mapOrder(OrderDTO orderDTO) {
 		Order order = new Order();
+		order.setId(orderDTO.getId().toString());
+		order.setStatus(orderDTO.getStatus().toString());
 		order.setComment(orderDTO.getComments());
 		order.setDate(DateUtil.parseDate(orderDTO.getOrderDate()));
 		order.setTotalPrice(orderDTO.getPrice().toString());
@@ -276,5 +290,36 @@ public class WSMapper {
 		orderItem.setTotal(itemDTO.getPrice().toString());
 		return orderItem;
 	}
+
+	public static Customer mapCustomer(CustomerDTO customerDTO) {
+		Customer customer = new Customer();
+		customer.setName(customerDTO.getName());
+		customer.setSurname(customerDTO.getSurname());
+		customer.setCreditCardType(customerDTO.getCardType().toString());
+		customer.setCreditCardToken(customerDTO.getCreditCardToken());
+		customer.setEmail(customerDTO.getEmail());
+		customer.setPhoneNumber(customerDTO.getPhoneNumber());
+		customer.setBillTo(mapAddress(customerDTO.getCustomerAddress(), AddressTypeEnum.BILLING_ADDRESS));
+		customer.setShipTo(mapAddress(customerDTO.getCustomerAddress(), AddressTypeEnum.SHIPPING_ADDRESS));
+		return customer;
+	}
+
+	private static Address mapAddress(List<AddressDTO> customerAddress, AddressTypeEnum addressType) {
+		Address address = null;
+		for (AddressDTO addressDTO : customerAddress) {
+			if(addressDTO.getAddresstype() == addressType){
+				address = new Address();
+				address.setId(addressDTO.getId().toString());
+				address.setStreet(addressDTO.getStreet());
+				address.setCountry(addressDTO.getCountry().toString());
+				address.setState(address.getState());
+				address.setCity(addressDTO.getCityName());
+				address.setZip(addressDTO.getZip());
+			}
+		}
+		return address;
+	}
+	
+	
 
 }

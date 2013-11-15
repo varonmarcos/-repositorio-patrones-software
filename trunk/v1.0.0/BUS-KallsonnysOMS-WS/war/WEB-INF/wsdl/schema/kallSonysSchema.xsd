@@ -5,6 +5,8 @@
 	elementFormDefault="qualified">
 
 	<element name="infoProduct" type="tns:product"></element>
+	
+	<element name="productDetailResponse" type="tns:product"></element>
 
 	<complexType name="product">
 		<sequence>
@@ -54,6 +56,15 @@
 			<element name="id" type="string"></element>
 		</sequence>
 	</complexType>
+	
+	<element name="getProductDetailId" type="tns:productDetailId"></element>
+
+	<complexType name="productDetailId">
+		<sequence>
+			<element name="id" type="string"></element>
+		</sequence>
+	</complexType>
+	
 
 	<element name="infoCustomerUpdated" type="tns:customer"></element>
 
