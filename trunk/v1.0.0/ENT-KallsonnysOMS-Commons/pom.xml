@@ -34,6 +34,29 @@
 			<artifactId>jboss-jms-api_1.1_spec</artifactId>
 			<scope>provided</scope>
 		</dependency>
+
+			<dependency>
+				<groupId>com.google.apis</groupId>
+				<artifactId>google-api-services-drive</artifactId>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-io</artifactId>
+			</dependency>
+			<dependency>
+				<groupId>com.google.api-client</groupId>
+				<artifactId>google-api-client</artifactId>
+			</dependency>
+			<dependency>
+				<groupId>com.google.http-client</groupId>
+				<artifactId>google-http-client-jackson</artifactId>
+			</dependency>
+			<dependency>
+				<groupId>com.google.http-client</groupId>
+				<artifactId>google-http-client</artifactId>
+			</dependency>
+
+		
 		<dependency>
 			<groupId>org.kallsonys.oms.dto</groupId>
 			<artifactId>ENT-KallsonnysOMS-DTO</artifactId>
