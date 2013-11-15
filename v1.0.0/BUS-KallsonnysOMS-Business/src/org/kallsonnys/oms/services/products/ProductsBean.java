@@ -52,7 +52,7 @@ public class ProductsBean implements ProductsRemote, ProductsLocal {
 		product.setPrice(productDTO.getPrice());
 		product.setProducer(productDTO.getProducer());
 		
-		if(productDTO.getProduct_image().length>0){
+		if(productDTO.getProduct_image_full().length>0){
 			
 		}
 		
