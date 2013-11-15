@@ -180,5 +180,10 @@
 			<type>ejb-client</type>
 		</dependency>
 		
+		<dependency>
+			<groupId>org.kallsonys.oms.integration</groupId>
+			<artifactId>INT-KallsonnysOMS-ServiceAgent</artifactId>
+		</dependency>
+		
 	</dependencies>
 </project>

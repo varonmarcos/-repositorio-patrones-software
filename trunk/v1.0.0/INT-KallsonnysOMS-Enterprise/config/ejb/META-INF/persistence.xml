@@ -17,11 +17,13 @@
 		<class>org.kallsonys.oms.entities.custAndOrders.Item</class>
 		<class>org.kallsonys.oms.entities.custAndOrders.Orders</class>
 		<class>org.kallsonys.oms.entities.custAndOrders.Campaign</class>
+		<class>org.kallsonys.oms.entities.custAndOrders.servientrega.Kallsonys_Items</class>
+		<class>org.kallsonys.oms.entities.custAndOrders.servientrega.Kallsonys_Shipment</class>
 		
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 
 		<properties>
-			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.OracleDialect" />
 
 			<property name="hibernate.hbm2ddl.auto" value="update" />
 
