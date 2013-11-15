@@ -32,6 +32,8 @@
 		<camel:route handleFault="true">
 
 			<camel:from uri="cxf:bean:CustomerServicesEndpoint" />
+			
+			<to uri="log:input" />
 
 			<setHeader headerName="operationName">
 				<simple>${header.operationName}</simple>

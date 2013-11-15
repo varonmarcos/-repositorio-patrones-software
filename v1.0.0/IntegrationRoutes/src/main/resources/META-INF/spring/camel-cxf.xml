@@ -9,48 +9,67 @@
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
        http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd">
 
+	<bean id="cleanHeadersInterceptor"
+		class="org.kallsonnys.integration.interceptors.CleanHeadersInterceptor" />
+
+
 	<!-- Web Services End Point -->
 	<cxf:cxfEndpoint id="ProductServicesEndpoint"
-		address="http://localhost:8181/cxf/ProductServicesWS" endpointName="s:ProductServicesSOAP"
-		serviceName="s:ProductServices" wsdlURL="http://localhost:8181/cxf/ProductServicesWS?wsdl"
+		address="http://192.168.0.103:8181/cxf/ProductServicesWS"
+		endpointName="s:ProductServicesSOAP" serviceName="s:ProductServices"
+		wsdlURL="http://192.168.0.103:8181/cxf/ProductServicesWS?wsdl"
 		xmlns:s="http://kallsonys.integration.com/productservices">
 		<cxf:properties>
 			<entry key="dataFormat" value="PAYLOAD" />
 		</cxf:properties>
+		<cxf:inInterceptors>
+			<ref bean="cleanHeadersInterceptor" />
+		</cxf:inInterceptors>
 	</cxf:cxfEndpoint>
 
 	<cxf:cxfEndpoint id="CustomerServicesEndpoint"
-		address="http://localhost:8181/cxf/CustomerServicesWS" endpointName="s:CustomerServicesSOAP"
-		serviceName="s:CustomerServices" wsdlURL="http://localhost:8181/cxf/CustomerServicesWS?wsdl"
+		address="http://192.168.0.103:8181/cxf/CustomerServicesWS"
+		endpointName="s:CustomerServicesSOAP" serviceName="s:CustomerServices"
+		wsdlURL="http://192.168.0.103:8181/cxf/CustomerServicesWS?wsdl"
 		xmlns:s="http://kallsonys.integration.com/customerservices">
 		<cxf:properties>
 			<entry key="dataFormat" value="PAYLOAD" />
 		</cxf:properties>
+		<cxf:inInterceptors>
+			<ref bean="cleanHeadersInterceptor" />
+		</cxf:inInterceptors>
 	</cxf:cxfEndpoint>
 
 	<cxf:cxfEndpoint id="CampaignServicesEndpoint"
-		address="http://localhost:8181/cxf/CampaignServicesWS" endpointName="s:CampaignServicesSOAP"
-		serviceName="s:CampaignServices" wsdlURL="http://localhost:8181/cxf/CampaignServicesWS?wsdl"
+		address="http://192.168.0.103:8181/cxf/CampaignServicesWS"
+		endpointName="s:CampaignServicesSOAP" serviceName="s:CampaignServices"
+		wsdlURL="http://192.168.0.103:8181/cxf/CampaignServicesWS?wsdl"
 		xmlns:s="http://kallsonys.integration.com/campaignservices">
 		<cxf:properties>
 			<entry key="dataFormat" value="PAYLOAD" />
 		</cxf:properties>
+		<cxf:inInterceptors>
+			<ref bean="cleanHeadersInterceptor" />
+		</cxf:inInterceptors>
 	</cxf:cxfEndpoint>
 
 	<cxf:cxfEndpoint id="OrderServicesEndpoint"
-		address="http://localhost:8181/cxf/OrderServicesWS" endpointName="s:OrderServicesSOAP"
-		serviceName="s:OrderServices" wsdlURL="http://localhost:8181/cxf/OrderServicesWS?wsdl"
+		address="http://192.168.0.103:8181/cxf/OrderServicesWS" endpointName="s:OrderServicesSOAP"
+		serviceName="s:OrderServices" wsdlURL="http://192.168.0.103:8181/cxf/OrderServicesWS?wsdl"
 		xmlns:s="http://kallsonys.integration.com/orderservices">
 		<cxf:properties>
 			<entry key="dataFormat" value="PAYLOAD" />
 		</cxf:properties>
+		<cxf:inInterceptors>
+			<ref bean="cleanHeadersInterceptor" />
+		</cxf:inInterceptors>
 	</cxf:cxfEndpoint>
 
 
 	<cxf:cxfEndpoint id="CustomerServicesOMSEndpoint"
-		address="http://localhost:8080/KallsonnysOMS-WS/CustomerServices"
+		address="http://192.168.0.103:8080/KallsonnysOMS-WS/CustomerServices"
 		endpointName="s:CustomerServicesSOAP" serviceName="s:CustomerServices"
-		wsdlURL="http://localhost:8080/KallsonnysOMS-WS/CustomerServices?wsdl"
+		wsdlURL="http://192.168.0.103:8080/KallsonnysOMS-WS/CustomerServices?wsdl"
 		xmlns:s="http://ws.oms.kallsonys.org/customerservices">
 		<cxf:properties>
 			<entry key="dataFormat" value="PAYLOAD" />
@@ -58,9 +77,9 @@
 	</cxf:cxfEndpoint>
 
 	<cxf:cxfEndpoint id="ProductServicesOMSEndpoint"
-		address="http://localhost:8080/KallsonnysOMS-WS/ProductServices"
+		address="http://192.168.0.103:8080/KallsonnysOMS-WS/ProductServices"
 		endpointName="s:ProductServicesSOAP" serviceName="s:ProductServices"
-		wsdlURL="http://localhost:8080/KallsonnysOMS-WS/ProductServices?wsdl"
+		wsdlURL="http://192.168.0.103:8080/KallsonnysOMS-WS/ProductServices?wsdl"
 		xmlns:s="http://ws.oms.kallsonys.org/productservices">
 		<cxf:properties>
 			<entry key="dataFormat" value="PAYLOAD" />
@@ -68,9 +87,9 @@
 	</cxf:cxfEndpoint>
 
 	<cxf:cxfEndpoint id="CampaignServicesOMSEndpoint"
-		address="http://localhost:8080/KallsonnysOMS-WS/CampaignServices"
+		address="http://192.168.0.103:8080/KallsonnysOMS-WS/CampaignServices"
 		endpointName="s:CampaignServicesSOAP" serviceName="s:CampaignServices"
-		wsdlURL="http://localhost:8080/KallsonnysOMS-WS/CampaignServices?wsdl"
+		wsdlURL="http://192.168.0.103:8080/KallsonnysOMS-WS/CampaignServices?wsdl"
 		xmlns:s="http://ws.oms.kallsonys.org/campaignservices">
 		<cxf:properties>
 			<entry key="dataFormat" value="PAYLOAD" />
@@ -78,9 +97,9 @@
 	</cxf:cxfEndpoint>
 
 	<cxf:cxfEndpoint id="OrderServicesOMSEndpoint"
-		address="http://localhost:8080/KallsonnysOMS-WS/OrderServices"
+		address="http://192.168.0.103:8080/KallsonnysOMS-WS/OrderServices"
 		endpointName="s:OrderServicesSOAP" serviceName="s:OrderServices"
-		wsdlURL="http://localhost:8080/KallsonnysOMS-WS/OrderServices?wsdl"
+		wsdlURL="http://192.168.0.103:8080/KallsonnysOMS-WS/OrderServices?wsdl"
 		xmlns:s="http://ws.oms.kallsonys.org/orderservices">
 		<cxf:properties>
 			<entry key="dataFormat" value="PAYLOAD" />
