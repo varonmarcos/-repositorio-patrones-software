@@ -118,22 +118,22 @@ public class LDAPUserDAO extends LDAPBaseDAO {
 		return attributes;
 	}
 	
-	public void updateUserAndPassword(UserDTO user, String pwd) {
+	public void updateUserAndPassword(UserDTO userDTO, String pwd) {
 		logger.info("updateUserAndPassword(user, pwd)::started");
 
 		try {
 			validateDirContext();
 		
-
 			ModificationItem[] items = new ModificationItem[2];
-			items[0] = new ModificationItem(DirContext.REPLACE_ATTRIBUTE,new BasicAttribute(USER_ID_KEY, user.getEmail()));
+			items[0] = new ModificationItem(DirContext.REPLACE_ATTRIBUTE,new BasicAttribute(USER_ID_KEY, userDTO.getEmail()));
 			items[1] = new ModificationItem(DirContext.REPLACE_ATTRIBUTE,new BasicAttribute(USER_PASSWORD_KEY, pwd));
+			items[2] = new ModificationItem(DirContext.REPLACE_ATTRIBUTE,new BasicAttribute(USER_CN_KEY, userDTO.getName()));
+			items[3] = new ModificationItem(DirContext.REPLACE_ATTRIBUTE,new BasicAttribute(USER_SN_KEY, userDTO.getSurname()));
 
-			getDirContext().modifyAttributes(getUserDN(user), items);
+			getDirContext().modifyAttributes(getUserDN(userDTO), items);
 
 		} catch (Exception e) {
-			logger
-			.error("Exception while trying to update user and password entry in LDAP.", e);
+			logger.error("Exception while trying to update user and password entry in LDAP.", e);
 			throw new RuntimeException("ERROR IN LDAP",e);
 		} finally {
 			logger.info("updateUserAndPassword(user, pwd)::finished");
