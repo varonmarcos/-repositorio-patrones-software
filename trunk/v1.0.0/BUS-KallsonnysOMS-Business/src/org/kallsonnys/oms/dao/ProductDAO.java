@@ -62,24 +62,18 @@ public class ProductDAO implements BaseDAO {
 		final int pageSize = filter.getPageSize();
 		
 		final StringBuilder jpql = new StringBuilder();
-		jpql.append("SELECT prod FROM Product prod WHERE ");
+		jpql.append("SELECT prod FROM Product prod WHERE 1=1 ");
 		
 		if(prodId != null){
-			jpql.append("prod.prodId = :prodId ");
+			jpql.append("AND prod.prodId = :prodId ");
 		}
 		
-		if(prodName != null && !prodName.equals("")){
-			if(prodId != null){
-				jpql.append("AND ");
-			}
-			jpql.append("UPPER(prod.name) LIKE UPPER(:prodName) ");
+		if(prodName != null){
+			jpql.append("AND UPPER(prod.name) LIKE UPPER(:prodName) ");
 		}
 
-		if(desc != null && !desc.equals("")){
-			if((prodName != null && !prodName.equals("")) || prodId != null){
-				jpql.append("AND ");
-			}
-			jpql.append("UPPER(prod.description) LIKE UPPER(:desc) ");
+		if(desc != null){
+			jpql.append("AND UPPER(prod.description) LIKE UPPER(:desc) ");
 		}
 		
 		jpql.append(" ORDER BY ").append(columnSorter).append(" ").append(sorterType);
@@ -133,7 +127,7 @@ public class ProductDAO implements BaseDAO {
 		try {
 			
 			final Top5 top5 = (Top5) em
-					.createQuery("SELECT tp FROM Top5 WHERE tp.prodId = :prodId")
+					.createQuery("SELECT tp FROM Top5 tp WHERE tp.prodId = :prodId")
 					.setParameter("prodId", prodId).getSingleResult();
 			
 			return top5;

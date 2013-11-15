@@ -9,4 +9,6 @@ public interface ProductsFacade {
 
 	TableResultDTO<ProductDTO> getProductsList(TableFilterDTO filter);
 
+	ProductDTO getProductDetail(Long prodId);
+
 }

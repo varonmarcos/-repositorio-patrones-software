@@ -2,7 +2,6 @@ package org.kallsonnys.oms.services.products;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -29,6 +28,40 @@ public class ProductsBean implements ProductsRemote, ProductsLocal {
 	public ProductsBean() {
 		
 	}
+	
+	public ProductDTO getProductDetail(Long prodId){
+		productDAO.setEm(em);
+		Product product = productDAO.getProduct(prodId);
+		Top5 productTop5 = productDAO.getProductTop5(prodId);
+		
+		ProductDTO productDTO = OMSMapper.mapProduct(product);
+		if(productTop5!=null){
+			productDTO.setTop5(OMSMapper.mapTop5(productDAO.getTopProducts(productTop5)));			
+		}
+		
+		return productDTO;
+		
+	}
+	
+	public ProductDTO createProduct(ProductDTO productDTO){
+		
+		Product product = new Product();
+		product.setName(productDTO.getName());
+		product.setDescription(productDTO.getDescription());
+		product.setCategory(productDTO.getCategory());
+		product.setPrice(productDTO.getPrice());
+		product.setProducer(productDTO.getProducer());
+		
+		if(productDTO.getProduct_image().length>0){
+			
+		}
+		
+		em.persist(product);
+		
+		
+		return productDTO;
+		
+	}
 
     public TableResultDTO<ProductDTO> getProductsList(final TableFilterDTO filter){
     	
@@ -39,19 +72,9 @@ public class ProductsBean implements ProductsRemote, ProductsLocal {
     	tableResultDTO.setTotalOfRecords(products.getTotalOfRecords());
     	
     	final List<ProductDTO> productDTOs = new ArrayList<ProductDTO>(products.getResult().size());
-    	
-    	Map<Long, Top5> productsTop5 = productDAO.getProductsTop5(OMSMapper.getEntitiesAsList(products.getResult()));
-    	Top5 top5;
-    	ProductDTO productDTO;
+    
     	for (final Product product : products.getResult()) {
-    		
-    		productDTO = OMSMapper.mapProduct(product);
-    		top5 = productsTop5.get(product.getProdId());
-    		if(top5!=null){
-    			productDTO.setTop5(OMSMapper.mapTop5(productDAO.getTopProducts(top5)));    			
-    		}
-    		
-    		productDTOs.add(productDTO);
+    		productDTOs.add(OMSMapper.mapProduct(product));
 		}
     	
     	tableResultDTO.setResult(productDTOs);

@@ -15,4 +15,8 @@ public interface CustomersFacade {
 
 	Customer getCustomer(String email);
 
+	CustomerDTO getCustomerDetail(String email);
+
+	CustomerDTO updateCustomer(CustomerDTO customerDTO);
+
 }

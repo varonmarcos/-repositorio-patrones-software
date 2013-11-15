@@ -104,6 +104,12 @@
 		</dependency>
 
 		<dependency>
+			<groupId>org.kallsonys.oms.integration</groupId>
+			<artifactId>INT-KallsonnysOMS-ServiceAgent</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
 			<groupId>javax.ejb</groupId>
 			<artifactId>ejb-api</artifactId>
 			<scope>provided</scope>
@@ -113,8 +119,8 @@
 			<artifactId>log4j</artifactId>
 			<scope>provided</scope>
 		</dependency>
-		
-		
+
+
 		<dependency>
 			<groupId>org.jboss.spec.javax.jms</groupId>
 			<artifactId>jboss-jms-api_1.1_spec</artifactId>
