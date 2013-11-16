@@ -60,7 +60,7 @@ public class WelcomeBean implements Serializable {
 		        
 			}
 			model.addSubmenu(submenu);	
-			this.setUserLogin(userDto.getName() + " " + userDto.getSurname());
+			this.setUserLogin(userDto.getName());
 			
 		} catch (Exception e) {
 			System.out.println("ERROR: " + e.getMessage());

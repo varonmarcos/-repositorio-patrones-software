@@ -1,0 +1,47 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/templates/template.xhtml">
+	<ui:define name="metadata">
+	</ui:define>
+		<ui:define name="content">
+			<p:panel id="pnCreate" header="Crear Producto" toggleable="true" closable="true"  toggleSpeed="500" closeSpeed="500" widgetVar="panel2">
+				<h:panelGrid columns="2" cellpadding="5">
+					<h:outputText id="labelProId" value="Numero Producto" /> 
+			    	<p:inputText id="inputProId" size="30" maxlength="10" required="true" value="#{createProduct.inputProId}" />			
+					
+					<h:outputText id="labelName" value="Nombre Producto" /> 
+			    	<p:inputText id="inputName" size="30" maxlength="50" required="true" value="#{createProduct.inputName}" />
+			    	
+			    	<h:outputText id="labelDesc" value="Descipción Producto" /> 
+			    	<p:inputText id="inputDesc" size="30" maxlength="200" required="true" value="#{createProduct.inputDesc}" />
+			    	
+			    	<h:outputText id="labelCat" value="Categoria Producto" />                 
+	                <p:selectOneMenu value="#{createProduct.slCategory}" required="true" id="slCategory">  
+			            <f:selectItem itemLabel="Seleccione Uno" itemValue="" />  
+			            <f:selectItems value="#{createProduct.categorys}" />  
+			        </p:selectOneMenu>
+			    	
+			    	<h:outputText id="labelPrice" value="Precio Producto" /> 
+			    	<p:inputText id="inputPrice" size="30" maxlength="10" required="true" value="#{createProduct.inputPrice}" />
+			    	
+			    	<h:outputText id="labelProducer" value="Proveedor" /> 
+	                <p:selectOneMenu value="#{createProduct.slProveedor}" required="true" id="slProveedor">  
+			            <f:selectItem itemLabel="Seleccione Uno" itemValue="" />  
+			            <f:selectItems value="#{createProduct.producers}" />  
+			        </p:selectOneMenu>
+			    	
+			    	<h:outputText id="labelFileFull" value="Imagen Tamaño Grande" />	    			
+	    			<p:fileUpload fileUploadListener="#{createProduct.uploadFile}" mode="advanced" dragDropSupport="false"
+            					  update=":mainForm:msgs" auto="true" sizeLimit="100000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
+            					  multiple="true"/>	  
+						          
+					<br/> 
+					<p:commandButton value="Registrar" update=":mainForm:msgs" id="btRegProduct" actionListener="#{createProduct.create}"/> 
+				    	
+				</h:panelGrid>
+			</p:panel>
+		</ui:define>
+</ui:composition>

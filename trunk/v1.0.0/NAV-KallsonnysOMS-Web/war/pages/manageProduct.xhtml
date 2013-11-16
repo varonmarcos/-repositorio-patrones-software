@@ -1,0 +1,116 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/templates/template.xhtml">
+	<ui:define name="metadata">
+	</ui:define>
+		
+	<ui:define name="content">	    	
+    	    	
+    	<h:link value="Crear Producto" outcome="createProduct.xhtml"/>
+    		
+		<p:panel id="pnlist" header="Productos" toggleable="true" closable="true"  toggleSpeed="500" closeSpeed="500" widgetVar="panel">
+			<p:ajax event="toggle" />
+			
+			<p:dataTable id="dataTableProduct" var="prd" value="#{manageProduct.productos}"  
+		                 paginator="true" rows="10"  
+		                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" 
+		                 editable="true">  
+		        <f:facet name="header">  
+		        </f:facet>  
+		        
+		        <p:ajax event="rowEdit" listener="#{manageProduct.onEdit}" update=":mainForm:msgs" />  
+       			<p:ajax event="rowEditCancel" listener="#{manageProduct.onCancel}" update=":mainForm:msgs" />
+		  
+		        <p:column headerText="ID" style="width:5%">   
+		            <h:outputText value="#{prd.id}" />  
+		        </p:column>  
+		    	
+		    	<p:column headerText="Numero producto" style="width:5%">  
+		            <h:outputText value="#{prd.prodId}" />  
+		        </p:column>
+		    	
+		    	<p:column headerText="Nombre" style="width:30%">  
+		    		<p:cellEditor>  
+		                <f:facet name="output">  
+		                    <h:outputText value="#{prd.name}" />  
+		                </f:facet>  
+		                <f:facet name="input">  
+		                    <p:inputText value="#{prd.name}" style="width:100%"/>  
+		                </f:facet>  
+		            </p:cellEditor>  
+		        </p:column>
+		        
+		        <p:column headerText="Descripción" style="width:30%">  
+		         	<p:cellEditor>  
+		                <f:facet name="output">  
+		                    <h:outputText value="#{prd.description}" />  
+		                </f:facet>  
+		                <f:facet name="input">  
+		                    <p:inputText value="#{prd.description}" style="width:100%"/>  
+		                </f:facet>  
+		            </p:cellEditor>      
+		        </p:column>
+		        
+		        <p:column headerText="Categoria" style="width:10%"> 
+		        	<p:cellEditor>  
+		                <f:facet name="output">  
+		                    <h:outputText value="#{prd.category}" />  
+		                </f:facet>  
+		                <f:facet name="input">  
+		                    <h:selectOneMenu value="#{prd.category}" >  
+		                        <f:selectItems value="#{manageProduct.categorys}"  
+					                            var="cat"   
+					                            itemLabel="#{cat}"  
+					                            itemValue="#{cat}" />  
+		                    </h:selectOneMenu>  
+		                </f:facet>  
+		            </p:cellEditor>  
+		        </p:column>
+		        
+		        <p:column headerText="Precio" style="width:5%">  
+		        	<p:cellEditor>  
+		                <f:facet name="output">  
+		                    <h:outputText value="#{prd.price}" />  
+		                </f:facet>  
+		                <f:facet name="input">  
+		                    <p:inputText value="#{prd.price}" style="width:100%"/>  
+		                </f:facet>  
+		            </p:cellEditor>
+		        </p:column>
+		        
+		        <p:column headerText="Proveedor" style="width:10%">			            
+		            <p:cellEditor>  
+		                <f:facet name="output">  
+		                    <h:outputText value="#{prd.producer}" />  
+		                </f:facet>  
+		                <f:facet name="input">  
+		                    <h:selectOneMenu value="#{prd.producer}" >  
+		                        <f:selectItems value="#{manageProduct.producers}"  
+					                            var="prc"   
+					                            itemLabel="#{prc}"  
+					                            itemValue="#{prc}" />  
+		                    </h:selectOneMenu>  
+		                </f:facet>  
+		            </p:cellEditor>
+		        </p:column>
+		        
+		        <!-- <p:column>  
+		            <f:facet name="header">  
+		                <h:outputText value="Imagen" />  
+		            </f:facet>  
+		            <h:graphicImage url="#{prod.image_url_thumb}"></h:graphicImage>
+		        </p:column>  -->
+		    	
+		    	 <p:column style="width:5%">  
+		            <p:rowEditor />  
+		        </p:column>
+		    </p:dataTable>
+		
+		</p:panel>
+		
+		<h:link value="Crear Producto" outcome="createProduct.xhtml"/>
+	</ui:define>
+</ui:composition>
