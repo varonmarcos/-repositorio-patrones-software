@@ -22,13 +22,11 @@
 			<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" /> 
 		</div>
 		<div align="center">
-		    <h:panelGrid id="grid" columns="3" cellpadding="4">
+		    <h:panelGrid id="grid" columns="2" cellpadding="4">
 		    	<h:outputText id="labelUserName" value="Nombre de usuario" /> 
-		    	<p:inputText id="inputUserName" size="30" maxlength="50" required="true" value="#{loginBean.inputUserName}" /> 
-		    	<p:message for="inputUserName" /> 
+		    	<p:inputText id="inputUserName" size="30" maxlength="50" required="true" value="#{loginBean.inputUserName}" requiredMessage="Ingrese su usuario"/> 
 		    	<h:outputText id="labelPassword" value="Contraseña" /> 
-		    	<p:password id="inputPassword" size="30" maxlength="20" required="true" value="#{loginBean.inputPassword}"/>
-				<p:message for="inputPassword" />     	
+		    	<p:password id="inputPassword" size="30" maxlength="20" required="true" value="#{loginBean.inputPassword}" requiredMessage="Ingrese su contraseña"/>   	
 		    </h:panelGrid> 
 		    <br/> 
 			<p:commandButton value="Ingresar" update="messages" id="btIngresar" actionListener="#{loginBean.login}"

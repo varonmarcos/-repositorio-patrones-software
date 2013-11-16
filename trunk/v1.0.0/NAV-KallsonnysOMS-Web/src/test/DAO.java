@@ -7,6 +7,7 @@ import java.util.UUID;
 import org.kallsonnys.oms.ProfileDTO;
 import org.kallsonnys.oms.dto.OptionMenuDTO;
 import org.kallsonnys.oms.dto.ProductDTO;
+import org.kallsonnys.oms.dto.TableFilterDTO;
 import org.kallsonnys.oms.dto.TableResultDTO;
 import org.kallsonnys.oms.dto.UserDTO;
 import org.kallsonnys.oms.dto.security.IntialUserLoginDTO;
@@ -197,6 +198,22 @@ public class DAO {
 	}
 	
 	public TableResultDTO<ProductDTO> getProducts(){
+		
+		List<ProductDTO> productos;
+		TableResultDTO<ProductDTO> result = new TableResultDTO<ProductDTO>();
+		
+		productos = new ArrayList<ProductDTO>();
+		
+		populateRandomProducts(productos, 50); 
+		
+		result.setResult(productos);
+		result.setTotalOfRecords(productos.size());		
+		return result;
+		
+	}
+	
+	
+	public TableResultDTO<ProductDTO> getProducts(TableFilterDTO filterDTO){
 		
 		List<ProductDTO> productos;
 		TableResultDTO<ProductDTO> result = new TableResultDTO<ProductDTO>();
