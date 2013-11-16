@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	<h:head>
+		<title>.::Sistema Administracion de Ordenes OMS::.</title>
+		<meta http-equiv="Content-Type"	content="text/html; charset=ISO-8859-1" />
+	</h:head>
+		
+	<h:body>
+		<h:form>	
+		<p:layoutUnit position="north" size="142" id="north">
+					<ui:include src="/templates/header.xhtml" />
+		</p:layoutUnit>
+		<br/>
+		<br/>
+		<div align="center">
+			<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" /> 
+		</div>
+		<div align="center">
+		    <h:panelGrid id="grid" columns="2" cellpadding="4">
+		    	<h:outputText id="labelUserName" value="Nombre de usuario" /> 
+		    	<p:inputText id="inputUserName" size="30" maxlength="50" required="true" value="#{loginBean.inputUserName}" requiredMessage="Ingrese su usuario"/> 
+		    	<h:outputText id="labelPassword" value="Contraseña" /> 
+		    	<p:password id="inputPassword" size="30" maxlength="20" required="true" value="#{loginBean.inputPassword}" requiredMessage="Ingrese su contraseña"/>   	
+		    </h:panelGrid> 
+		    <br/> 
+			<p:commandButton value="Ingresar" update="messages" id="btIngresar" actionListener="#{loginBean.login}"
+			oncomplete="manejarLogin(xhr, status, args)" /> 
+		</div>
+		<br/>
+		</h:form>
+	</h:body>	
+	<script type="text/javascript">
+	  //<![CDATA[
+	  function manejarLogin(xhr, status, args) {
+	    if (!args.validationFailed && args.estaLogeado) {
+	      setTimeout(function() {
+	        window.location = args.view;
+	      }, 500);
+	    }
+	  }
+	//]]>
+	</script>
+</html>

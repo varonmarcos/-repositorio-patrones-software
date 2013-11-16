@@ -29,10 +29,10 @@ public class CreateProductBean implements Serializable{
 	private static final long serialVersionUID = -2152389656664659476L;
 	
 	private ProductDTO producto;
-	private String inputProId;
+	private Long inputProId;
 	private String inputName;
 	private String inputDesc;
-	private String inputPrice;
+	private Double inputPrice;
 	private String slCategory;
 	private String slProveedor;
 	private UploadedFile fileFull; 	
@@ -56,13 +56,14 @@ public class CreateProductBean implements Serializable{
     public void uploadFile(FileUploadEvent event) {    	
     	
     	if (event.getFile().getFileName().contains(PREFIJO_FULL_IMG)){
+    		fileFull = event.getFile();
     		image_full_bytes = event.getFile().getContents();
             System.out.println("full " + fileFull.getFileName());
     	}else if (event.getFile().getFileName().contains(PREFIJO_THUMB_IMG)){
+    		fileThumb = event.getFile();
     		image_thumb_bytes = event.getFile().getContents();
             System.out.println("thumb " + fileThumb.getFileName());
-    	}    	
-    	FacesMessage msg = new FacesMessage("Imagen", event.getFile().getFileName() + " se cargo correctamente."); 
+    	} 
     	messageHeader = "Imagen ";
 		messageBody = event.getFile().getFileName() + " se cargo correctamente.";
 		severity = FacesMessage.SEVERITY_INFO;
@@ -100,10 +101,10 @@ public class CreateProductBean implements Serializable{
     	System.out.println("image_thumb_bytes " + image_thumb_bytes.length);
     	
     	producto = new  ProductDTO();
-    	producto.setProdId(Long.parseLong(inputProId));
+    	producto.setProdId(inputProId);
     	producto.setName(inputName);
     	producto.setDescription(inputDesc);
-    	producto.setPrice(Double.parseDouble(inputPrice));
+    	producto.setPrice(inputPrice);
     	producto.setCategory(verifyEnumCategory(categorys, slCategory));
     	producto.setProducer(verifyEnumProducer(producers,slProveedor));
     	producto.setImage_full_bytes(image_full_bytes);
@@ -146,11 +147,11 @@ public class CreateProductBean implements Serializable{
     	return null;
     }
 	
-	public String getInputProId() {
+	public Long getInputProId() {
 		return inputProId;
 	}
 
-	public void setInputProId(String inputProId) {
+	public void setInputProId(Long inputProId) {
 		this.inputProId = inputProId;
 	}
 
@@ -170,11 +171,11 @@ public class CreateProductBean implements Serializable{
 		this.inputDesc = inputDesc;
 	}
 
-	public String getInputPrice() {
+	public Double getInputPrice() {
 		return inputPrice;
 	}
 
-	public void setInputPrice(String inputPrice) {
+	public void setInputPrice(Double inputPrice) {
 		this.inputPrice = inputPrice;
 	}
 

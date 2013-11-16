@@ -7,6 +7,7 @@ import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
+import org.kallsonnys.oms.dto.FilterConstants;
 import org.kallsonnys.oms.enums.ProductCategoryEnum;
 
 public class Util {
@@ -34,5 +35,26 @@ public class Util {
 	 public static void addMessage(Severity severity, String messageHeader, String messageBody) {  
 		 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(severity, messageHeader, messageBody));
 	 }  
+	 
+	 public static String mapCriterioFilter(Integer criterio){
+		 String typeFilter;
+		 switch (criterio) {
+		 	case 1:
+		 		typeFilter = FilterConstants.PROD_ID;
+		 		break;
+		 	case 2:
+		 		typeFilter = FilterConstants.NAME;
+		 		break;
+		 	case 3:
+		 		typeFilter = FilterConstants.DESCRIPTION;		
+			break;
+
+		default:
+			typeFilter = FilterConstants.NAME;
+			break;
+		}
+		 
+		 return typeFilter;
+	 }
 
 }
