@@ -3,9 +3,9 @@ package org.kallsonnys.oms.web.beans;
 import java.io.Serializable;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.application.FacesMessage.Severity;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
 import org.kallsonnys.oms.dto.UserDTO;
@@ -45,6 +45,10 @@ public class LoginBean implements Serializable {
 	}
 
 	public void login(ActionEvent actionEvent) {
+		String messageHeader;
+		String messageBody;
+		Severity severity;
+		
 		RequestContext context = RequestContext.getCurrentInstance();
 		FacesMessage msg = null;
 		IntialUserLoginDTO ini = null;
@@ -53,25 +57,30 @@ public class LoginBean implements Serializable {
 		logeado = true;	
 		
 		try {
-			ini = d.getTransaccionesPendientes(inputUserName, inputPassword);
+			ini = d.getUser(inputUserName, inputPassword);
 			userDto = ini.getUser();
-			msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenido", userDto.getName());
+			messageHeader = "Bienvenido";
+			messageBody = userDto.getName();
+			severity = FacesMessage.SEVERITY_INFO;
 		} catch (OMSException e) {
 			logeado = false;
 			System.out.println("ERROR login: " + e.getMessage());
-			msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Login Error", "Credenciales no válidas");
+			messageHeader = "Login Error";
+			messageBody = "Credenciales no válidas";
+			severity = FacesMessage.SEVERITY_ERROR;
 			e.printStackTrace();
 		} catch (Exception e) {
 			logeado = false;
 			System.out.println("ERROR login: " + e.getMessage());
-			msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Login Error", "Error de validación");
+			messageHeader = "Login Error";
+			messageBody = "Credenciales no válidas";
+			severity = FacesMessage.SEVERITY_ERROR;
 			e.printStackTrace();
 		}
 		
 		
-		
-		FacesContext.getCurrentInstance().addMessage(null, msg);
-		
+		Util.addMessage(severity, messageHeader, messageBody);
+				
 		context.addCallbackParam("estaLogeado", logeado);
 		
 		if (logeado){			

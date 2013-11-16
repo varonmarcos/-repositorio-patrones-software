@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<project name="maven-antrun-" default="main"  >
-<target name="main">
-  <copy file="D:\Mis Documentos\Documentos\Informacion\Academicos\Semestre Arquitectura\Semestre 2\Proyecto Implementacion\SOA\worspaceOMS\NAV-KallsonnysOMS-Web\dist/KallsonnysOMS-Web.war" tofile="C:\jboss-6.1.0.Final\server\default\deploy\KallsonnysOMS-Web.war"/>
-</target>
-</project>

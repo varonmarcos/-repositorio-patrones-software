@@ -1,7 +1,13 @@
 package org.kallsonnys.oms.utilities;
 
+import java.util.List;
+
+import javax.faces.application.FacesMessage;
+import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+
+import org.kallsonnys.oms.enums.ProductCategoryEnum;
 
 public class Util {
 	
@@ -24,5 +30,9 @@ public class Util {
         return (HttpSession) FacesContext.getCurrentInstance()
                                          .getExternalContext().getSession(true);
     }
+	
+	 public static void addMessage(Severity severity, String messageHeader, String messageBody) {  
+		 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(severity, messageHeader, messageBody));
+	 }  
 
 }

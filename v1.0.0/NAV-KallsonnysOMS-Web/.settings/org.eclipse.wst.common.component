@@ -3,7 +3,6 @@
     <wb-module deploy-name="NAV-KallsonnysOMS-Web">
         <wb-resource deploy-path="/" source-path="/dist/m2e-wtp/web-resources"/>
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/test"/>
         <dependent-module archiveName="BUS-KallsonnysOMS-Commons-v1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/BUS-KallsonnysOMS-Commons/BUS-KallsonnysOMS-Commons">
             <dependency-type>uses</dependency-type>
         </dependent-module>
