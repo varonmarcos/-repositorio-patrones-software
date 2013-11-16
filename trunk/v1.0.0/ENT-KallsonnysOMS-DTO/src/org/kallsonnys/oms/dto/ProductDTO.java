@@ -28,9 +28,9 @@ public class ProductDTO extends BaseDTO {
 	
 	private Top5DTO top5;
 	
-	private byte[] product_image_full;
+	private byte[] image_full_bytes;
 	
-	private byte[] product_image_thumb;
+	private byte[] image_thumb_bytes;
 	
 
 	public ProductDTO() {
@@ -123,20 +123,20 @@ public class ProductDTO extends BaseDTO {
 		this.top5 = top5;
 	}
 
-	public byte[] getProduct_image_full() {
-		return product_image_full;
+	public byte[] getImage_full_bytes() {
+		return image_full_bytes;
 	}
 
-	public void setProduct_image_full(byte[] product_image_full) {
-		this.product_image_full = product_image_full;
+	public void setImage_full_bytes(byte[] image_full_bytes) {
+		this.image_full_bytes = image_full_bytes;
 	}
 
-	public byte[] getProduct_image_thumb() {
-		return product_image_thumb;
+	public byte[] getImage_thumb_bytes() {
+		return image_thumb_bytes;
 	}
 
-	public void setProduct_image_thumb(byte[] product_image_thumb) {
-		this.product_image_thumb = product_image_thumb;
+	public void setImage_thumb_bytes(byte[] image_thumb_bytes) {
+		this.image_thumb_bytes = image_thumb_bytes;
 	}
 	
 }
