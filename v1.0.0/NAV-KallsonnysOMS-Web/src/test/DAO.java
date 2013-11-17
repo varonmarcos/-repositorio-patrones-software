@@ -274,4 +274,19 @@ public class DAO {
     	
 		return product;
 	}
-}
+
+	public ProductDTO getProduct(){
+		ProductDTO prd = new ProductDTO();
+		prd.setId(1L);
+		prd.setName("TV");
+		prd.setDescription("televisor");
+		prd.setCategory(ProductCategoryEnum.CAT3);
+		prd.setPrice(3000000.00);
+		prd.setProdId(2345L);
+		prd.setProducer(ProducerTypeEnum.RAPID_SERVICE);
+		prd.setImage_url_full("https://googledrive.com/host/0B-NmAN9xQQ4SUmQ5OGZOTlBTQnc/");
+		prd.setImage_url_thumb("https://googledrive.com/host/0B-NmAN9xQQ4SOHhvYWRCckRiQ0U/");
+		return prd;
+	}
+
+}	

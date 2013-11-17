@@ -10,6 +10,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.servlet.http.HttpServletRequest;
 
 import org.kallsonnys.oms.dto.ProductDTO;
 import org.kallsonnys.oms.dto.TableResultDTO;
@@ -43,7 +44,27 @@ public class ManageProductBean implements Serializable {
 		TableResultDTO<ProductDTO> result = null;
 		result = d.getProducts();
 		productos = result.getResult();
-		totalOfRecords = result.getTotalOfRecords();			
+		totalOfRecords = result.getTotalOfRecords();
+		
+		HttpServletRequest req = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
+		if (req != null) {
+			String idPrd = req.getParameter("id");
+			String status = req.getParameter("state");
+			if (idPrd != null && status != null){
+				if (status.equals("OK")){
+		    		messageHeader = "Producto con Id ";
+					messageBody = idPrd + " creado correctamente";
+					severity = FacesMessage.SEVERITY_INFO;
+		    	}else{
+		    		messageHeader = "Error al crear el producto ";
+					messageBody =  idPrd;
+					severity = FacesMessage.SEVERITY_ERROR;
+		    	}
+		    	Util.addMessage(severity, messageHeader, messageBody);
+			}			
+		}
+		
+		
 	}
 	
 	public List<ProductCategoryEnum> getCategorys() {

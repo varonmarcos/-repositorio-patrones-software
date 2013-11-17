@@ -30,7 +30,8 @@ public class getsProductsBean implements Serializable {
 	
 	private Integer criterio;
 	private String inputFindValue;	
-
+	
+	private ProductDTO producto;
 	private List<ProductDTO> productos;
 	private int totalOfRecords; 
 	private List<ProductCategoryEnum> categorys;
@@ -88,8 +89,7 @@ public class getsProductsBean implements Serializable {
 		severity = FacesMessage.SEVERITY_INFO;
 		
 		Util.addMessage(severity, messageHeader, messageBody);  
-    } 
-	
+    } 	
 
 	public Integer getCriterio() {
 		return criterio;
@@ -146,5 +146,15 @@ public class getsProductsBean implements Serializable {
 	public void setCategorys(List<ProductCategoryEnum> categorys) {
 		this.categorys = categorys;
 	}
+
+	public ProductDTO getProducto() {
+		return producto;
+	}
+
+	public void setProducto(ProductDTO producto) {
+		this.producto = producto;
+	}
+	
+	
 
 }
