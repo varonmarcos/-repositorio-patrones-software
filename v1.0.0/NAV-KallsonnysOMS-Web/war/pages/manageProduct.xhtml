@@ -28,11 +28,11 @@
 		            <h:outputText value="#{prd.id}" />  
 		        </p:column>  
 		    	
-		    	<p:column headerText="Numero producto" style="width:5%">  
+		    	<p:column headerText="ID producto" style="width:5%">  
 		            <h:outputText value="#{prd.prodId}" />  
 		        </p:column>
 		    	
-		    	<p:column headerText="Nombre" style="width:30%">  
+		    	<p:column headerText="Nombre" style="width:20%">  
 		    		<p:cellEditor>  
 		                <f:facet name="output">  
 		                    <h:outputText value="#{prd.name}" />  
@@ -43,7 +43,7 @@
 		            </p:cellEditor>  
 		        </p:column>
 		        
-		        <p:column headerText="Descripción" style="width:30%">  
+		        <p:column headerText="Descripción" style="width:25%">  
 		         	<p:cellEditor>  
 		                <f:facet name="output">  
 		                    <h:outputText value="#{prd.description}" />  
@@ -97,15 +97,16 @@
 		            </p:cellEditor>
 		        </p:column>
 		        
-		        <!-- <p:column>  
-		            <f:facet name="header">  
-		                <h:outputText value="Imagen" />  
-		            </f:facet>  
-		            <h:graphicImage url="#{prod.image_url_thumb}"></h:graphicImage>
-		        </p:column>  -->
+		        <p:column style="width:10%">
+		            <h:graphicImage url="#{prd.image_url_thumb}" height="80" width="80"></h:graphicImage>
+		        </p:column>
 		    	
 		    	 <p:column style="width:5%">  
 		            <p:rowEditor />  
+		        </p:column>
+		        
+		        <p:column style="width:5%">  
+		            <h:link value="Ver detalle" outcome="detailProduct.xhtml?id=#{prd.id}"/>  
 		        </p:column>
 		    </p:dataTable>
 		

@@ -17,7 +17,6 @@ import org.kallsonnys.oms.dto.ProductDTO;
 import org.kallsonnys.oms.enums.ProducerTypeEnum;
 import org.kallsonnys.oms.enums.ProductCategoryEnum;
 import org.kallsonnys.oms.utilities.Util;
-import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
@@ -69,8 +68,7 @@ public class DetailProductBean implements Serializable{
 						severity = FacesMessage.SEVERITY_ERROR;
 					} 
 					Util.addMessage(severity, messageHeader, messageBody);	
-				}   		
-			    	
+				}   					    	
 			    			
 				System.out.println("idPrd "+idPrd);
 				DAO d = new DAO();
@@ -79,19 +77,11 @@ public class DetailProductBean implements Serializable{
 				inputName = producto.getName();
 				inputDesc = producto.getDescription();
 				inputPrice = producto.getPrice();
-				setSlCategory(producto.getCategory());
-				setSlProveedor(producto.getProducer());
+				slCategory = producto.getCategory();
+				slProveedor = producto.getProducer();
 				image_url_full = producto.getImage_url_full();
-				image_url_thumb = producto.getImage_url_thumb();
-				
-				System.out.println("inputProId " + inputProId);
-		    	System.out.println("inputName " + inputName);
-		    	System.out.println("inputDesc " + inputDesc);
-		    	System.out.println("inputPrice " + inputPrice);
-		    	System.out.println("slCategory " + slCategory);
-		    	System.out.println("slProveedor " + slProveedor);
-		    	System.out.println("image_url_full " + image_url_full);
-		    	System.out.println("image_thumb_bytes " + image_url_thumb);
+				image_url_thumb = producto.getImage_url_thumb();		    	
+		    	
 			}
 			
 		}
@@ -152,13 +142,13 @@ public class DetailProductBean implements Serializable{
 		return producers;
 	}
     
-    public List<ProductCategoryEnum> getCategorys() {
-		categorys = new ArrayList<ProductCategoryEnum>();
-		categorys.add(ProductCategoryEnum.CAT1);
-		categorys.add(ProductCategoryEnum.CAT2);
-		categorys.add(ProductCategoryEnum.CAT3);
-		categorys.add(ProductCategoryEnum.CAT4);
-		return categorys;
+    public List<ProductCategoryEnum> getCategorys() {	
+    	this.categorys = new ArrayList<ProductCategoryEnum>();
+		this.categorys.add(ProductCategoryEnum.CAT1);
+		this.categorys.add(ProductCategoryEnum.CAT2);
+		this.categorys.add(ProductCategoryEnum.CAT3);
+		this.categorys.add(ProductCategoryEnum.CAT4);
+		return this.categorys;
 	}
 	
     public ProductDTO getProducto() {
@@ -234,7 +224,7 @@ public class DetailProductBean implements Serializable{
 	}
 
 	public void setCategorys(List<ProductCategoryEnum> categorys) {
-		this.categorys = categorys;
+		this.categorys = categorys;		
 	}
 
 	public void setProducers(List<ProducerTypeEnum> producers) {
@@ -272,9 +262,6 @@ public class DetailProductBean implements Serializable{
 	public void setSlProveedor(ProducerTypeEnum slProveedor) {
 		this.slProveedor = slProveedor;
 	}
-	
-	
-	
-	
+
 
 }

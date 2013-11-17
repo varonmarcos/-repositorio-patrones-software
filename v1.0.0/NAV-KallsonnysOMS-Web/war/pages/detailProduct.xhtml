@@ -24,8 +24,8 @@
 			    				 requiredMessage="Ingrese la descripción del producto" />
 			    				    	
 			    	<h:outputText id="labelCat" value="Categoria Producto" title="title #{createProduct.slCategory}" />                 
-	                <p:selectOneMenu value="#{createProduct.slCategory}" required="true" id="slCategory" requiredMessage="Selecciones Categoria">
-			            <f:selectItems value="#{createProduct.categorys}" />  
+	                <p:selectOneMenu value="#{detailProduct.slCategory}" required="true" id="slCategory" requiredMessage="Selecciones Categoria">
+			            <f:selectItems  value="#{detailProduct.categorys}" />  
 			        </p:selectOneMenu>
 			    	
 			    	<h:outputText id="labelPrice" value="Precio Producto" /> 
@@ -35,15 +35,15 @@
 			    	</p:inputText>
 			    	
 			    	<h:outputText id="labelProducer" value="Proveedor" title="title #{createProduct.slProveedor}" /> 
-	                <p:selectOneMenu value="#{createProduct.slProveedor}" required="true" id="slProveedor" requiredMessage="Seleccione un Proveedor"> 
-			            <f:selectItems value="#{createProduct.producers}" />  
+	                <p:selectOneMenu value="#{detailProduct.slProveedor}" required="true" id="slProveedor" requiredMessage="Seleccione un Proveedor"> 
+			            <f:selectItems value="#{detailProduct.producers}" />  
 			        </p:selectOneMenu>
 
 		            <h:outputText value="Imagen Grande" />  
-		            <h:graphicImage url="#{detailProduct.image_url_full}"></h:graphicImage>
+		            <h:graphicImage url="#{detailProduct.image_url_full}" height="254" width="254"></h:graphicImage>
 		            
 		            <h:outputText value="Imagen Pequeña" />  
-		            <h:graphicImage url="#{detailProduct.image_url_thumb}"></h:graphicImage>
+		            <h:graphicImage url="#{detailProduct.image_url_thumb}" height="80" width="80"></h:graphicImage>
 			    	
 			    	<h:outputText id="labelFileFull" value="Cargar Imagenes Grande y Pequeño para modificar" />	    			
 	    			<p:fileUpload fileUploadListener="#{detailProduct.uploadFile}" mode="advanced" dragDropSupport="false"

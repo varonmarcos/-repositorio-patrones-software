@@ -254,6 +254,8 @@ public class DAO {
         	prd.setCategory(ProductCategoryEnum.CAT1);
         	prd.setProducer(ProducerTypeEnum.SONY);
         	prd.setPrice(getRandomDouble());
+        	prd.setImage_url_full("https://googledrive.com/host/0B-NmAN9xQQ4SUmQ5OGZOTlBTQnc/");
+        	prd.setImage_url_thumb("https://googledrive.com/host/0B-NmAN9xQQ4SOHhvYWRCckRiQ0U/");
         	list.add(prd);
         }             
     } 
