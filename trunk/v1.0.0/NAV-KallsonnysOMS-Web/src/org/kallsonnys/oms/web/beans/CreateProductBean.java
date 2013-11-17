@@ -1,6 +1,5 @@
 package org.kallsonnys.oms.web.beans;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -17,7 +16,6 @@ import org.kallsonnys.oms.dto.ProductDTO;
 import org.kallsonnys.oms.enums.ProducerTypeEnum;
 import org.kallsonnys.oms.enums.ProductCategoryEnum;
 import org.kallsonnys.oms.utilities.Util;
-import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 

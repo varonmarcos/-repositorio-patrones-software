@@ -9,7 +9,6 @@ import javax.faces.application.FacesMessage.Severity;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
 import javax.servlet.http.HttpServletRequest;
 
 import org.kallsonnys.oms.dto.ProductDTO;
@@ -17,11 +16,7 @@ import org.kallsonnys.oms.dto.TableResultDTO;
 import org.kallsonnys.oms.enums.ProducerTypeEnum;
 import org.kallsonnys.oms.enums.ProductCategoryEnum;
 import org.kallsonnys.oms.utilities.Util;
-import org.primefaces.context.RequestContext;
-import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.RowEditEvent;
-import org.primefaces.model.UploadedFile;
-
 import test.DAO;
 
 @ManagedBean(name = "manageProduct")
@@ -93,7 +88,6 @@ public class ManageProductBean implements Serializable {
     }  
       
     public void onCancel(RowEditEvent event) {  
-        FacesMessage msg = new FacesMessage("Producto Eliminado", ((ProductDTO) event.getObject()).getProdId().toString()); 
         messageHeader = "Producto Eliminado";
 		messageBody = ((ProductDTO) event.getObject()).getProdId().toString();
 		severity = FacesMessage.SEVERITY_INFO;
