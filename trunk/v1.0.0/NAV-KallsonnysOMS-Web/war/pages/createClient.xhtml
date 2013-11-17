@@ -1,0 +1,106 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/templates/template.xhtml">
+	<ui:define name="metadata">
+	</ui:define>
+		<ui:define name="content">
+			<p:panel id="pnCreate" header="Crear Cliente" toggleable="true" closable="true"  toggleSpeed="500" closeSpeed="500" widgetVar="panel2">
+				<h:panelGrid columns="2" cellpadding="5">
+					<h:outputText id="labelCliId" value="ID" /> 
+			    	<p:inputText id="inputId" size="30" maxlength="10" required="true" value="#{createClient.inputId}" 
+			    				 requiredMessage="Ingrese el Id del Cliente" converterMessage="El campo es numerico">
+			    		<f:validateDoubleRange minimum="1000000" maximum="9999999999" />
+			    	</p:inputText>
+					
+					<h:outputText id="labelName" value="Nombre" /> 
+			    	<p:inputText id="inputName" size="30" maxlength="50" required="true" value="#{createClient.inputName}" 
+			    				 requiredMessage="Ingrese el nombre del Cliente" />
+			    	
+			    	<h:outputText id="labelSname" value="Apellido" /> 
+			    	<p:inputText id="inputSname" size="30" maxlength="50" required="true" value="#{createClient.inputSname}" 
+			    				 requiredMessage="Ingrese el Apellido del Cliente" />
+			    				 
+			    	<h:outputText id="labelPhone" value="Teléfono" /> 
+			    	<p:inputText id="inputPhone" size="30" maxlength="10" required="true" value="#{createClient.inputPhone}" 
+			    				 requiredMessage="Ingrese el Teléfono del Cliente" />
+			    				 
+			    	<h:outputText id="labelEmail" value="e-mail" /> 
+			    	<p:inputText id="inputEmail" size="30" maxlength="50" required="true" value="#{createClient.inputEmail}" 
+			    				 requiredMessage="Ingrese el e-mail del Cliente" />			 			 
+			    				    	
+			    	<h:outputText id="labelState" value="Estado" />                 
+	                <p:selectOneMenu value="#{createClient.slState}" required="true" id="slState" requiredMessage="Selecciones Estado">  
+			            <f:selectItem itemLabel="Seleccione Uno" itemValue="" />  
+			            <f:selectItems value="#{createClient.status}" />  
+			        </p:selectOneMenu>
+			    	
+			    	
+			    	<h:outputText id="labelAddShip" value="DIrección Envio" /> 
+			    	<h:panelGrid columns="2" cellpadding="5">
+			    		<h:outputText id="labelCountryShip" value="País" />
+			    		<p:selectOneMenu value="#{createClient.slCountryShip}" required="true" id="slCountryShip" requiredMessage="Selecciones País">  
+				            <f:selectItem itemLabel="Seleccione Uno" itemValue="" />  
+				            <f:selectItems value="#{createClient.countrys}" />  
+				            <p:ajax update="subDptoShip" listener="#{createClient.handleCountryChange}" /> 
+				        </p:selectOneMenu>
+			    		
+			    		<h:outputText id="labelDptoShip" value="Departamento" />
+			    		<p:selectOneMenu id="subDptoShip" value="#{createClient.subDptoShip}">  
+			                <f:selectItem itemLabel="Seleccione Uno" itemValue="" />  
+			                <f:selectItems value="#{createClient.dptos}" />  
+			                <p:ajax update="subCityShip" listener="#{createClient.handleDptoChange}" />
+			            </p:selectOneMenu>			    		
+			    		
+			    		<h:outputText id="labelCityShip" value="Ciudad" />
+			    		<p:selectOneMenu id="subCityShip" value="#{createClient.subCityShip}">  
+			                <f:selectItem itemLabel="Seleccione Uno" itemValue="" />  
+			                <f:selectItems value="#{createClient.citys}" />  
+			            </p:selectOneMenu>
+			            
+			    		<h:outputText id="labelZoneShip" value="Codigo Postal" />
+			    		<p:inputText id="inputZoneShip" size="30" required="true" value="#{createClient.inputZoneShip}" requiredMessage="Ingrese el Codigo Postal" />
+			    		
+			    		<h:outputText id="labelAddrShip" value="Dirección" />
+			    		<p:inputText id="inputAddrShip" size="30" required="true" value="#{createClient.inputAddrShip}" requiredMessage="Ingrese la dirección" />
+			    	</h:panelGrid>
+			    	
+			    	<h:outputText id="labelAddBill" value="DIrección Pago" /> 
+			    	<h:panelGrid columns="2" cellpadding="5">
+			    		<h:outputText id="labelCountryBill" value="País" />
+			    		<p:selectOneMenu value="#{createClient.slCountryBill}" required="true" id="slCountryBill" requiredMessage="Selecciones País">  
+				            <f:selectItem itemLabel="Seleccione Uno" itemValue="" />  
+				            <f:selectItems value="#{createClient.countrys}" />  
+				            <p:ajax update="subDptoBill" listener="#{createClient.handleCountryChangeB}" />
+				        </p:selectOneMenu>
+			    		
+			    		<h:outputText id="labelDptoBill" value="Departamento" />
+			    		<p:selectOneMenu id="subDptoBill" value="#{createClient.subDptoBill}">  
+			                <f:selectItem itemLabel="Seleccione Uno" itemValue="" />  
+			                <f:selectItems value="#{createClient.dptos}" />  
+			                <p:ajax update="subCityBill" listener="#{createClient.handleDptoChangeB}" />
+			            </p:selectOneMenu>
+			            			    		
+			    		<h:outputText id="labelCityBill" value="Ciudad" />
+			    		<p:selectOneMenu id="subCityBill" value="#{createClient.subCityBill}">  
+			                <f:selectItem itemLabel="Seleccione Uno" itemValue="" />  
+			                <f:selectItems value="#{createClient.citys}" />  
+			            </p:selectOneMenu>
+			            			    		
+			    		<h:outputText id="labelZoneBill" value="Codigo Postal" />
+			    		<p:inputText id="inputZoneBill" size="30" required="true" value="#{createClient.inputZoneBill}" requiredMessage="Ingrese el Codigo Postal" />
+			    		
+			    		<h:outputText id="labelAddrBill" value="Dirección" />
+			    		<p:inputText id="inputAddrBill" size="30" required="true" value="#{createClient.inputAddrBill}" requiredMessage="Ingrese la dirección" />
+			    	</h:panelGrid>
+			    	 	  
+						          
+					<br/> 
+					<p:commandButton value="Registrar" update=":mainForm:msgs" id="btRegClient" actionListener="#{createClient.create}"/> 
+				    	
+				</h:panelGrid>
+			</p:panel>
+		</ui:define>
+</ui:composition>

@@ -1,0 +1,69 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/templates/template.xhtml">
+	<ui:define name="metadata">
+	</ui:define>
+		
+	<ui:define name="content">	    	
+    	    	
+    	<h:link value="Crear Cliente" outcome="createClient.xhtml"/>
+    		
+		<p:panel id="pnlist" header="Clientes" toggleable="true" closable="true"  toggleSpeed="500" closeSpeed="500" widgetVar="panel">
+			<p:ajax event="toggle" />
+			
+			<p:dataTable id="dataTableClient" var="cli" value="#{manageClient.clientes}"  
+		                 paginator="true" rows="10"  
+		                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" 
+		                 editable="true" style="font-size:12px;">  
+		        <f:facet name="header">  
+		        </f:facet>  
+		  
+		        <p:column headerText="ID" style="width:5%">   
+		            <h:outputText value="#{cli.id}" />  
+		        </p:column>  
+		    	
+		    	<p:column headerText="Nombre" style="width:15%"> 		            
+	                <h:outputText value="#{cli.name}" />  
+	            </p:column>
+		    	
+		    	<p:column headerText="Apellido" style="width:15%">  
+	                <h:outputText value="#{cli.surname}" />  
+	            </p:column>
+		        
+		        <p:column headerText="Teléfono" style="width:5%">  
+	                <h:outputText value="#{cli.phoneNumber}" /> 
+		        </p:column>
+		        
+		        <p:column headerText="e-mail" style="width:10%">
+	                <h:outputText value="#{cli.email}" /> 
+		        </p:column>
+		        
+		        <p:column headerText="Tipo Tarjeta" style="width:6%"> 
+	                <h:outputText value="#{cli.cardType}" /> 
+		        </p:column>
+		        
+		        <p:column headerText="Estado" style="width:10%">
+	                <h:outputText value="#{cli.status}" />
+		        </p:column>
+		        
+		        <p:column headerText="Direccion Envio" style="width:15%">
+	                <h:outputText value="#{manageClient.ship}" style="width: 50px; white-space: normal; text-align:justify;" />    
+		        </p:column>
+		        
+		        <p:column headerText="Direccion Pago" style="width:15%">   
+	                <h:outputText value="#{manageClient.bill}" style="width: 50px; white-space: normal; text-align:justify;" />    
+		        </p:column>
+		    	
+		        <p:column style="width:4%">  
+		            <h:link value="Editar" outcome="editClient.xhtml?id=#{cli.id}"/>  
+		        </p:column>
+		    </p:dataTable>
+		
+		</p:panel>
+		
+		<h:link value="Crear Cliente" outcome="createClient.xhtml"/>
+	</ui:define>
+</ui:composition>
