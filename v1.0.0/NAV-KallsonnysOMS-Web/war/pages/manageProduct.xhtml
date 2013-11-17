@@ -17,7 +17,7 @@
 			<p:dataTable id="dataTableProduct" var="prd" value="#{manageProduct.productos}"  
 		                 paginator="true" rows="10"  
 		                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" 
-		                 editable="true">  
+		                 editable="true" style="font-size:12px;">  
 		        <f:facet name="header">  
 		        </f:facet>  
 		        
@@ -46,7 +46,7 @@
 		        <p:column headerText="Descripción" style="width:25%">  
 		         	<p:cellEditor>  
 		                <f:facet name="output">  
-		                    <h:outputText value="#{prd.description}" />  
+		                    <h:outputText value="#{prd.description}" style="width: 50px; white-space: normal; text-align:justify;" />  
 		                </f:facet>  
 		                <f:facet name="input">  
 		                    <p:inputText value="#{prd.description}" style="width:100%"/>  
