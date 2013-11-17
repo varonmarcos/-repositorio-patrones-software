@@ -60,7 +60,7 @@
 		        <p:column headerText="Descripción" style="width:30%">  
 		         	<p:cellEditor>  
 		                <f:facet name="output">  
-		                    <h:outputText value="#{prd.description}" />  
+		                    <h:outputText value="#{prd.description}" style="width:100px" />  
 		                </f:facet>  
 		                <f:facet name="input">  
 		                    <p:inputText value="#{prd.description}" style="width:100%"/>  
@@ -87,7 +87,7 @@
 		        <p:column headerText="Precio" style="width:5%">  
 		        	<p:cellEditor>  
 		                <f:facet name="output">  
-		                    <h:outputText value="#{prd.price}" />  
+		                    <h:outputText value="$ #{prd.price}" />  
 		                </f:facet>  
 		                <f:facet name="input">  
 		                    <p:inputText value="#{prd.price}" style="width:100%"/>  
@@ -123,9 +123,7 @@
 		        </p:column>
 		        
 		        <p:column style="width:5%">  
-		            <p:commandButton id="btDetail" icon="ui-icon-search" title="Ver detalle">  
-		                <f:setPropertyActionListener value="#{prd}" target="#{detailProduct.producto}" />  
-		            </p:commandButton>  
+		            <h:link value="Ver detalle" outcome="detailProduct.xhtml?id=#{prd.id}"/>  
 		        </p:column>
 		        
 		    </p:dataTable>

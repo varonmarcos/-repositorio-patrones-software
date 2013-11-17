@@ -10,22 +10,21 @@
 			<p:panel id="pnCreate" header="Crear Producto" toggleable="true" closable="true"  toggleSpeed="500" closeSpeed="500" widgetVar="panel2">
 				<h:panelGrid columns="2" cellpadding="5">
 					<h:outputText id="labelProId" value="ID Producto" /> 
-			    	<p:inputText id="inputProId" size="30" maxlength="10" required="true" value="#{detailProduct.producto.prodId}" 
+			    	<p:inputText id="inputProId" size="30" maxlength="10" required="true" value="#{detailProduct.inputProId}" 
 			    				 requiredMessage="Ingrese el Id del producto" converterMessage="El campo es numerico">
 			    		<f:validateDoubleRange minimum="1" maximum="999999999" /> 
 			    	</p:inputText>			
 					
 					<h:outputText id="labelName" value="Nombre Producto" /> 
-			    	<p:inputText id="inputName" size="30" maxlength="50" required="true" value="#{detailProduct.producto.name}" 
+			    	<p:inputText id="inputName" size="30" maxlength="50" required="true" value="#{detailProduct.inputName}" 
 			    				 requiredMessage="Ingrese el nombre del producto" />
 			    	
 			    	<h:outputText id="labelDesc" value="Descipción Producto" /> 
-			    	<p:inputText id="inputDesc" size="30" maxlength="200" required="true" value="#{detailProduct.producto.description}" 
+			    	<p:inputText id="inputDesc" size="30" maxlength="200" required="true" value="#{detailProduct.inputDesc}" 
 			    				 requiredMessage="Ingrese la descripción del producto" />
 			    				    	
-			    	<h:outputText id="labelCat" value="Categoria Producto" />                 
-	                <p:selectOneMenu value="#{createProduct.slCategory}" required="true" id="slCategory" requiredMessage="Selecciones Categoria">  
-			            <f:selectItem itemLabel="#{detailProduct.producto.category}" itemValue="" />  
+			    	<h:outputText id="labelCat" value="Categoria Producto" title="title #{createProduct.slCategory}" />                 
+	                <p:selectOneMenu value="#{createProduct.slCategory}" required="true" id="slCategory" requiredMessage="Selecciones Categoria">
 			            <f:selectItems value="#{createProduct.categorys}" />  
 			        </p:selectOneMenu>
 			    	
@@ -35,16 +34,18 @@
 			    		<f:validateDoubleRange minimum="100000.0" maximum="10000000.99" /> 
 			    	</p:inputText>
 			    	
-			    	<h:outputText id="labelProducer" value="Proveedor" /> 
-	                <p:selectOneMenu value="#{createProduct.slProveedor}" required="true" id="slProveedor" requiredMessage="Seleccione un Proveedor">  
-			            <f:selectItem itemLabel="#{detailProduct.producto.producer}" itemValue="" />  
+			    	<h:outputText id="labelProducer" value="Proveedor" title="title #{createProduct.slProveedor}" /> 
+	                <p:selectOneMenu value="#{createProduct.slProveedor}" required="true" id="slProveedor" requiredMessage="Seleccione un Proveedor"> 
 			            <f:selectItems value="#{createProduct.producers}" />  
 			        </p:selectOneMenu>
 
-		            <h:outputText value="Imagen" />  
-		            <h:graphicImage url="#{detailProduct.producto.image_url_full}"></h:graphicImage>
+		            <h:outputText value="Imagen Grande" />  
+		            <h:graphicImage url="#{detailProduct.image_url_full}"></h:graphicImage>
+		            
+		            <h:outputText value="Imagen Pequeña" />  
+		            <h:graphicImage url="#{detailProduct.image_url_thumb}"></h:graphicImage>
 			    	
-			    	<h:outputText id="labelFileFull" value="Cargar Imagenes Grande y Pequeño " />	    			
+			    	<h:outputText id="labelFileFull" value="Cargar Imagenes Grande y Pequeño para modificar" />	    			
 	    			<p:fileUpload fileUploadListener="#{detailProduct.uploadFile}" mode="advanced" dragDropSupport="false"
             					  update=":mainForm:msgs" auto="true" sizeLimit="100000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
             					  multiple="true"/>	  

@@ -1,6 +1,7 @@
 package org.kallsonnys.oms.web.beans;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -88,43 +89,29 @@ public class CreateProductBean implements Serializable{
 	}
     
     
-    public void create(ActionEvent actionEvent){
-    	RequestContext context = RequestContext.getCurrentInstance();   	
+    public void create(ActionEvent actionEvent){   	
     	
-    	System.out.println("inputProId " + inputProId);
-    	System.out.println("inputName " + inputName);
-    	System.out.println("inputDesc " + inputDesc);
-    	System.out.println("inputPrice " + inputPrice);
-    	System.out.println("slCategory " + slCategory);
-    	System.out.println("slProveedor " + slProveedor);
-    	System.out.println("image_full_bytes " + image_full_bytes.length);
-    	System.out.println("image_thumb_bytes " + image_thumb_bytes.length);
-    	
-    	producto = new  ProductDTO();
-    	producto.setProdId(inputProId);
-    	producto.setName(inputName);
-    	producto.setDescription(inputDesc);
-    	producto.setPrice(inputPrice);
-    	producto.setCategory(verifyEnumCategory(categorys, slCategory));
-    	producto.setProducer(verifyEnumProducer(producers,slProveedor));
-    	producto.setImage_full_bytes(image_full_bytes);
-    	producto.setImage_thumb_bytes(image_thumb_bytes);
-    	
-    	DAO d = new DAO();
-    	producto = d.createProduct(producto);
-    	
-    	System.out.println("recibido " + producto.getId());
-    	
-    	if (producto.getId() != null){
-    		messageHeader = "Producto con Id ";
-			messageBody = producto.getId() + " creado correctamente";
-			severity = FacesMessage.SEVERITY_INFO;
-    	}else{
-    		messageHeader = "Error al crear el producto ";
-			messageBody =  producto.getProdId().toString();
-			severity = FacesMessage.SEVERITY_ERROR;
-    	}
-    	Util.addMessage(severity, messageHeader, messageBody); 
+    	try {
+    		producto = new  ProductDTO();
+        	producto.setProdId(inputProId);
+        	producto.setName(inputName);
+        	producto.setDescription(inputDesc);
+        	producto.setPrice(inputPrice);
+        	producto.setCategory(verifyEnumCategory(categorys, slCategory));
+        	producto.setProducer(verifyEnumProducer(producers,slProveedor));
+        	producto.setImage_full_bytes(image_full_bytes);
+        	producto.setImage_thumb_bytes(image_thumb_bytes);
+        	
+        	DAO d = new DAO();
+        	producto = d.createProduct(producto);
+        	
+        	System.out.println("recibido " + producto.getId()); 
+        	
+			FacesContext.getCurrentInstance().getExternalContext().redirect("manageProduct.xhtml?id="+producto.getId()+"&state=OK");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }    
     
     private ProductCategoryEnum verifyEnumCategory(List<ProductCategoryEnum> list, String value){
