@@ -8,66 +8,65 @@ import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
-
 import org.kallsonnys.oms.dto.AddressDTO;
 import org.kallsonnys.oms.dto.CustomerDTO;
+import org.kallsonnys.oms.dto.TableFilterDTO;
 import org.kallsonnys.oms.dto.TableResultDTO;
 import org.kallsonnys.oms.enums.AddressTypeEnum;
-import org.kallsonnys.oms.enums.CustomerStatusEnum;
 import org.kallsonnys.oms.utilities.Util;
-import org.primefaces.event.RowEditEvent;
 
 import test.DAO;
 
-@ManagedBean(name = "manageClient")
+@ManagedBean(name = "getClient")
 @ViewScoped
-public class manageClientBean implements Serializable {
+public class GetClientBean implements Serializable{
 	
 	private static final long serialVersionUID = -2152389656664659476L;
 	
 	private List<CustomerDTO> clientes;
-	private List<CustomerStatusEnum> statuss;
 	private int totalOfRecords; 
 	private String ship;
 	private String bill;
+	
+	private String inputFindValue;
 	
 	private String messageHeader;
 	private String messageBody;
 	private Severity severity;
 	
 	
-	public manageClientBean(){
-		
+	public GetClientBean(){
+
+	}
+	
+	public void find(){
 		DAO d = new DAO();
-		TableResultDTO<CustomerDTO> result = null;
-		result = d.getClients();
+		TableResultDTO<CustomerDTO> result = null;		
+		TableFilterDTO filterDTO = new  TableFilterDTO();
+		
+		filterDTO.setStart(0);
+		filterDTO.setPageSize(20);
+		filterDTO.setSorterType(TableFilterDTO.ASC);
+		filterDTO.addFilter("Id", inputFindValue);		
+		
+		result = d.getClients(filterDTO);
 		clientes = result.getResult();
 		setAddressShip(clientes);
+		totalOfRecords = result.getTotalOfRecords();	
 		
-		totalOfRecords = result.getTotalOfRecords();
-		
-		HttpServletRequest req = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
-		if (req != null) {
-			String idCli = req.getParameter("id");
-			String status = req.getParameter("state");
-			if (idCli != null && status != null){
-				if (status.equals("OK")){
-		    		messageHeader = "Cliente con Id ";
-					messageBody = idCli + " creado correctamente";
-					severity = FacesMessage.SEVERITY_INFO;
-		    	}else{
-		    		messageHeader = "Error al crear el Cliente ";
-					messageBody =  idCli;
-					severity = FacesMessage.SEVERITY_ERROR;
-		    	}
-		    	Util.addMessage(severity, messageHeader, messageBody);
-			}			
+		if (totalOfRecords > 0){
+			messageHeader = "Registros Encontrados ";
+			messageBody = "";
+			severity = FacesMessage.SEVERITY_INFO;
+		}else{
+			messageHeader = "No se Encontraron Registros ";
+			messageBody = " input " + inputFindValue;
+			severity = FacesMessage.SEVERITY_WARN;
 		}
-		
-	}
 
+		Util.addMessage(severity, messageHeader, messageBody);
+	}
+	
 	private void setAddressShip(List<CustomerDTO> clientes){
 		
 		List<AddressDTO> listAddress = new ArrayList<AddressDTO>();
@@ -86,51 +85,45 @@ public class manageClientBean implements Serializable {
 		}
 	}
 	
-	
-	public List<CustomerStatusEnum> getStatuss() {
-		statuss = new ArrayList<CustomerStatusEnum>();
-		statuss.add(CustomerStatusEnum.PLATINUM);
-		statuss.add(CustomerStatusEnum.GOLDEN);
-		statuss.add(CustomerStatusEnum.SILVER);
-		statuss.add(CustomerStatusEnum.DISABLED);
-		return statuss;
-	}
-
-	public void setStatuss(List<CustomerStatusEnum> statuss) {
-		this.statuss = statuss;
-	}
-
 	public List<CustomerDTO> getClientes() {
 		return clientes;
 	}
-
+	
 	public void setClientes(List<CustomerDTO> clientes) {
 		this.clientes = clientes;
 	}
-
-	public String getShip() {
-		return ship;
-	}
-
-	public void setShip(String ship) {
-		this.ship = ship;
-	}
-
-	public String getBill() {
-		return bill;
-	}
-
-	public void setBill(String bill) {
-		this.bill = bill;
-	}
-
+	
 	public int getTotalOfRecords() {
 		return totalOfRecords;
 	}
-
+	
 	public void setTotalOfRecords(int totalOfRecords) {
 		this.totalOfRecords = totalOfRecords;
 	}
 	
+	public String getShip() {
+		return ship;
+	}
+	
+	public void setShip(String ship) {
+		this.ship = ship;
+	}
+	
+	public String getBill() {
+		return bill;
+	}
+	
+	public void setBill(String bill) {
+		this.bill = bill;
+	}
 
+	public String getInputFindValue() {
+		return inputFindValue;
+	}
+
+	public void setInputFindValue(String inputFindValue) {
+		this.inputFindValue = inputFindValue;
+	}
+	
+	
 }

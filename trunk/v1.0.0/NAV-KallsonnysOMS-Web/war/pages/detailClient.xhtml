@@ -1,0 +1,69 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/templates/template.xhtml">
+	<ui:define name="metadata">
+	</ui:define>
+		<ui:define name="content">
+			<p:panel id="pnEdit" header="Detalle Cliente #{editClient.inputName}" toggleable="true" closable="true"  toggleSpeed="500" closeSpeed="500" widgetVar="panel2">
+				<h:panelGrid columns="2" cellpadding="5">
+					<h:outputText id="labelCliId" value="ID" /> 
+					<h:outputText value="#{editClient.inputId}" />
+					
+					<h:outputText id="labelName" value="Nombre" /> 
+					<h:outputText value="#{editClient.inputName}" /> 
+			    	
+			    	<h:outputText id="labelSname" value="Apellido" /> 
+			    	<h:outputText value="#{editClient.inputSname}" /> 
+			    				 
+			    	<h:outputText id="labelPhone" value="Teléfono" /> 
+			    	<h:outputText value="#{editClient.inputPhone}" />
+			    				 
+			    	<h:outputText id="labelEmail" value="e-mail" /> 
+			    	<h:outputText value="#{editClient.inputEmail}" />			 
+			    				    	
+			    	<h:outputText id="labelState" value="Estado" />  
+			    	<h:outputText value="#{editClient.slState}" /> 			    	
+			    	
+			    	<h:outputText id="labelAddShip" value="DIrección Envio" /> 
+			    	<h:panelGrid columns="2" cellpadding="5">
+			    		<h:outputText id="labelCountryShip" value="País" />
+			    		<h:outputText value="#{editClient.slCountryShip}" />
+			    		
+			    		<h:outputText id="labelDptoShip" value="Departamento" />
+			    		<h:outputText  value="#{editClient.subDptoShip}" />	    		
+			    		
+			    		<h:outputText id="labelCityShip" value="Ciudad" />
+			    		<h:outputText value="#{editClient.subCityShip}" />
+			            
+			    		<h:outputText id="labelZoneShip" value="Codigo Postal" />
+			    		<h:outputText value="#{editClient.inputZoneShip}" />
+			    		
+			    		<h:outputText id="labelAddrShip" value="Dirección" />
+			    		<h:outputText value="#{editClient.inputAddrShip}" />
+			    	</h:panelGrid>
+			    	
+			    	<h:outputText id="labelAddBill" value="DIrección Pago" /> 
+			    	<h:panelGrid columns="2" cellpadding="5">
+			    		<h:outputText id="labelCountryBill" value="País" />
+			    		<h:outputText value="#{editClient.slCountryBill}" />
+			    		
+			    		<h:outputText id="labelDptoBill" value="Departamento" />
+			    		<h:outputText value="#{editClient.subDptoBill}" />
+			            			    		
+			    		<h:outputText id="labelCityBill" value="Ciudad" />
+			    		<h:outputText value="#{editClient.subCityBill}" />
+			            			    		
+			    		<h:outputText id="labelZoneBill" value="Codigo Postal" />
+			    		<h:outputText value="#{editClient.inputZoneBill}" />
+			    		
+			    		<h:outputText id="labelAddrBill" value="Dirección" />
+			    		<h:outputText value="#{editClient.inputAddrBill}" />
+			    	</h:panelGrid>
+				    	
+				</h:panelGrid>
+			</p:panel>
+		</ui:define>
+</ui:composition>
