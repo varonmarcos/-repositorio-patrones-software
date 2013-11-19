@@ -233,6 +233,21 @@ public class DAO {
 		
 	}
 	
+	public TableResultDTO<CustomerDTO> getClients(TableFilterDTO filterDTO){
+		
+		List<CustomerDTO> clientes;
+		TableResultDTO<CustomerDTO> result = new TableResultDTO<CustomerDTO>();
+		
+		clientes = new ArrayList<CustomerDTO>();
+		
+		populateRandomClients(clientes, 50); 
+		
+		result.setResult(clientes);
+		result.setTotalOfRecords(clientes.size());		
+		return result;
+		
+	}
+	
 	
 	public TableResultDTO<ProductDTO> getProducts(TableFilterDTO filterDTO){
 		
@@ -297,6 +312,20 @@ public class DAO {
         }             
     }
 	
+	public CustomerDTO editCliente(){
+		CustomerDTO cli = new CustomerDTO();
+    	cli.setId(getRandomLong());
+    	cli.setName(getRandomNames());
+    	cli.setSurname(getRandomNames());
+    	cli.setPhoneNumber(getRandomLong().toString());
+    	cli.setEmail("varonmarcos@gmail.com");
+    	cli.setCardType(CreditCardTypeEnum.MASTERD_CARD);
+    	cli.setStatus(CustomerStatusEnum.PLATINUM);   	
+    	
+    	cli.setCustomerAddress(getClientAddress());
+    	return cli;
+	}
+	
 	private List<AddressDTO> getClientAddress(){
 		
 		List<AddressDTO> listAddress = new ArrayList<AddressDTO>();
@@ -305,18 +334,18 @@ public class DAO {
     	address.setId(1L);
     	address.setCountry(CountryEnum.COLOMBIA);
     	address.setAddresstype(AddressTypeEnum.SHIPPING_ADDRESS);
-    	address.setStateName("Cundinamarca");
-    	address.setCityName("Bogota");
+    	address.setStateName("Antioquia");
+    	address.setCityName("Medellin");
     	address.setZip("01800");
     	address.setStreet("calle 81 # 114 -25");
     	listAddress.add(address);
     	
     	AddressDTO address1 = new AddressDTO();
     	address1.setId(1L);
-    	address1.setCountry(CountryEnum.COLOMBIA);
+    	address1.setCountry(CountryEnum.USA);
     	address1.setAddresstype(AddressTypeEnum.BILLING_ADDRESS);
-    	address1.setStateName("Cundinamarca");
-    	address1.setCityName("Bogota");
+    	address1.setStateName("Texas");
+    	address1.setCityName("Dallas");
     	address1.setZip("1100");
     	address1.setStreet("calle 17 # 54");
     	listAddress.add(address1);	
