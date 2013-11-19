@@ -1,0 +1,76 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/templates/template.xhtml">
+	<ui:define name="metadata">
+	</ui:define>
+		
+	<ui:define name="content">
+		
+		<p:panel id="pnFindCli" header="Consultar Cliente" toggleable="true" closable="true"  toggleSpeed="500" closeSpeed="500" widgetVar="panel2">
+			<h:panelGrid columns="2" cellpadding="5">
+				<h:outputText id="labelFind" value="ID CLiente" />				
+				<p:inputText id="inputFindValue" size="30" maxlength="200" required="true" value="#{getClient.inputFindValue}" 
+							 requiredMessage="Ingrese el valor a consultar"/>
+				
+				<br/> 
+				<p:commandButton value="Consultar" id="btFindClient" actionListener="#{getClient.find}" update="pnlist, :mainForm:msgs" />
+			</h:panelGrid>		
+		</p:panel>
+    		
+		<p:panel id="pnlist" header="Clientes" toggleable="true" closable="true"  toggleSpeed="500" closeSpeed="500" widgetVar="panel">
+			<p:ajax event="toggle" />
+			
+			<p:dataTable id="dataTableClient" var="cli" value="#{getClient.clientes}"  
+		                 paginator="true" rows="10"  
+		                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" 
+		                 editable="true" style="font-size:12px;">  
+		        <f:facet name="header">  
+		        </f:facet>  
+		  
+		        <p:column headerText="ID" style="width:5%">   
+		            <h:outputText value="#{cli.id}" />  
+		        </p:column>  
+		    	
+		    	<p:column headerText="Nombre" style="width:15%"> 		            
+	                <h:outputText value="#{cli.name}" />  
+	            </p:column>
+		    	
+		    	<p:column headerText="Apellido" style="width:15%">  
+	                <h:outputText value="#{cli.surname}" />  
+	            </p:column>
+		        
+		        <p:column headerText="Teléfono" style="width:5%">  
+	                <h:outputText value="#{cli.phoneNumber}" /> 
+		        </p:column>
+		        
+		        <p:column headerText="e-mail" style="width:10%">
+	                <h:outputText value="#{cli.email}" /> 
+		        </p:column>
+		        
+		        <p:column headerText="Tipo Tarjeta" style="width:6%"> 
+	                <h:outputText value="#{cli.cardType}" /> 
+		        </p:column>
+		        
+		        <p:column headerText="Estado" style="width:10%">
+	                <h:outputText value="#{cli.status}" />
+		        </p:column>
+		        
+		        <p:column headerText="Direccion Envio" style="width:15%">
+	                <h:outputText value="#{getClient.ship}" style="width: 50px; white-space: normal; text-align:justify;" />    
+		        </p:column>
+		        
+		        <p:column headerText="Direccion Pago" style="width:15%">   
+	                <h:outputText value="#{getClient.bill}" style="width: 50px; white-space: normal; text-align:justify;" />    
+		        </p:column>
+		    	
+		        <p:column style="width:4%">  
+		            <h:link value="Detalle" outcome="detailClient.xhtml?id=#{cli.id}"/>  
+		        </p:column>
+		    </p:dataTable>
+		
+		</p:panel>
+	</ui:define>
+</ui:composition>
