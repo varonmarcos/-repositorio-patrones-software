@@ -7,60 +7,60 @@
 	<ui:define name="metadata">
 	</ui:define>
 		<ui:define name="content">
-			<p:panel id="pnEdit" header="Detalle Cliente #{editClient.inputName}" toggleable="true" closable="true"  toggleSpeed="500" closeSpeed="500" widgetVar="panel2">
+			<p:panel id="pnEdit" header="Detalle Cliente #{detailClient.inputName}" toggleable="true" closable="true"  toggleSpeed="500" closeSpeed="500" widgetVar="panel2">
 				<h:panelGrid columns="2" cellpadding="5">
 					<h:outputText id="labelCliId" value="ID" /> 
-					<h:outputText value="#{editClient.inputId}" />
+					<h:outputText value="#{detailClient.inputId}" />
 					
 					<h:outputText id="labelName" value="Nombre" /> 
-					<h:outputText value="#{editClient.inputName}" /> 
+					<h:outputText value="#{detailClient.inputName}" /> 
 			    	
 			    	<h:outputText id="labelSname" value="Apellido" /> 
-			    	<h:outputText value="#{editClient.inputSname}" /> 
+			    	<h:outputText value="#{detailClient.inputSname}" /> 
 			    				 
 			    	<h:outputText id="labelPhone" value="Teléfono" /> 
-			    	<h:outputText value="#{editClient.inputPhone}" />
+			    	<h:outputText value="#{detailClient.inputPhone}" />
 			    				 
 			    	<h:outputText id="labelEmail" value="e-mail" /> 
-			    	<h:outputText value="#{editClient.inputEmail}" />			 
+			    	<h:outputText value="#{detailClient.inputEmail}" />			 
 			    				    	
 			    	<h:outputText id="labelState" value="Estado" />  
-			    	<h:outputText value="#{editClient.slState}" /> 			    	
+			    	<h:outputText value="#{detailClient.slState}" /> 			    	
 			    	
 			    	<h:outputText id="labelAddShip" value="DIrección Envio" /> 
 			    	<h:panelGrid columns="2" cellpadding="5">
 			    		<h:outputText id="labelCountryShip" value="País" />
-			    		<h:outputText value="#{editClient.slCountryShip}" />
+			    		<h:outputText value="#{detailClient.slCountryShip}" />
 			    		
 			    		<h:outputText id="labelDptoShip" value="Departamento" />
-			    		<h:outputText  value="#{editClient.subDptoShip}" />	    		
+			    		<h:outputText  value="#{detailClient.subDptoShip}" />	    		
 			    		
 			    		<h:outputText id="labelCityShip" value="Ciudad" />
-			    		<h:outputText value="#{editClient.subCityShip}" />
+			    		<h:outputText value="#{detailClient.subCityShip}" />
 			            
 			    		<h:outputText id="labelZoneShip" value="Codigo Postal" />
-			    		<h:outputText value="#{editClient.inputZoneShip}" />
+			    		<h:outputText value="#{detailClient.inputZoneShip}" />
 			    		
 			    		<h:outputText id="labelAddrShip" value="Dirección" />
-			    		<h:outputText value="#{editClient.inputAddrShip}" />
+			    		<h:outputText value="#{detailClient.inputAddrShip}" />
 			    	</h:panelGrid>
 			    	
 			    	<h:outputText id="labelAddBill" value="DIrección Pago" /> 
 			    	<h:panelGrid columns="2" cellpadding="5">
 			    		<h:outputText id="labelCountryBill" value="País" />
-			    		<h:outputText value="#{editClient.slCountryBill}" />
+			    		<h:outputText value="#{detailClient.slCountryBill}" />
 			    		
 			    		<h:outputText id="labelDptoBill" value="Departamento" />
-			    		<h:outputText value="#{editClient.subDptoBill}" />
+			    		<h:outputText value="#{detailClient.subDptoBill}" />
 			            			    		
 			    		<h:outputText id="labelCityBill" value="Ciudad" />
-			    		<h:outputText value="#{editClient.subCityBill}" />
+			    		<h:outputText value="#{detailClient.subCityBill}" />
 			            			    		
 			    		<h:outputText id="labelZoneBill" value="Codigo Postal" />
-			    		<h:outputText value="#{editClient.inputZoneBill}" />
+			    		<h:outputText value="#{detailClient.inputZoneBill}" />
 			    		
 			    		<h:outputText id="labelAddrBill" value="Dirección" />
-			    		<h:outputText value="#{editClient.inputAddrBill}" />
+			    		<h:outputText value="#{detailClient.inputAddrBill}" />
 			    	</h:panelGrid>
 				    	
 				</h:panelGrid>
