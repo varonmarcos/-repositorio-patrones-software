@@ -7,7 +7,9 @@ import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
+import org.kallsonnys.oms.ProfileDTO;
 import org.kallsonnys.oms.dto.FilterConstants;
+import org.kallsonnys.oms.dto.UserDTO;
 import org.kallsonnys.oms.enums.ProductCategoryEnum;
 
 public class Util {
