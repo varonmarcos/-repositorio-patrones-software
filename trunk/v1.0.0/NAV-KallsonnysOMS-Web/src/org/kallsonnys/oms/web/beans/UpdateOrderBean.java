@@ -49,6 +49,9 @@ public class UpdateOrderBean implements Serializable {
 	
 	private String cotizaSony;
 	private String cotizaRapidService;
+	
+	private String styleCotizaSony;
+	private String styleCotizaRapidService;
 
 	public UpdateOrderBean() {
 		HttpServletRequest req = (HttpServletRequest) FacesContext
@@ -109,6 +112,14 @@ public class UpdateOrderBean implements Serializable {
 		String resultCotizaSony = null;
 		String resultCotizaRapid = null;
 		
+		
+		if (Double.parseDouble(resultCotizaSony) > Double.parseDouble(resultCotizaRapid)){
+			setStyleCotizaRapidService("color:#FF0000; font-weight: bold;");
+			setStyleCotizaSony("");
+		}else{
+			setStyleCotizaRapidService("");
+			setStyleCotizaSony("color:#FF0000; font-weight: bold;");
+		}
 		//invocacion ejb
 		setCotizaSony(resultCotizaSony);
 		setCotizaRapidService(resultCotizaRapid);
@@ -241,6 +252,22 @@ public class UpdateOrderBean implements Serializable {
 
 	public void setCotizaRapidService(String cotizaRapidService) {
 		this.cotizaRapidService = cotizaRapidService;
+	}
+
+	public String getStyleCotizaSony() {
+		return styleCotizaSony;
+	}
+
+	public void setStyleCotizaSony(String styleCotizaSony) {
+		this.styleCotizaSony = styleCotizaSony;
+	}
+
+	public String getStyleCotizaRapidService() {
+		return styleCotizaRapidService;
+	}
+
+	public void setStyleCotizaRapidService(String styleCotizaRapidService) {
+		this.styleCotizaRapidService = styleCotizaRapidService;
 	}
 	
 	
