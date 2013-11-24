@@ -34,6 +34,11 @@ public class Util {
                                          .getExternalContext().getSession(true);
     }
 	
+	public static void deleteSession() {
+		HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+		session.invalidate();
+    }
+	
 	 public static void addMessage(Severity severity, String messageHeader, String messageBody) {  
 		 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(severity, messageHeader, messageBody));
 	 }  
