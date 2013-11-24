@@ -1,0 +1,65 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/templates/template.xhtml">
+	<ui:define name="metadata">
+	</ui:define>
+	<ui:define name="content">
+		<h:form>
+			<p:panel id="pnlist" header="Seleccione el Producto para Campaña" toggleable="true"
+				closable="true" toggleSpeed="500" closeSpeed="500" widgetVar="panel">
+				<p:ajax event="toggle" />
+
+				<p:dataTable id="dataTableProduct" var="prd" widgetVar="table"
+					value="#{listCreateCampaing.productos}" paginator="true" rows="10"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					style="font-size:12px;" lazy="true">
+					
+					<f:facet name="header">
+					</f:facet>
+
+					<p:column headerText="ID" style="width:5%" >
+						<h:outputText value="#{prd.id}" />
+					</p:column>
+
+					<p:column headerText="ID producto" style="width:5%" filterBy="#{prd.prodId}">
+						<h:outputText value="#{prd.prodId}" />
+					</p:column>
+
+					<p:column headerText="Nombre" style="width:20%" filterBy="#{prd.name}">
+						<h:outputText value="#{prd.name}" />
+					</p:column>
+
+					<p:column headerText="Descripción" style="width:25%" filterBy="#{prd.description}">
+						<h:outputText value="#{prd.description}" style="width: 50px; white-space: normal; text-align:justify;" />
+					</p:column>
+
+					<p:column headerText="Categoria" style="width:10%">
+						<h:outputText value="#{prd.category}" />
+					</p:column>
+
+					<p:column headerText="Precio" style="width:5%">
+						<h:outputText value="$ #{prd.price}" />
+					</p:column>
+
+					<p:column headerText="Proveedor" style="width:10%">
+						<h:outputText value="#{prd.producer}" />
+					</p:column>
+
+					<p:column style="width:10%">
+						<h:graphicImage url="#{prd.image_url_thumb}" height="80" width="80"></h:graphicImage>
+					</p:column>
+
+					<p:column style="width:5%">
+						<h:link value="Create Campaña"
+							outcome="createCampaing.xhtml?id=#{prd.id}" />
+					</p:column>
+
+				</p:dataTable>
+
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>
