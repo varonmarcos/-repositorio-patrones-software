@@ -8,7 +8,7 @@
 	</ui:define>
 		
 	<ui:define name="content">	    	
-    	    	
+    	<h:form>    	
     	<h:link value="Crear Cliente" outcome="createClient.xhtml"/>
     		
 		<p:panel id="pnlist" header="Clientes" toggleable="true" closable="true"  toggleSpeed="500" closeSpeed="500" widgetVar="panel">
@@ -63,7 +63,7 @@
 		    </p:dataTable>
 		
 		</p:panel>
-		
+		</h:form>
 		<h:link value="Crear Cliente" outcome="createClient.xhtml"/>
 	</ui:define>
 </ui:composition>
