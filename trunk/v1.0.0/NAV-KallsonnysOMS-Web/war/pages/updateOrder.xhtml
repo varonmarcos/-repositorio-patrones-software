@@ -1,0 +1,89 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/templates/template.xhtml">
+	<ui:define name="metadata">
+	</ui:define>
+		<ui:define name="content">
+			<p:panel id="pnEdit" header="Detalle Orden #{updateOrder.inputName}" toggleable="true" closable="true"  toggleSpeed="500" closeSpeed="500" widgetVar="panel2">
+				<h:panelGrid columns="2" cellpadding="5">
+					<h:outputText id="labelCliId" value="ID" /> 
+					<h:outputText value="#{updateOrder.inputId}" />
+					
+					<h:outputText id="labelName" value="Fecha" /> 
+					<h:outputText value="#{updateOrder.inputDate}" /> 
+			    	
+			    	<h:outputText id="labelSname" value="Precio" /> 
+			    	<h:outputText value="#{updateOrder.inputPrice}" /> 
+			    				 
+			    	<h:outputText id="labelPhone" value="Estado" /> 
+			    	<h:outputText value="#{updateOrder.inputState}" />
+			    				 
+			    	<h:outputText id="labelEmail" value="Observación" /> 
+			    	<h:outputText value="#{updateOrder.inputComments}" />			 
+			    				    	
+			    	<h:outputText id="labelState" value="Cliente" />  
+			    	<h:outputText value="#{updateOrder.slCustomer}" /> 
+			    	
+			    	<h:outputText id="labelState" value="Envio" />  
+			    	<h:outputText value="#{updateOrder.slShipper}" />
+			    	
+			    	<h:outputText id="labelState" value="Fabricante" />  
+			    	<h:outputText value="#{updateOrder.slProvider}" />			    	
+			    	
+			    	<h:outputText id="labelAddShip" value="Items Orden" /> 
+			    	<p:dataTable id="dataTableOrder" var="prd" value="#{updateOrder.items}"  
+				                 paginator="true" rows="10"  
+				                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" 
+				                 editable="true" style="font-size:12px;">  
+				        <f:facet name="header">  
+				        </f:facet>  
+				  
+				        <p:column headerText="ID" style="width:5%">   
+				            <h:outputText value="#{prd.id}" />  
+				        </p:column>  
+				    	
+				    	<p:column headerText="Fecha" style="width:15%"> 		            
+			                <h:outputText value="#{prd.prodId}" />  
+			            </p:column>
+				    	
+				    	<p:column headerText="Precio" style="width:15%">  
+			                <h:outputText value="#{prd.productName}" />  
+			            </p:column>
+				        
+				        <p:column headerText="Estado" style="width:15%">  
+			                <h:outputText value="#{prd.partNum}" /> 
+				        </p:column>
+				        
+				        <p:column headerText="Observación" style="width:10%">
+			                <h:outputText value="#{prd.quantity}" /> 
+				        </p:column>
+				        
+				        <p:column headerText="Cliente" style="width:15%"> 
+			                <h:outputText value="#{prd.customer.price}" /> 
+				        </p:column>
+				    	
+				    </p:dataTable>
+				    	
+				</h:panelGrid>
+								
+				<p:commandButton value="Cotizar Orden" update="cotizacion" id="btCotizar" disabled="updateOrder.disCotizar" actionListener="#{updateOrder.cotizar}"/>
+				
+				 <p:panel id="cotizacion" disabled="updateOrder.disCotizar" header="Resultado Cotización">  
+					<h:panelGrid columns="2" cellpadding="5">	
+						<h:outputText value="#{updateOrder.cotizaSony}" />
+						<h:outputText value="#{updateOrder.cotizaRapidService}" />
+					</h:panelGrid>				
+				</p:panel>
+				
+				<p:commandButton value="Aprobar" update=":mainForm:msgs" id="btAppru" disabled="updateOrder.disApprove" actionListener="#{updateOrder.approve}"/>
+					
+				<p:commandButton value="Fabricar" update=":mainForm:msgs" id="btFact" disabled="updateOrder.disFactory" actionListener="#{updateOrder.factory}"/>
+					
+				<p:commandButton value="Enviar" update=":mainForm:msgs" id="btSend" disabled="updateOrder.disSend" actionListener="#{updateOrder.send}"/>
+		
+			</p:panel>
+		</ui:define>
+</ui:composition>

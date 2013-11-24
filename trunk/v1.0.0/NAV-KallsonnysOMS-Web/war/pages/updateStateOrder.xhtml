@@ -1,0 +1,63 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/templates/template.xhtml">
+	<ui:define name="metadata">
+	</ui:define>
+		
+	<ui:define name="content">
+    	<h:form>	
+		<p:panel id="pnlist" header="Actualizar Estado Orden" toggleable="true" closable="true"  toggleSpeed="500" closeSpeed="500" widgetVar="panel">
+			<p:ajax event="toggle" />
+			
+			<p:dataTable id="dataTableClient" var="ord" value="#{updateStateOrder.ordenes}"  
+		                 paginator="true" rows="10"  
+		                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" 
+		                 editable="true" style="font-size:12px;" lazy="true">  
+		        <f:facet name="header">  
+		        </f:facet>  
+		  
+		        <p:column headerText="ID" style="width:5%" filterBy="#{cli.id}">   
+		            <h:outputText value="#{ord.id}" />  
+		        </p:column>  
+		    	
+		    	<p:column headerText="Fecha" style="width:15%"> 		            
+	                <h:outputText value="#{ord.orderDate}" />  
+	            </p:column>
+		    	
+		    	<p:column headerText="Precio" style="width:15%">  
+	                <h:outputText value="#{ord.price}" />  
+	            </p:column>
+		        
+		        <p:column headerText="Estado" style="width:15%">  
+	                <h:outputText value="#{ord.status}" /> 
+		        </p:column>
+		        
+		        <p:column headerText="Observación" style="width:10%">
+	                <h:outputText value="#{ord.comments}" style="width: 50px; white-space: normal; text-align:justify;" /> 
+		        </p:column>
+		        
+		        <p:column headerText="Cliente" style="width:15%"> 
+	                <h:outputText value="#{ord.customer.id}" /> 
+		        </p:column>
+		        
+		        <p:column headerText="Envio" style="width:10%">
+	                <h:outputText value="#{ord.shippingProvider}" />
+		        </p:column>
+		        
+		        <p:column headerText="Fabricante" style="width:15%">
+	                <h:outputText value="#{ord.producer}" style="width: 50px; white-space: normal; text-align:justify;" />    
+		        </p:column>
+		        
+		        <p:column style="width:4%">  
+			    	<h:link value="Detalle" outcome="updateOrder.xhtml?id=#{ord.id}"/>  
+			    </p:column>
+		    	
+		    </p:dataTable>
+		
+		</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>
