@@ -26,10 +26,10 @@ public class GetClientBean implements Serializable{
 	
 	public GetClientBean(){
 		setClientes(new CustomerDTOLazyList(list));
-		//setAddressShip(clientes);
+		setAddressShip(list);
 	}
 	
-	private void setAddressShip(LazyDataModel<CustomerDTO> clientes){
+	private void setAddressShip(List<CustomerDTO> clientes){
 		
 		List<AddressDTO> listAddress = new ArrayList<AddressDTO>();
 		

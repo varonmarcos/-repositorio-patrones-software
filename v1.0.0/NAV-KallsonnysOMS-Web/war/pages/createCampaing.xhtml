@@ -1,0 +1,42 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/templates/template.xhtml">
+	<ui:define name="metadata">
+	</ui:define>
+		<ui:define name="content">
+			<p:panel id="pnCreate" header="Crear Campaña" toggleable="true" closable="true"  toggleSpeed="500" closeSpeed="500" widgetVar="panel2">
+				<h:panelGrid columns="2" cellpadding="5">		
+					
+					<h:outputText id="labelName" value="Nombre Campaña" /> 
+			    	<p:inputText id="inputName" size="30" maxlength="50" required="true" value="#{createCampaing.inputName}" 
+			    				 requiredMessage="Ingrese el nombre de la Campaña" />
+			    	
+			    	<h:outputText id="labelDesc" value="Descipción Campaña" /> 
+			    	<p:inputText id="inputDesc" size="30" maxlength="200" required="true" value="#{createCampaing.inputDesc}" 
+			    				 requiredMessage="Ingrese la descripción de la Campaña" />			    	
+			    	
+			    	<h:outputText id="labelProId" value="ID Producto" /> 
+			    	<h:outputText id="inputProId" value="#{createCampaing.inputProId}" />
+			    	
+			    	<h:outputText id="labelProName" value="Nombre Producto" /> 
+			    	<h:outputText id="inputProName" value="#{createCampaing.inputProName}" />			    	
+			    	
+			    	<h:outputText id="labelFileFull" value="Imagen Producto " />	    			
+	    			<h:graphicImage url="#{createCampaing.image_url_full}" height="254" width="254"></h:graphicImage>	  
+	    			
+	    			<h:outputText id="labelInitDate" value="Fecha Inicio " />
+	    			<p:calendar value="#{createCampaing.dateInit}" id="calInit" showButtonPanel="true" effect="explode"/> 
+	    			
+	    			<h:outputText id="labelEndDate" value="Fecha Fin " />
+	    			<p:calendar value="#{createCampaing.dateEnd}" id="calEnd" showButtonPanel="true" effect="explode"/>
+						          
+					<br/> 
+					<p:commandButton value="Registrar" update=":mainForm:msgs" id="btRegCampaing" actionListener="#{createCampaing.create}"/> 
+				    	
+				</h:panelGrid>
+			</p:panel>
+		</ui:define>
+</ui:composition>

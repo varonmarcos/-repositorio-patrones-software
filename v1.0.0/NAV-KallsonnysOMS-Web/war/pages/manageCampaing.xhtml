@@ -1,0 +1,105 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/templates/template.xhtml">
+	<ui:define name="metadata">
+	</ui:define>
+	<ui:define name="content">
+		<h:form>
+			<h:link value="Listar Productos para Crear Campaña" outcome="listCreateCampaing.xhtml"/>
+			
+			<p:panel id="pnlist" header="Campañas" toggleable="true"
+				closable="true" toggleSpeed="500" closeSpeed="500" widgetVar="panel">
+				<p:ajax event="toggle" />
+
+				<p:dataTable id="dataTableCampaing" var="cmp" widgetVar="table"
+					value="#{manageCampaing.camapañas}" paginator="true" rows="10"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					editable="true" style="font-size:12px;" lazy="true">
+					
+					<f:facet name="header">
+					</f:facet>
+					
+					<p:ajax event="rowEdit" listener="#{manageCampaing.onEdit}"
+						update=":mainForm:msgs" />
+					<p:ajax event="rowEditCancel" listener="#{manageCampaing.onCancel}"
+						update=":mainForm:msgs" />
+
+					<p:column headerText="ID" style="width:5%" >
+						<h:outputText value="#{cmp.id}" />
+					</p:column>
+					
+					<p:column headerText="Nombre Campaña" style="width:20%" filterBy="#{cmp.name}">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{cmp.name}" />
+							</f:facet>
+							<f:facet name="input">
+								<p:inputText value="#{cmp.name}" style="width:100%" />
+							</f:facet>
+							<h:outputText value="#{cmp.name}" />
+						</p:cellEditor>
+					</p:column>
+
+					<p:column headerText="Descripción" style="width:25%" filterBy="#{cmp.description}">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{cmp.description}"
+									style="width: 50px; white-space: normal; text-align:justify;" />
+							</f:facet>
+							<f:facet name="input">
+								<p:inputText value="#{cmp.description}" style="width:100%" />
+							</f:facet>
+							<h:outputText value="#{cmp.description}" />
+						</p:cellEditor>
+					</p:column>
+										
+					<p:column headerText="ID producto" style="width:5%" filterBy="#{cmp.prodId}">
+						<h:outputText value="#{cmp.prodId}" />
+					</p:column>
+
+					<p:column headerText="Nombre Producto" style="width:5%">
+						<h:outputText value="#{cmp.productName}" />
+					</p:column>
+
+					<p:column style="width:10%">
+						<h:graphicImage url="#{cmp.image_url_full}" height="80" width="80"></h:graphicImage>
+					</p:column>
+										
+					<p:column headerText="Fecha Inicio" style="width:10%">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{cmp.startDate}"/>
+							</f:facet>
+							<f:facet name="input">
+								<p:calendar value="#{cmp.startDate}" id="calStart" showButtonPanel="true" effect="explode"/>
+							</f:facet>
+							<h:outputText value="#{cmp.startDate}" />
+						</p:cellEditor>
+					</p:column>
+					
+					<p:column headerText="Fecha Fin" style="width:10%">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{cmp.endDate}" />
+							</f:facet>
+							<f:facet name="input">
+								<p:calendar value="#{cmp.endDate}" id="calEnd" showButtonPanel="true" effect="explode"/>
+							</f:facet>
+							<h:outputText value="#{cmp.endDate}" />
+						</p:cellEditor>
+					</p:column>
+					
+					<p:column style="width:5%">
+						<p:rowEditor />
+					</p:column>
+
+				</p:dataTable>
+
+			</p:panel>
+			<h:link value="Listar Productos para Crear Campaña" outcome="listCreateCampaing.xhtml"/>
+		</h:form>
+	</ui:define>
+</ui:composition>

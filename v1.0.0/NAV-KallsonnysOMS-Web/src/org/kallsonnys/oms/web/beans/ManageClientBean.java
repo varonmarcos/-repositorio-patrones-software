@@ -12,12 +12,15 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
 import org.kallsonnys.oms.dto.AddressDTO;
+import org.kallsonnys.oms.dto.CampaignDTO;
 import org.kallsonnys.oms.dto.CustomerDTO;
 import org.kallsonnys.oms.dto.TableResultDTO;
 import org.kallsonnys.oms.enums.AddressTypeEnum;
 import org.kallsonnys.oms.enums.CustomerStatusEnum;
 import org.kallsonnys.oms.utilities.Util;
+import org.kallsonnys.oms.web.beans.model.CustomerDTOLazyList;
 import org.primefaces.event.RowEditEvent;
+import org.primefaces.model.LazyDataModel;
 
 import test.DAO;
 
@@ -27,9 +30,10 @@ public class ManageClientBean implements Serializable {
 	
 	private static final long serialVersionUID = -2152389656664659476L;
 	
-	private List<CustomerDTO> clientes;
+	private CustomerDTO cliente;
 	private List<CustomerStatusEnum> statuss;
-	private int totalOfRecords; 
+	private LazyDataModel<CustomerDTO> clientes;
+	private List<CustomerDTO> list; 
 	private String ship;
 	private String bill;
 	
@@ -39,14 +43,8 @@ public class ManageClientBean implements Serializable {
 	
 	
 	public ManageClientBean(){
-		
-		DAO d = new DAO();
-		TableResultDTO<CustomerDTO> result = null;
-		result = d.getClients();
-		clientes = result.getResult();
-		setAddressShip(clientes);
-		
-		totalOfRecords = result.getTotalOfRecords();
+		setClientes(new CustomerDTOLazyList(list));		
+		setAddressShip(list);
 		
 		HttpServletRequest req = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
 		if (req != null) {
@@ -67,6 +65,8 @@ public class ManageClientBean implements Serializable {
 		}
 		
 	}
+	
+	
 
 	private void setAddressShip(List<CustomerDTO> clientes){
 		
@@ -100,14 +100,6 @@ public class ManageClientBean implements Serializable {
 		this.statuss = statuss;
 	}
 
-	public List<CustomerDTO> getClientes() {
-		return clientes;
-	}
-
-	public void setClientes(List<CustomerDTO> clientes) {
-		this.clientes = clientes;
-	}
-
 	public String getShip() {
 		return ship;
 	}
@@ -124,13 +116,30 @@ public class ManageClientBean implements Serializable {
 		this.bill = bill;
 	}
 
-	public int getTotalOfRecords() {
-		return totalOfRecords;
+	public CustomerDTO getCliente() {
+		return cliente;
 	}
 
-	public void setTotalOfRecords(int totalOfRecords) {
-		this.totalOfRecords = totalOfRecords;
+	public void setCliente(CustomerDTO cliente) {
+		this.cliente = cliente;
 	}
+
+	public LazyDataModel<CustomerDTO> getClientes() {
+		return clientes;
+	}
+
+	public void setClientes(LazyDataModel<CustomerDTO> clientes) {
+		this.clientes = clientes;
+	}
+
+	public List<CustomerDTO> getList() {
+		return list;
+	}
+
+	public void setList(List<CustomerDTO> list) {
+		this.list = list;
+	}
+	
 	
 
 }
