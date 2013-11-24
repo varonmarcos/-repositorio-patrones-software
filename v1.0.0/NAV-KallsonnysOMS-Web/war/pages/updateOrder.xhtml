@@ -62,7 +62,7 @@
 				        </p:column>
 				        
 				        <p:column headerText="Cliente" style="width:15%"> 
-			                <h:outputText value="#{prd.customer.price}" /> 
+			                <h:outputText value="#{prd.price}" /> 
 				        </p:column>
 				    	
 				    </p:dataTable>
@@ -73,8 +73,8 @@
 				
 				 <p:panel id="cotizacion" disabled="updateOrder.disCotizar" header="Resultado Cotización">  
 					<h:panelGrid columns="2" cellpadding="5">	
-						<h:outputText value="#{updateOrder.cotizaSony}" />
-						<h:outputText value="#{updateOrder.cotizaRapidService}" />
+						<h:outputText value="#{updateOrder.cotizaSony}" style="#{updateOrder.styleCotizaSony}" />
+						<h:outputText value="#{updateOrder.cotizaRapidService}" style="#{updateOrder.styleCotizaRapidService}" />
 					</h:panelGrid>				
 				</p:panel>
 				
