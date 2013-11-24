@@ -10,8 +10,10 @@
 	<h:form>
 
 		<p:outputPanel id="menuPanel" layout="block">
-				<p:menu model="#{welcomeBean.model}" autoSubmenuDisplay="true" style="width:330px;height:260px;border:none;font-size:small;padding:0px;"
+			<p:menu model="#{welcomeBean.model}" autoSubmenuDisplay="true" style="width:330px;height:260px;border:none;font-size:small;padding:0px;"
 					ajax="false" type="sliding" backLabel="Back" />
+
+			<p:commandButton value="Salir" id="btSalir" actionListener="#{loogOutBean.logout}"/>		
 		</p:outputPanel>
 
 	</h:form>
