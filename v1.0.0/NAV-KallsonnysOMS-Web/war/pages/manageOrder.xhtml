@@ -21,7 +21,7 @@
 		          
        			<p:ajax event="rowEditCancel" listener="#{manageOrder.onCancel}" update=":mainForm:msgs" />
 		  
-		        <p:column headerText="ID" style="width:5%" filterBy="#{cli.id}">   
+		        <p:column headerText="ID" style="width:5%" filterBy="#{ord.id}">   
 		            <h:outputText value="#{ord.id}" />  
 		        </p:column>  
 		    	
@@ -33,7 +33,7 @@
 	                <h:outputText value="#{ord.price}" />  
 	            </p:column>
 		        
-		        <p:column headerText="Estado" style="width:15%" filterBy="#{cli.status}">  
+		        <p:column headerText="Estado" style="width:15%" filterBy="#{ord.status}">  
 	                <h:outputText value="#{ord.status}" /> 
 		        </p:column>
 		        
