@@ -19,7 +19,7 @@ import org.kallsonnys.oms.utilities.Util;
 
 import test.DAO;
 
-@ManagedBean(name = "getClient")
+@ManagedBean(name = "detailClient")
 @ViewScoped
 public class DetailClientBean implements Serializable {
 	
