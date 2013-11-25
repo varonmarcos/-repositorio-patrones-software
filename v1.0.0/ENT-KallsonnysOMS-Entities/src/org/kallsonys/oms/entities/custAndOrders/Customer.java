@@ -8,7 +8,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
@@ -28,7 +27,6 @@ public class Customer extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue
 	private Long id;
 	
 	@Field(store = Store.NO, index = Index.TOKENIZED)

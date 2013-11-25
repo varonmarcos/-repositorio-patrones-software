@@ -34,7 +34,7 @@ public class Orders extends AbstractEntity {
 	@GeneratedValue
 	private Long id;
 	
-	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.DATE)
 	@Column(nullable = false)
 	private Date orderDate;
 	

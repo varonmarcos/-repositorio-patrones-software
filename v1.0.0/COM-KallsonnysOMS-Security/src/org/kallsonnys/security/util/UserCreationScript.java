@@ -36,7 +36,7 @@ public class UserCreationScript {
 			stmt.executeUpdate(createUserSQL(userDTO1, "1"));
 
 			UserDTO userDTO2 = new UserDTO();
-			userDTO2.setEmail("danielsanehz@gmail.com");
+			userDTO2.setEmail("danielsanchez@gmail.com");
 			userDTO2.setName("Daniel");
 			userDTO2.setSurname("Sanchez");
 
@@ -58,19 +58,19 @@ public class UserCreationScript {
 			stmt.executeUpdate("INSERT INTO Profile (id, name, status, version) VALUES (7, 'CLIENTES_ADMON', 0, 0)");
 
 			// Opciones de Menu
-			stmt.executeUpdate("INSERT INTO OptionMenu (id, options, url, status, version) VALUES (1, 'Administrar Productos', '/manageProducts', 0, 0)");
-			stmt.executeUpdate("INSERT INTO OptionMenu (id, options, url, status, version) VALUES (2, 'Consultar Productos', '/getsProduct', 0, 0)");
-			stmt.executeUpdate("INSERT INTO OptionMenu (id, options, url, status, version) VALUES (3, 'Consultar Ranking Productos', '/getsProductRanking', 0, 0)");
-			stmt.executeUpdate("INSERT INTO OptionMenu (id, options, url, status, version) VALUES (4, 'Consultar Ranking Categorias', '/getsProductRanking', 0, 0)");
-			stmt.executeUpdate("INSERT INTO OptionMenu (id, options, url, status, version) VALUES (5, 'Administrar Campannas', '/manageCampaing', 0, 0)");
-			stmt.executeUpdate("INSERT INTO OptionMenu (id, options, url, status, version) VALUES (6, 'Administrar Ordenes', '/manageOrders', 0, 0)");
-			stmt.executeUpdate("INSERT INTO OptionMenu (id, options, url, status, version) VALUES (7, 'Consultar Ordenes', '/getsOrder', 0, 0)");
-			stmt.executeUpdate("INSERT INTO OptionMenu (id, options, url, status, version) VALUES (8, 'Consultar Ranking Ordenes Abiertas', '/getsOrderRankingOpen', 0, 0)");
-			stmt.executeUpdate("INSERT INTO OptionMenu (id, options, url, status, version) VALUES (9, 'Consultar Ranking Ordenes Cerradas', '/getsOrderRankingClose', 0, 0)");
-			stmt.executeUpdate("INSERT INTO OptionMenu (id, options, url, status, version) VALUES (10, 'Actualizar status Orden', '/updateStateOrder', 0, 0)");
-			stmt.executeUpdate("INSERT INTO OptionMenu (id, options, url, status, version) VALUES (11, 'Administrar Clientes', '/manageClients', 0, 0)");
-			stmt.executeUpdate("INSERT INTO OptionMenu (id, options, url, status, version) VALUES (12, 'Consultar Clientes', '/getClient', 0, 0)");
-			stmt.executeUpdate("INSERT INTO OptionMenu (id, options, url, status, version) VALUES (13, 'Consultar Ranking Clientes', '/getClientRanking', 0, 0)");
+			stmt.executeUpdate("INSERT INTO OptionMenu (id, options, url, status, version) VALUES (1, 'Administrar Productos', '/pages/manageProduct.xhtml', 0, 0)");
+			stmt.executeUpdate("INSERT INTO OptionMenu (id, options, url, status, version) VALUES (2, 'Consultar Productos', '/pages/getsProduct.xhtml', 0, 0)");
+			stmt.executeUpdate("INSERT INTO OptionMenu (id, options, url, status, version) VALUES (3, 'Consultar Ranking Productos', '/pages/getsProductRanking.xhtml', 0, 0)");
+			stmt.executeUpdate("INSERT INTO OptionMenu (id, options, url, status, version) VALUES (4, 'Consultar Ranking Categorias', '/pages/getsProductRanking.xhtml', 0, 0)");
+			stmt.executeUpdate("INSERT INTO OptionMenu (id, options, url, status, version) VALUES (5, 'Administrar Campannas', '/pages/manageCampaing.xhtml', 0, 0)");
+			stmt.executeUpdate("INSERT INTO OptionMenu (id, options, url, status, version) VALUES (6, 'Administrar Ordenes', '/pages/manageOrder.xhtml', 0, 0)");
+			stmt.executeUpdate("INSERT INTO OptionMenu (id, options, url, status, version) VALUES (7, 'Consultar Ordenes', '/pages/getsOrder.xhtml', 0, 0)");
+			stmt.executeUpdate("INSERT INTO OptionMenu (id, options, url, status, version) VALUES (8, 'Consultar Ranking Ordenes Abiertas', '/pages/getsOrderRankingOpen.xhtml', 0, 0)");
+			stmt.executeUpdate("INSERT INTO OptionMenu (id, options, url, status, version) VALUES (9, 'Consultar Ranking Ordenes Cerradas', '/pages/getsOrderRankingClose.xhtml', 0, 0)");
+			stmt.executeUpdate("INSERT INTO OptionMenu (id, options, url, status, version) VALUES (10, 'Actualizar status Orden', '/pages/updateStateOrder.xhtml', 0, 0)");
+			stmt.executeUpdate("INSERT INTO OptionMenu (id, options, url, status, version) VALUES (11, 'Administrar Clientes', '/pages/manageClient.xhtml', 0, 0)");
+			stmt.executeUpdate("INSERT INTO OptionMenu (id, options, url, status, version) VALUES (12, 'Consultar Clientes', '/pages/getClient.xhtml', 0, 0)");
+			stmt.executeUpdate("INSERT INTO OptionMenu (id, options, url, status, version) VALUES (13, 'Consultar Ranking Clientes', '/pages/getClientRanking.xhtml', 0, 0)");
 			
 			//Mapeo de PErfiles con Opciones de menus
 			stmt.executeUpdate("INSERT INTO optionsMenu_profile (profile_id, optionsMenu_id) VALUES (1, 2)");

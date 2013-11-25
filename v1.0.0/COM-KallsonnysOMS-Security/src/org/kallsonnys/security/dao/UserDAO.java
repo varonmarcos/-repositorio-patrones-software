@@ -36,7 +36,7 @@ public class UserDAO {
 		try {
 			final User user = (User) em
 					.createQuery(
-							"SELECT u FROM user u WHERE user.email = :email")
+							"SELECT u FROM User u WHERE u.email = :email")
 					.setParameter("email", email).getSingleResult();
 
 			return user;
@@ -52,7 +52,7 @@ public class UserDAO {
 			return null;
 
 		List<Profile> resultList = em
-				.createQuery("SELECT profiles FROM user u WHERE u.id = :id")
+				.createQuery("SELECT prof FROM User u JOIN u.profiles prof WHERE u.id = :id")
 				.setParameter("id", id).getResultList();
 
 		return resultList.size() == 0 || resultList.get(0) == null ? null
@@ -65,7 +65,7 @@ public class UserDAO {
 			return null;
 		List<OptionMenu> resultList = em
 				.createQuery(
-						"SELECT opm FROM user u JOIN u.profiles prof JOIN prof.optionsMenu opm WHERE u.id = :id")
+						"SELECT DISTINCT opm FROM User u JOIN u.profiles prof JOIN prof.optionsMenu opm WHERE u.id = :id")
 				.setParameter("id", id).getResultList();
 		return resultList.size() == 0 || resultList.get(0) == null ? null
 				: resultList;
