@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.kallsonys.oms.resources</groupId>
 	<artifactId>INT-KallsonnysOMS-Resources</artifactId>
-	
+
 	<parent>
 		<artifactId>POM-KallsonnysOMS-Master</artifactId>
 		<groupId>com.kallsonys.oms.master</groupId>
@@ -28,6 +28,9 @@
 			</resource>
 			<resource>
 				<directory>config/mail</directory>
+			</resource>
+			<resource>
+				<directory>config/googledrive</directory>
 			</resource>
 			<resource>
 				<directory>${project.build.sourceDirectory}</directory>
@@ -59,7 +62,7 @@
 								<exclude>**/.svn/**</exclude>
 							</excludes>
 						</configuration>
-					</execution>				
+					</execution>
 				</executions>
 			</plugin>
 			<plugin>
@@ -111,6 +114,18 @@
 						<configuration>
 							<descriptors>
 								<descriptor>assembly/assembly-mail.xml</descriptor>
+							</descriptors>
+						</configuration>
+					</execution>
+					<execution>
+						<id>jar-googledrive</id>
+						<phase>package</phase>
+						<goals>
+							<goal>attached</goal>
+						</goals>
+						<configuration>
+							<descriptors>
+								<descriptor>assembly/assembly-googledrive.xml</descriptor>
 							</descriptors>
 						</configuration>
 					</execution>
