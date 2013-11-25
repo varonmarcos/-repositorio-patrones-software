@@ -40,11 +40,11 @@ public class Campaign extends AbstractEntity {
 	@Column(nullable = false, length = 120)
 	private String  productName;
 	
-	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.DATE)
 	@Column(nullable = false)
 	private Date startDate;
 
-	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.DATE)
 	@Column(nullable = false)
 	private Date endDate;
 	

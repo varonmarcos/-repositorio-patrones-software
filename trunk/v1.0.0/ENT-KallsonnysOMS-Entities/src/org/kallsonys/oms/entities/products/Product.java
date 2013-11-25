@@ -23,8 +23,6 @@ public class Product extends AbstractEntity{
 	@GeneratedValue
 	private Long id;
 	
-	@Id
-	@GeneratedValue
 	private Long prodId;
 	
 	@Field(store = Store.NO, index = Index.TOKENIZED)

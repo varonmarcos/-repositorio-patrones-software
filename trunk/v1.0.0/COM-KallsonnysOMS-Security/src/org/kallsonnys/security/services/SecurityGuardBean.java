@@ -22,6 +22,7 @@ import org.kallsonnys.security.casclient.CasClientUtil;
 import org.kallsonnys.security.dao.LDAPUserDAO;
 import org.kallsonnys.security.dao.UserDAO;
 import org.kallsonnys.security.util.SecurityUtils;
+import org.kallsonys.oms.commons.Exception.ErrorCodesEnum;
 import org.kallsonys.oms.commons.Exception.OMSException;
 import org.kallsonys.oms.entities.security.OptionMenu;
 import org.kallsonys.oms.entities.security.Profile;
@@ -47,6 +48,11 @@ public class SecurityGuardBean implements SecurityGuardFacadeRemote,
 		try {
 			casTokensDTO = casClientUtil.grantingUserSessionTicket(email,
 					password);
+			
+			if(casTokensDTO.getTgt()==null||casTokensDTO.getTgt().equals("")){
+				throw new OMSException(ErrorCodesEnum.SECURITY_INITIAL_INVALID.getCode(), ErrorCodesEnum.SECURITY_INITIAL_INVALID.getMsg());
+			}
+			
 		} catch (Exception e) {
 			throw new OMSException(SECURITY_INITIAL_ERROR.getCode(), SECURITY_INITIAL_ERROR.getMsg(), e);
 		}
@@ -90,6 +96,10 @@ public class SecurityGuardBean implements SecurityGuardFacadeRemote,
 		userDAO.setEm(em);
 		
 		CasTokensDTO casTokensDTO = casClientUtil.grantingUserSessionTicket(email, password);
+		
+		if(casTokensDTO.getTgt()==null||casTokensDTO.getTgt().equals("")){
+			throw new OMSException(ErrorCodesEnum.SECURITY_INITIAL_INVALID.getCode(), ErrorCodesEnum.SECURITY_INITIAL_INVALID.getMsg());
+		}
 
 		User user = userDAO.getUser(email);
 		
