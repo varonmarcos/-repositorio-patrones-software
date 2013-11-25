@@ -19,16 +19,18 @@
 		<class>org.kallsonys.oms.entities.custAndOrders.Campaign</class>
 		<class>org.kallsonys.oms.entities.custAndOrders.servientrega.Kallsonys_Items</class>
 		<class>org.kallsonys.oms.entities.custAndOrders.servientrega.Kallsonys_Shipment</class>
-		
+
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 
 		<properties>
+			<!-- <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect" 
+				/> -->
 			<property name="hibernate.dialect" value="org.hibernate.dialect.OracleDialect" />
 
 			<property name="hibernate.hbm2ddl.auto" value="update" />
 
-<!-- 			<property name="hibernate.search.analyzer" -->
-<!-- 				value="org.apache.lucene.analysis.standard.StandardAnalyzer" /> -->
+			<!-- <property name="hibernate.search.analyzer" -->
+			<!-- value="org.apache.lucene.analysis.standard.StandardAnalyzer" /> -->
 
 			<property name="cache.provider_class"
 				value="org.hibernate.cache.OptimisticTreeCacheProvider" />
@@ -47,15 +49,15 @@
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		<jta-data-source>java:/KallsonnysProductsDS</jta-data-source>
 		<mapping-file>META-INF/products-orm.xml</mapping-file>
-		
+
 		<class>org.kallsonys.oms.entities.products.Product</class>
 		<class>org.kallsonys.oms.entities.products.Top5</class>
-		
+
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
-		
+
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect" />
-
+<!-- 			<property name="hibernate.dialect" value="org.hibernate.dialect.SQLServerDialect" /> -->
 			<property name="hibernate.hbm2ddl.auto" value="update" />
 
 			<property name="hibernate.search.analyzer"
