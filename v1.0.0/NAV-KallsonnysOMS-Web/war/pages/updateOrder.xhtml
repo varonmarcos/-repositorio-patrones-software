@@ -103,11 +103,11 @@
 				rendered="#{updateOrder.disApprove}"
 				actionListener="#{updateOrder.approve}"/>
 
-			<p:commandButton value="Fabricar" update=":mainForm:msgs,pnEdit" id="btFact"
+			<p:commandButton value="Fabricar" update=":mainForm:msgs,pnEdit,cotizacion,btCotizar, pnEdit" id="btFact"
 				rendered="#{updateOrder.disFactory}"
 				actionListener="#{updateOrder.factory}" />
 
-			<p:commandButton value="Enviar" update=":mainForm:msgs,pnEdit" id="btSend"
+			<p:commandButton value="Enviar" update=":mainForm:msgs,pnEdit,cotizacion,btCotizar, pnEdit" id="btSend"
 				rendered="#{updateOrder.disSend}" actionListener="#{updateOrder.send}" />
 
 		</p:panel>

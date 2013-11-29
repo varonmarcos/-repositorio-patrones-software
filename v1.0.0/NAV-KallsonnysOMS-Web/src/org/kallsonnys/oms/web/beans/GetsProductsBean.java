@@ -4,17 +4,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.application.FacesMessage.Severity;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import org.kallsonnys.oms.dto.ProductDTO;
 import org.kallsonnys.oms.enums.ProducerTypeEnum;
 import org.kallsonnys.oms.enums.ProductCategoryEnum;
-import org.kallsonnys.oms.utilities.Util;
 import org.kallsonnys.oms.web.beans.model.ProductDTOLazyList;
-import org.primefaces.event.RowEditEvent;
 import org.primefaces.model.LazyDataModel;
 
 @ManagedBean(name = "getsProducts")
@@ -29,30 +25,9 @@ public class GetsProductsBean implements Serializable {
 	private List<ProductCategoryEnum> categorys;
 	private List<ProducerTypeEnum> producers;
 	
-	private String messageHeader;
-	private String messageBody;
-	private Severity severity;
-	
-	
 	public GetsProductsBean(){
 		setProductos(new ProductDTOLazyList(list));
 	}
-	
-	public void onEdit(RowEditEvent event) {  
-        messageHeader = "Producto Editado";
-		messageBody = ((ProductDTO) event.getObject()).getProdId().toString();
-		severity = FacesMessage.SEVERITY_INFO;
-        
-		Util.addMessage(severity, messageHeader, messageBody); 
-    }  
-      
-    public void onCancel(RowEditEvent event) {  
-        messageHeader = "Producto Eliminado";
-		messageBody = ((ProductDTO) event.getObject()).getProdId().toString();
-		severity = FacesMessage.SEVERITY_INFO;
-		
-		Util.addMessage(severity, messageHeader, messageBody);  
-    } 	
 
 	public List<ProducerTypeEnum> getProducers() {
 		producers = new ArrayList<ProducerTypeEnum>();

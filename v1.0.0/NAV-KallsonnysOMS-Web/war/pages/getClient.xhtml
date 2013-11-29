@@ -19,15 +19,15 @@
 			        <f:facet name="header">  
 			        </f:facet>  
 			  
-			        <p:column headerText="ID" style="width:5%" filterBy="#{cli.name}">   
+			        <p:column headerText="ID" style="width:5%" filterBy="#{cli.id}">   
 			            <h:outputText value="#{cli.id}"/>  
 			        </p:column>  
 			    	
-			    	<p:column headerText="Nombre" style="width:15%"> 		            
+			    	<p:column headerText="Nombre" style="width:15%" filterBy="#{cli.name}"> 		            
 		                <h:outputText value="#{cli.name}"/>  
 		            </p:column>
 			    	
-			    	<p:column headerText="Apellido" style="width:15%">  
+			    	<p:column headerText="Apellido" style="width:15%" filterBy="#{cli.surname}">  
 		                <h:outputText value="#{cli.surname}" />  
 		            </p:column>
 			        
@@ -43,18 +43,10 @@
 		                <h:outputText value="#{cli.cardType}" /> 
 			        </p:column>
 			        
-			        <p:column headerText="Estado" style="width:10%">
+			        <p:column headerText="Estado" style="width:10%" filterBy="#{cli.status}">
 		                <h:outputText value="#{cli.status}" />
 			        </p:column>
 			        
-			        <p:column headerText="Direccion Envio" style="width:15%">
-		                <h:outputText value="#{getClient.ship}" style="width: 50px; white-space: normal; text-align:justify;" />    
-			        </p:column>
-			        
-			        <p:column headerText="Direccion Pago" style="width:15%">   
-		                <h:outputText value="#{getClient.bill}" style="width: 50px; white-space: normal; text-align:justify;" />    
-			        </p:column>
-			    	
 			        <p:column style="width:4%">  
 			            <h:link value="Detalle" outcome="detailClient.xhtml?id=#{cli.id}"/>  
 			        </p:column>

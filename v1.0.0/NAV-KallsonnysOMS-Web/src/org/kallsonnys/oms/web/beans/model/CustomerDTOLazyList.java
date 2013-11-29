@@ -8,13 +8,15 @@ import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
 
 import org.kallsonnys.oms.dto.CustomerDTO;
+import org.kallsonnys.oms.dto.FilterConstants;
 import org.kallsonnys.oms.dto.TableFilterDTO;
 import org.kallsonnys.oms.dto.TableResultDTO;
+import org.kallsonnys.oms.enums.CustomerStatusEnum;
+import org.kallsonnys.oms.services.customers.CustomersFacadeRemote;
 import org.kallsonnys.oms.utilities.Util;
+import org.kallsonys.oms.commons.locator.ServiceLocator;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
-
-import test.DAO;
 
 public class CustomerDTOLazyList extends LazyDataModel<CustomerDTO> {
 	
@@ -42,20 +44,21 @@ public class CustomerDTOLazyList extends LazyDataModel<CustomerDTO> {
 		filterDTO.setSorterType(TableFilterDTO.ASC);
 		
 		for (Entry<String, String> entryFilter : filters.entrySet()) {
-			filterDTO.addFilter(entryFilter.getKey(), entryFilter.getValue());
+			if(entryFilter.getKey().equals("id")){
+				filterDTO.addFilter(FilterConstants.CUSTOMER_ID, entryFilter.getValue());
+			}else if(entryFilter.getKey().equals("status")){
+				filterDTO.addFilter(FilterConstants.CUSTOMER_STATUS, mapCustomerStatusVal(entryFilter.getValue()));
+			}else{
+				filterDTO.addFilter(entryFilter.getKey(), entryFilter.getValue());
+			}
 		}	
 		
-		DAO d = new DAO();
-		result = d.getClients(filterDTO);
-		clientes = result.getResult();
-		
+		CustomersFacadeRemote customersFacadeEJB = ServiceLocator.getInstance().getRemoteObject("CustomersBean");
+		result = customersFacadeEJB.getCustomers(filterDTO);
 		totalOfRecords = result.getTotalOfRecords();	
 		
-		if (getRowCount() <= 0) {
-
-			setRowCount(result.getTotalOfRecords());
-
-		}
+		
+		clientes = result.getResult();
 
 		setPageSize(maxPerPage);
 		
@@ -65,7 +68,7 @@ public class CustomerDTOLazyList extends LazyDataModel<CustomerDTO> {
 			severity = FacesMessage.SEVERITY_INFO;
 			
 			this.setRowCount(totalOfRecords);  
-			
+
 		}else{
 			messageHeader = "No se Encontraron Registros ";
 			messageBody = "";
@@ -76,6 +79,17 @@ public class CustomerDTOLazyList extends LazyDataModel<CustomerDTO> {
 		
 		return clientes;
 	}
+	
+	private CustomerStatusEnum mapCustomerStatusVal(String value) {
+		try {
+			CustomerStatusEnum valueOf = CustomerStatusEnum.valueOf(value.toUpperCase());
+			return valueOf;
+		} catch (Exception e) {
+		}
+		
+		return null;
+	}
+
 	
 	
 	public List<CustomerDTO> getClientes() {

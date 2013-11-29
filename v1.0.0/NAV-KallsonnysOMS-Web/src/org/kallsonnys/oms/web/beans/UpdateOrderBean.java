@@ -1,5 +1,6 @@
 package org.kallsonnys.oms.web.beans;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -28,7 +29,7 @@ public class UpdateOrderBean implements Serializable {
 
 	private Long inputId;
 	private Date inputDate;
-	private Double inputPrice;
+	private String inputPrice;
 	private OrderStatusEnum inputState;
 	private ShipmentCotizationDTO minCotization;
 	private String inputComments;
@@ -104,6 +105,8 @@ public class UpdateOrderBean implements Serializable {
 			
 			setStatusButtoms();
 			
+			reload();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			Util.addMessage(FacesMessage.SEVERITY_ERROR, "Ocurrio un error aprobar la order "+orden.getId(), "");
@@ -111,20 +114,41 @@ public class UpdateOrderBean implements Serializable {
 		
 	}
 	
+	public void reload(){
+		try {
+			FacesContext
+			.getCurrentInstance()
+			.getExternalContext()
+			.redirect(
+					"updateOrder.xhtml?id=" + orden.getId());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public void factory(){
 		try {
 			OrdersFacadeRemote ordersFacadeEJB = ServiceLocator.getInstance().getRemoteObject("OrdersBean");
 			ordersFacadeEJB.fabricOrder(orden, minCotization);
 			setStatusButtoms();
+			reload();
 		} catch (Exception e) {
 			e.printStackTrace();
-			Util.addMessage(FacesMessage.SEVERITY_ERROR, "Ocurrio un error fabricar la order "+orden.getId(), "");
+			Util.addMessage(FacesMessage.SEVERITY_ERROR, "Ocurrio un error al fabricar la order "+orden.getId(), "");
 		}
 		
 	}
 	
 	public void send(){
-		setStatusButtoms();
+		try {
+			OrdersFacadeRemote ordersFacadeEJB = ServiceLocator.getInstance().getRemoteObject("OrdersBean");
+			ordersFacadeEJB.sendOrder(orden);
+			setStatusButtoms();
+			reload();
+		} catch (Exception e) {
+			e.printStackTrace();
+			Util.addMessage(FacesMessage.SEVERITY_ERROR, "Ocurrio un error al enviar la order "+orden.getId(), "");
+		}
 	}
 	
 	
@@ -181,11 +205,11 @@ public class UpdateOrderBean implements Serializable {
 		this.inputDate = inputDate;
 	}
 
-	public Double getInputPrice() {
+	public String getInputPrice() {
 		return inputPrice;
 	}
 
-	public void setInputPrice(Double inputPrice) {
+	public void setInputPrice(String inputPrice) {
 		this.inputPrice = inputPrice;
 	}
 

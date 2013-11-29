@@ -35,7 +35,7 @@
 						<h:outputText value="#{prd.prodId}" />
 					</p:column>
 
-					<p:column headerText="Nombre" style="width:20%">
+					<p:column headerText="Nombre" style="width:20%" filterBy="#{prd.name}">
 						<p:cellEditor>
 							<f:facet name="output">
 								<h:outputText value="#{prd.name}" filterBy="#{prd.name}"/>
@@ -108,7 +108,7 @@
 
 					<p:column style="width:5%">
 						<h:link value="Ver detalle"
-							outcome="detailProduct.xhtml?id=#{prd.id}" />
+							outcome="editProduct.xhtml?id=#{prd.id}" />
 					</p:column>
 				</p:dataTable>
 			</h:form>

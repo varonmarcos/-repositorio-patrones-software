@@ -26,7 +26,7 @@ public class DetailOrderBean implements Serializable {
 
 	private Long inputId;
 	private Date inputDate;
-	private Double inputPrice;
+	private String inputPrice;
 	private OrderStatusEnum inputState;
 	private String inputComments;
 	private String slCustomer;
@@ -78,11 +78,11 @@ public class DetailOrderBean implements Serializable {
 		this.inputDate = inputDate;
 	}
 
-	public Double getInputPrice() {
+	public String getInputPrice() {
 		return inputPrice;
 	}
 
-	public void setInputPrice(Double inputPrice) {
+	public void setInputPrice(String inputPrice) {
 		this.inputPrice = inputPrice;
 	}
 

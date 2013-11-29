@@ -10,48 +10,30 @@
 			<p:panel id="pnCreate" header="Crear Producto" toggleable="true" closable="true"  toggleSpeed="500" closeSpeed="500" widgetVar="panel2">
 				<h:panelGrid columns="2" cellpadding="5">
 					<h:outputText id="labelProId" value="ID Producto" /> 
-			    	<p:inputText id="inputProId" size="30" maxlength="10" required="true" value="#{detailProduct.inputProId}" 
-			    				 requiredMessage="Ingrese el Id del producto" converterMessage="El campo es numerico">
-			    		<f:validateDoubleRange minimum="1" maximum="999999999" /> 
-			    	</p:inputText>			
+			    	<h:outputText id="inputProId" value="#{detailProduct.inputProId}" /> 		
 					
 					<h:outputText id="labelName" value="Nombre Producto" /> 
-			    	<p:inputText id="inputName" size="30" maxlength="50" required="true" value="#{detailProduct.inputName}" 
-			    				 requiredMessage="Ingrese el nombre del producto" />
+			    	<h:outputText id="inputName" value="#{detailProduct.inputName}" />
 			    	
 			    	<h:outputText id="labelDesc" value="Descipción Producto" /> 
-			    	<p:inputText id="inputDesc" size="30" maxlength="200" required="true" value="#{detailProduct.inputDesc}" 
-			    				 requiredMessage="Ingrese la descripción del producto" />
+			    	<h:outputText id="inputDesc"  value="#{detailProduct.inputDesc}" />
 			    				    	
 			    	<h:outputText id="labelCat" value="Categoria Producto" title="title #{createProduct.slCategory}" />                 
-	                <p:selectOneMenu value="#{detailProduct.slCategory}" required="true" id="slCategory" requiredMessage="Selecciones Categoria">
-			            <f:selectItems  value="#{detailProduct.categorys}" />  
-			        </p:selectOneMenu>
+			        <h:outputText id="slCategory"  value="#{detailProduct.slCategory}" />
 			    	
 			    	<h:outputText id="labelPrice" value="Precio Producto" /> 
-			    	<p:inputText id="inputPrice" size="30" required="true" value="#{detailProduct.producto.price}" 
-			    				 requiredMessage="Ingrese el precio del producto" converterMessage="El campo es decimal">
-			    		<f:validateDoubleRange minimum="100000.0" maximum="10000000.99" /> 
-			    	</p:inputText>
+			    	<h:outputText id="inputPrice" value="#{detailProduct.producto.price}" /> 
 			    	
 			    	<h:outputText id="labelProducer" value="Proveedor" title="title #{createProduct.slProveedor}" /> 
-	                <p:selectOneMenu value="#{detailProduct.slProveedor}" required="true" id="slProveedor" requiredMessage="Seleccione un Proveedor"> 
-			            <f:selectItems value="#{detailProduct.producers}" />  
-			        </p:selectOneMenu>
+			         <h:outputText id="slProveedor"  value="#{detailProduct.slProveedor}" />
 
 		            <h:outputText value="Imagen Grande" />  
 		            <h:graphicImage url="#{detailProduct.image_url_full}" height="254" width="254"></h:graphicImage>
 		            
 		            <h:outputText value="Imagen Pequeña" />  
 		            <h:graphicImage url="#{detailProduct.image_url_thumb}" height="80" width="80"></h:graphicImage>
-			    	
-			    	<h:outputText id="labelFileFull" value="Cargar Imagenes Grande y Pequeño para modificar" />	    			
-	    			<p:fileUpload fileUploadListener="#{detailProduct.uploadFile}" mode="advanced" dragDropSupport="false"
-            					  update=":mainForm:msgs" auto="true" sizeLimit="100000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
-            					  multiple="true"/>	  
-						          
-					<br/> 
-					<p:commandButton value="Guardar" update=":mainForm:msgs" id="btEditProduct" actionListener="#{detailProduct.update}"/> 
+			    		          
+					<br/>  
 				    	
 				</h:panelGrid>
 			</p:panel>
