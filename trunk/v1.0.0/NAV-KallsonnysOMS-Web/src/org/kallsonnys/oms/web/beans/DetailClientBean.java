@@ -3,8 +3,6 @@ package org.kallsonnys.oms.web.beans;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.application.FacesMessage.Severity;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
@@ -15,7 +13,8 @@ import org.kallsonnys.oms.dto.CustomerDTO;
 import org.kallsonnys.oms.enums.AddressTypeEnum;
 import org.kallsonnys.oms.enums.CountryEnum;
 import org.kallsonnys.oms.enums.CustomerStatusEnum;
-import org.kallsonnys.oms.utilities.Util;
+import org.kallsonnys.oms.services.customers.CustomersFacadeRemote;
+import org.kallsonys.oms.commons.locator.ServiceLocator;
 
 import test.DAO;
 
@@ -45,10 +44,7 @@ public class DetailClientBean implements Serializable {
 	
 	private String subDptoBill;
 	private String subCityBill;
-	
-	private String messageHeader;
-	private String messageBody;
-	private Severity severity;
+
 	private CustomerDTO cliente;
 	
 	public DetailClientBean(){
@@ -58,9 +54,8 @@ public class DetailClientBean implements Serializable {
 			String idCli = req.getParameter("id");			
 			if (idCli != null){					    	
 			    			
-				System.out.println("idPrd "+idCli);
-				DAO d = new DAO();
-				cliente = d.editCliente();
+				CustomersFacadeRemote customersFacadeEJB = ServiceLocator.getInstance().getRemoteObject("CustomersBean");
+				cliente = customersFacadeEJB.getCustomerDetail(Long.parseLong(idCli));
 				
 				inputId = cliente.getId();
 				inputName = cliente.getName();

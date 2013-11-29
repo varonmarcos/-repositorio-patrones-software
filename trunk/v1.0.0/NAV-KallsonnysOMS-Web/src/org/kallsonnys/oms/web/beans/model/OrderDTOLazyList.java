@@ -87,7 +87,6 @@ public class OrderDTOLazyList extends LazyDataModel<OrderDTO> {
 			OrderStatusEnum valueOf = OrderStatusEnum.valueOf(value.toUpperCase());
 			return valueOf;
 		} catch (Exception e) {
-			e.printStackTrace();
 		}
 		
 		return null;

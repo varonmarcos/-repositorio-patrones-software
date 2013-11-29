@@ -16,11 +16,11 @@ import javax.servlet.http.HttpServletRequest;
 import org.kallsonnys.oms.dto.ProductDTO;
 import org.kallsonnys.oms.enums.ProducerTypeEnum;
 import org.kallsonnys.oms.enums.ProductCategoryEnum;
+import org.kallsonnys.oms.services.products.ProductsRemote;
 import org.kallsonnys.oms.utilities.Util;
+import org.kallsonys.oms.commons.locator.ServiceLocator;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
-
-import test.DAO;
 
 @ManagedBean(name = "detailProduct")
 @ViewScoped
@@ -71,8 +71,9 @@ public class DetailProductBean implements Serializable{
 				}   					    	
 			    			
 				System.out.println("idPrd "+idPrd);
-				DAO d = new DAO();
-				producto = d.getProduct();
+				ProductsRemote productsEJB = ServiceLocator.getInstance().getRemoteObject("ProductsBean");
+				producto = productsEJB.getProductDetailById(Long.parseLong(idPrd));
+
 				inputProId = producto.getProdId();
 				inputName = producto.getName();
 				inputDesc = producto.getDescription();
@@ -107,32 +108,27 @@ public class DetailProductBean implements Serializable{
     }
 	
 	public void update(ActionEvent actionEvent) throws IOException{ 	
-    	
-    	System.out.println("inputProId " + inputProId);
-    	System.out.println("inputName " + inputName);
-    	System.out.println("inputDesc " + inputDesc);
-    	System.out.println("inputPrice " + inputPrice);
-    	System.out.println("slCategory " + slCategory);
-    	System.out.println("slProveedor " + slProveedor);
-    	System.out.println("image_full_bytes " + image_full_bytes.length);
-    	System.out.println("image_thumb_bytes " + image_thumb_bytes.length);
-    	
-    	producto = new  ProductDTO();
-    	producto.setProdId(inputProId);
-    	producto.setName(inputName);
-    	producto.setDescription(inputDesc);
-    	producto.setPrice(inputPrice);
-    	producto.setCategory(slCategory);
-    	producto.setProducer(slProveedor);
-    	producto.setImage_full_bytes(image_full_bytes);
-    	producto.setImage_thumb_bytes(image_thumb_bytes);
-    	
-    	DAO d = new DAO();
-    	producto = d.createProduct(producto);
-    	
-    	System.out.println("recibido " + producto.getId());
-    	
-    	FacesContext.getCurrentInstance().getExternalContext().redirect("detailProduct.xhtml?id="+producto.getId()+"&state=OK");
+		try {
+			ProductDTO prodUpdate = new  ProductDTO();
+			prodUpdate.setId(producto.getId());
+	    	prodUpdate.setProdId(inputProId);
+	    	prodUpdate.setName(inputName);
+	    	prodUpdate.setDescription(inputDesc);
+	    	prodUpdate.setPrice(inputPrice);
+	    	prodUpdate.setCategory(slCategory);
+	    	prodUpdate.setProducer(slProveedor);
+	    	prodUpdate.setImage_full_bytes(image_full_bytes);
+	    	prodUpdate.setImage_thumb_bytes(image_thumb_bytes);
+	    	
+	    	ProductsRemote productsEJB = ServiceLocator.getInstance().getRemoteObject("ProductsBean");
+			productsEJB.updateProduct(prodUpdate);
+	    	
+	    	FacesContext.getCurrentInstance().getExternalContext().redirect("detailProduct.xhtml?id="+prodUpdate.getId()+"&state=OK");
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			Util.addMessage(FacesMessage.SEVERITY_ERROR, "Ocurrio un error al editar el producto "+producto.getName(), "");
+		}
 	}
 	
 	public List<ProducerTypeEnum> getProducers() {

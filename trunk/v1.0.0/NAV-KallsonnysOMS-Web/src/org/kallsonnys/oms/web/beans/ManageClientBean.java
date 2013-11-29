@@ -3,19 +3,21 @@ package org.kallsonnys.oms.web.beans;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.faces.application.FacesMessage;
-import javax.faces.application.FacesMessage.Severity;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
-import org.kallsonnys.oms.dto.AddressDTO;
+
 import org.kallsonnys.oms.dto.CustomerDTO;
-import org.kallsonnys.oms.enums.AddressTypeEnum;
+import org.kallsonnys.oms.dto.ProductDTO;
 import org.kallsonnys.oms.enums.CustomerStatusEnum;
+import org.kallsonnys.oms.services.customers.CustomersFacadeRemote;
 import org.kallsonnys.oms.utilities.Util;
 import org.kallsonnys.oms.web.beans.model.CustomerDTOLazyList;
+import org.kallsonys.oms.commons.locator.ServiceLocator;
+import org.primefaces.event.RowEditEvent;
 import org.primefaces.model.LazyDataModel;
 
 @ManagedBean(name="manageClient")
@@ -37,7 +39,6 @@ public class ManageClientBean
   public ManageClientBean()
   {
     setClientes(new CustomerDTOLazyList(this.list));
-    setAddressShip(this.list);
 
     HttpServletRequest req = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
     if (req != null) {
@@ -57,27 +58,35 @@ public class ManageClientBean
       }
     }
   }
+  
+  public void onEdit(RowEditEvent event) {
+		
+		CustomerDTO customerDTO = (CustomerDTO) event.getObject();
+		
+		try {
+			
+			CustomersFacadeRemote customersFacadeEJB = ServiceLocator.getInstance().getRemoteObject("CustomersBean");
+			customersFacadeEJB.updateCustomerStatus(customerDTO);
+			
+			messageHeader = "El Cliente ha sido Editado "+customerDTO.getName()+"con exito";
+			messageBody = ((ProductDTO) event.getObject()).getProdId().toString();
+			severity = FacesMessage.SEVERITY_INFO;
 
-  private void setAddressShip(List<CustomerDTO> clientes)
-  {
-    List<AddressDTO> listAddress = new ArrayList<AddressDTO>();
-
-    for (CustomerDTO cliente : clientes) {
-      listAddress = cliente.getCustomerAddress();
-      for (AddressDTO address : listAddress) {
-        if (address.getAddresstype().equals(AddressTypeEnum.SHIPPING_ADDRESS)) {
-          setShip(address.getCountry() + ", " + address.getStateName() + ", " + address.getCityName() + ", " + address.getStreet());
-        }
-
-        if (address.getAddresstype().equals(AddressTypeEnum.BILLING_ADDRESS))
-          setBill(address.getCountry() + ", " + address.getStateName() + ", " + address.getCityName() + ", " + address.getStreet());
-      }
-    }
-  }
+			Util.addMessage(severity, messageHeader, messageBody);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			messageHeader = "Ocurrio un error al Editar el Cliente "+ customerDTO.getName();
+			messageBody = customerDTO.getId().toString();
+			severity = FacesMessage.SEVERITY_ERROR;
+			Util.addMessage(severity, messageHeader, messageBody);
+		}
+	
+	}
 
   public List<CustomerStatusEnum> getStatuss()
   {
-    this.statuss = new ArrayList();
+    this.statuss = new ArrayList<CustomerStatusEnum>();
     this.statuss.add(CustomerStatusEnum.PLATINUM);
     this.statuss.add(CustomerStatusEnum.GOLDEN);
     this.statuss.add(CustomerStatusEnum.SILVER);

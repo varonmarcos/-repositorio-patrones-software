@@ -20,6 +20,9 @@
 		                 editable="true" style="font-size:12px;" lazy="true">  
 		        <f:facet name="header">  
 		        </f:facet>  
+		        
+		        <p:ajax event="rowEdit" listener="#{manageClient.onEdit}"
+						update=":mainForm:msgs" />
 		  
 		        <p:column headerText="ID" style="width:5%" filterBy="#{cli.id}">   
 		            <h:outputText value="#{cli.id}" />  
@@ -45,21 +48,23 @@
 	                <h:outputText value="#{cli.cardType}" /> 
 		        </p:column>
 		        
-		        <p:column headerText="Estado" style="width:10%">
-	                <h:outputText value="#{cli.status}" />
+		        <p:column headerText="Estado" style="width:10%" filterBy="#{cli.status}">
+	                 <p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{cli.status}" />
+							</f:facet>
+							<f:facet name="input">
+								<h:selectOneMenu value="#{cli.status}">
+									<f:selectItems value="#{manageClient.statuss}" var="st"
+										itemLabel="#{st}" itemValue="#{st}" />
+								</h:selectOneMenu>
+							</f:facet>
+						</p:cellEditor>
 		        </p:column>
 		        
-		        <p:column headerText="Direccion Envio" style="width:15%">
-	                <h:outputText value="#{manageClient.ship}" style="width: 50px; white-space: normal; text-align:justify;" />    
-		        </p:column>
-		        
-		        <p:column headerText="Direccion Pago" style="width:15%">   
-	                <h:outputText value="#{manageClient.bill}" style="width: 50px; white-space: normal; text-align:justify;" />    
-		        </p:column>
-		    	
-		        <p:column style="width:4%">  
-		            <h:link value="Editar" outcome="editClient.xhtml?id=#{cli.id}"/>  
-		        </p:column>
+		       <p:column style="width:4%">  
+			            <h:link value="Detalle" outcome="detailClient.xhtml?id=#{cli.id}"/>  
+			    </p:column>
 		    </p:dataTable>
 		
 		</p:panel>
