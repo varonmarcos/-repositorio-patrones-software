@@ -15,7 +15,7 @@ public class OrderDTO extends BaseDTO{
 	
 	private Date orderDate;
 	
-	private Double price;
+	private String price;
 	
 	private OrderStatusEnum status;
 
@@ -53,11 +53,11 @@ public class OrderDTO extends BaseDTO{
 		this.orderDate = orderDate;
 	}
 
-	public Double getPrice() {
+	public String getPrice() {
 		return price;
 	}
 
-	public void setPrice(Double price) {
+	public void setPrice(String price) {
 		this.price = price;
 	}
 
