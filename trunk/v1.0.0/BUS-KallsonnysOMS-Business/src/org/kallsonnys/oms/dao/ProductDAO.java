@@ -141,7 +141,7 @@ public class ProductDAO implements BaseDAO {
 		try {
 			
 			final Top5 top5 = (Top5) em
-					.createQuery("SELECT tp FROM Top5 tp WHERE tp.id = :prodId")
+					.createQuery("SELECT tp FROM Top5 tp WHERE tp.prodId = :prodId")
 					.setParameter("prodId", prodId).getSingleResult();
 			
 			return top5;

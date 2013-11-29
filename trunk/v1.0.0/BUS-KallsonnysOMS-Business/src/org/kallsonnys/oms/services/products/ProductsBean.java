@@ -48,6 +48,26 @@ public class ProductsBean implements ProductsRemote, ProductsLocal {
 		
 	}
 	
+	public Product getProduct(Long prodId){
+		productDAO.setEm(em);
+		Product product = productDAO.getProduct(prodId);
+		return product;
+	}
+	
+	public ProductDTO getProductDetailById(Long id){
+		productDAO.setEm(em);
+		Product product = em.find(Product.class, id);
+		Top5 productTop5 = productDAO.getProductTop5(product.getId());
+		
+		ProductDTO productDTO = OMSMapper.mapProduct(product);
+		if(productTop5!=null){
+			productDTO.setTop5(OMSMapper.mapTop5(productDAO.getTopProducts(productTop5)));			
+		}
+		
+		return productDTO;
+		
+	}
+	
 	public ProductDTO createProduct(ProductDTO productDTO){
 		
 		Product product = new Product();
@@ -59,7 +79,7 @@ public class ProductsBean implements ProductsRemote, ProductsLocal {
 		product.setProducer(productDTO.getProducer());
 		
 		String image_full_url = null;
-		if(productDTO.getImage_full_bytes().length>0){
+		if(productDTO.getImage_full_bytes()!=null&&productDTO.getImage_full_bytes().length>0){
 //			image_full_url = ImagesLoadManager.getInstance().uploadJPG(
 //					productDTO.getImage_full_bytes(),
 //					productDTO.getName() + FULL_IMG_PREFIX);
@@ -70,7 +90,7 @@ public class ProductsBean implements ProductsRemote, ProductsLocal {
 		product.setImage_url_full(image_full_url);
 		
 		String image_full_thumbl = null;
-		if(productDTO.getImage_thumb_bytes().length>0){
+		if(productDTO.getImage_thumb_bytes()!=null&&productDTO.getImage_thumb_bytes().length>0){
 //			image_full_thumbl = ImagesLoadManager.getInstance().uploadJPG(
 //					productDTO.getImage_thumb_bytes(),
 //					productDTO.getName() + THUMB_IMG_PREFIX);

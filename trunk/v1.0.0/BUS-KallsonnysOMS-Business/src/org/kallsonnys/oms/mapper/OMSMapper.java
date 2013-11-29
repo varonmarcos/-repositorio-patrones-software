@@ -146,7 +146,7 @@ public class OMSMapper {
 		orderDTO.setShippingProvider(order.getShippingProvider());
 		orderDTO.setComments(order.getComments());
 		orderDTO.setOrderDate(order.getOrderDate());
-		orderDTO.setPrice(order.getPrice());
+		orderDTO.setPrice(String.format("%.0f", order.getPrice()));
 		orderDTO.setCustomer(mapCustomerBasicInfo(order.getCustomer()));
 		
 		return orderDTO;
@@ -159,7 +159,7 @@ public class OMSMapper {
 		orderDTO.setShippingProvider(order.getShippingProvider());
 		orderDTO.setComments(order.getComments());
 		orderDTO.setOrderDate(order.getOrderDate());
-		orderDTO.setPrice(order.getPrice());
+		orderDTO.setPrice(String.format("%.0f", order.getPrice()));
 		orderDTO.setCustomer(mapCustomer(order.getCustomer()));
 		orderDTO.setItems(mapOrderItems(order.getItems()));
 		return orderDTO;
@@ -178,7 +178,7 @@ public class OMSMapper {
 		itemDTO.setProdId(item.getProdId());
 		itemDTO.setProductName(item.getProductName());
 		itemDTO.setQuantity(item.getQuantity());
-		itemDTO.setPrice(item.getPrice());
+		itemDTO.setPrice(String.format("%.0f", item.getPrice()));
 		return itemDTO;
 	}
 	
@@ -210,8 +210,8 @@ public class OMSMapper {
 			itemMap.put("itemId", item.getProdId().toString());
 			itemMap.put("prodId", item.getProdId().toString());
 			itemMap.put("productName", item.getProductName().toString());
-			itemMap.put("partNumber", item.getPartNum().toString());
-			itemMap.put("price", item.getPrice().toString());
+			itemMap.put("partNumber", item.getPartNum() == null ? "Part001" : item.getPartNum().toString());
+			itemMap.put("price", String.format("%.0f", item.getPrice()));
 			itemMap.put("quantity", item.getQuantity().toString());
 			itemsList.add(itemMap);
 		}
@@ -309,14 +309,18 @@ public class OMSMapper {
 		}
 		
 		final List<Map<String, String>> itemsList = new ArrayList<Map<String, String>>();
+		int totalQuantity = 0;
 		for (final Item item : order.getItems()) {
 			final Map<String, String> itemMap = new HashMap<String, String>();
 			itemMap.put("productName", item.getProductName());
 			itemMap.put("quantity", item.getQuantity().toString());
-			itemMap.put("price", item.getPrice().toString());
+			itemMap.put("price", String.format("%.0f", item.getPrice()));
 			itemsList.add(itemMap);
+			totalQuantity += item.getQuantity();
 		}
 	
+		mailDTO.addParam("totalQuantity", totalQuantity);
+		mailDTO.addParam("totalPrice", String.format("%.0f", order.getPrice()));
 		mailDTO.addParam("itemList", itemsList);
 		
 		
@@ -361,14 +365,18 @@ public class OMSMapper {
 		}
 		
 		final List<Map<String, String>> itemsList = new ArrayList<Map<String, String>>();
+		int totalQuantity = 0;
 		for (final Item item : order.getItems()) {
 			final Map<String, String> itemMap = new HashMap<String, String>();
 			itemMap.put("productName", item.getProductName());
 			itemMap.put("quantity", item.getQuantity().toString());
-			itemMap.put("price", item.getPrice().toString());
+			itemMap.put("price", String.format("%.0f", item.getPrice()));
 			itemsList.add(itemMap);
+			totalQuantity += item.getQuantity();
 		}
 	
+		mailDTO.addParam("totalQuantity", totalQuantity);
+		mailDTO.addParam("totalPrice", String.format("%.0f", order.getPrice()));
 		mailDTO.addParam("itemList", itemsList);
 		
 		

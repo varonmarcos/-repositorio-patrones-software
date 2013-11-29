@@ -158,6 +158,16 @@ public class CustomersBean implements CustomersFacadeRemote,
 		
 	}
 	
+	public CustomerDTO getCustomerDetail(final Long id) {
+		
+		customerDAO.setEm(em);
+		Customer customer = em.find(Customer.class, id);
+		
+		return  OMSMapper.mapCustomer(customer);
+		
+	}
+	
+	
 	public Customer getCustomer(final String email) {
 		
 		customerDAO.setEm(em);
