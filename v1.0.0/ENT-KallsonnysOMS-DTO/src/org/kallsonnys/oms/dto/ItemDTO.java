@@ -15,7 +15,7 @@ public class ItemDTO extends BaseDTO {
 	
 	private Integer quantity;
 
-	private Double price;
+	private String price;
 	
 	public ItemDTO() {
 		
@@ -65,11 +65,11 @@ public class ItemDTO extends BaseDTO {
 		this.quantity = quantity;
 	}
 
-	public Double getPrice() {
+	public String getPrice() {
 		return price;
 	}
 
-	public void setPrice(Double price) {
+	public void setPrice(String price) {
 		this.price = price;
 	}
 	
