@@ -8,11 +8,9 @@ package org.kallsonys.oms.ws.orderservices;
 
 import java.util.logging.Logger;
 
-import org.kallsonnys.oms.dto.FilterConstants;
 import org.kallsonnys.oms.dto.OrderDTO;
 import org.kallsonnys.oms.dto.TableFilterDTO;
 import org.kallsonnys.oms.dto.TableResultDTO;
-import org.kallsonnys.oms.enums.OrderFilterEnum;
 import org.kallsonnys.oms.services.orders.OrdersFacadeRemote;
 import org.kallsonys.oms.commons.locator.ServiceLocator;
 import org.kallsonys.oms.ws.mapper.WSMapper;
@@ -63,7 +61,6 @@ public class OrderServicesImpl implements OrderServices {
         	
         	OrdersFacadeRemote ordersFacadeRemote = ServiceLocator.getInstance().getRemoteObject("OrdersBean");
         	TableFilterDTO mapTableFilterDTO = WSMapper.mapTableFilterDTO(pagingDto);
-        	mapTableFilterDTO.addFilter(FilterConstants.ORDER_FILTER, OrderFilterEnum.ALL_ORDERS_OPEN_RANKING);
 			TableResultDTO<OrderDTO> ordersList = ordersFacadeRemote.getOrdersList(mapTableFilterDTO);
         	
 			OrderList orderList = WSMapper.mapOrderList(ordersList.getResult());

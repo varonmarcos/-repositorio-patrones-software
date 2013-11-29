@@ -204,7 +204,7 @@ public class WSMapper {
 		OrderDTO orderDTO = new OrderDTO();
 		orderDTO.setComments(createOrderRequest.getComment());
 		orderDTO.setOrderDate(DateUtil.formatDate(createOrderRequest.getDate()));
-		orderDTO.setPrice(Double.valueOf(createOrderRequest.getTotalPrice()));
+		orderDTO.setPrice(createOrderRequest.getTotalPrice());
 		orderDTO.setCustomer(mapBasicInfoCustomer(createOrderRequest.getCustomerInfo()));
 		orderDTO.setItems(mapItemDTOs(createOrderRequest.getOrderItem()));
 		
@@ -224,7 +224,7 @@ public class WSMapper {
 		itemDTO.setProdId(Long.valueOf(oi.getProductDetail().getId()));
 		itemDTO.setProductName(oi.getProductDetail().getName());
 		itemDTO.setQuantity(Integer.valueOf(oi.getQuantity()));
-		itemDTO.setPrice(Double.valueOf(oi.getTotal()));
+		itemDTO.setPrice(oi.getTotal());
 		return itemDTO;
 	}
 
