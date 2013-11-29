@@ -39,12 +39,14 @@ public class CustomerDAO implements BaseDAO {
 		final String sorterType = (filter.getSorterType() == null) ? TableFilterDTO.ASC
 				: filter.getSorterType();
 		
-		CustomerStatusEnum customerStatus;
+		CustomerStatusEnum customerStatus = null;
 		if(filter.getVal(FilterConstants.CUSTOMER_STATUS)!=null){
 			 customerStatus = filter.getVal(FilterConstants.CUSTOMER_STATUS);
-		}else{
-			customerStatus = CustomerStatusEnum.PLATINUM;
 		}
+		
+		final String cusName = filter.getStringVal(FilterConstants.NAME);
+		
+		final String cusSurName = filter.getStringVal(FilterConstants.SUR_NAME);
 		
 		Long customerId = null;
 		if(filter.getStringVal(FilterConstants.CUSTOMER_ID)!=null){
@@ -83,7 +85,19 @@ public class CustomerDAO implements BaseDAO {
 			jpql.append("JOIN order.items item ");
 		}
 		
-		jpql.append("WHERE cust.status = :customerStatus ");
+		jpql.append("WHERE 1=1 ");
+		
+		if(customerStatus!=null){
+			jpql.append("AND cust.status = :customerStatus ");
+		}
+		
+		if(cusName != null){
+			jpql.append("AND UPPER(cust.name) LIKE UPPER(:cusName) ");
+		}
+		
+		if(cusSurName != null){
+			jpql.append("AND UPPER(cust.surname) LIKE UPPER(:cusSurName) ");
+		}
 		
 		if(customerId!=null){
 			jpql.append("AND cust.id = :customerId ");
@@ -114,8 +128,10 @@ public class CustomerDAO implements BaseDAO {
 		final Query query = em.createQuery(jpql.toString());
 		final Query queryCount = em.createQuery(jpqlCount.toString());
 		
-		query.setParameter("customerStatus", customerStatus);
-		queryCount.setParameter("customerStatus", customerStatus);
+		if(customerStatus != null){
+			query.setParameter("customerStatus", customerStatus);
+			queryCount.setParameter("customerStatus", customerStatus);			
+		}
 		
 		if(customerId!=null){
 			query.setParameter("customerId", customerId);
@@ -125,6 +141,16 @@ public class CustomerDAO implements BaseDAO {
 		if(prodId!=null){
 			query.setParameter("prodId", prodId);
 			queryCount.setParameter("prodId", prodId);
+		}
+		
+		if(cusName != null && !cusName.equals("")){
+			query.setParameter("cusName", "%" + cusName + "%");
+			queryCount.setParameter("cusName", "%" + cusName + "%");
+		}
+		
+		if(cusSurName != null && !cusSurName.equals("")){
+			query.setParameter("cusSurName", "%" + cusSurName + "%");
+			queryCount.setParameter("cusSurName", "%" + cusSurName + "%");
 		}
 		
 

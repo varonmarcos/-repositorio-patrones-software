@@ -13,6 +13,7 @@ import javax.persistence.PersistenceContext;
 import org.kallsonnys.integration.agent.ServiceAgentSOAP;
 import org.kallsonnys.oms.dao.CustomerDAO;
 import org.kallsonnys.oms.dao.OrderDAO;
+import org.kallsonnys.oms.dao.ProductDAO;
 import org.kallsonnys.oms.dao.ServientregaDAO;
 import org.kallsonnys.oms.dto.FilterConstants;
 import org.kallsonnys.oms.dto.ItemDTO;
@@ -26,6 +27,7 @@ import org.kallsonnys.oms.enums.OrderStatusEnum;
 import org.kallsonnys.oms.enums.ProducerTypeEnum;
 import org.kallsonnys.oms.mapper.OMSMapper;
 import org.kallsonnys.oms.services.customers.CustomersFacadeLocal;
+import org.kallsonnys.oms.services.products.ProductsLocal;
 import org.kallsonys.oms.commons.Exception.ErrorCodesEnum;
 import org.kallsonys.oms.commons.Exception.OMSException;
 import org.kallsonys.oms.commons.util.SendMailTxListener;
@@ -33,6 +35,7 @@ import org.kallsonys.oms.entities.custAndOrders.Address;
 import org.kallsonys.oms.entities.custAndOrders.Customer;
 import org.kallsonys.oms.entities.custAndOrders.Item;
 import org.kallsonys.oms.entities.custAndOrders.Orders;
+import org.kallsonys.oms.entities.products.Product;
 
 
 @Stateless
@@ -44,9 +47,13 @@ public class OrdersBean implements OrdersFacadeRemote, OrdersFacadeLocal {
 	@EJB
 	CustomersFacadeLocal customersFacadeEJB;
 	
+	@EJB
+	ProductsLocal productsEJB;
+	
 	private OrderDAO orderDAO = new OrderDAO();
 	private ServientregaDAO servientregaDAO = new ServientregaDAO();
 	private CustomerDAO customerDAO = new CustomerDAO();
+	private ProductDAO productDAO = new ProductDAO();
     
     public OrdersBean() {
        
@@ -187,7 +194,7 @@ public class OrdersBean implements OrdersFacadeRemote, OrdersFacadeLocal {
 			}
 		}
 		
-		if(status != null && status.equals("shipped")){
+		if(status != null && (status.equals("shipped")||status.equals("ok"))){
 			order.setStatus(OrderStatusEnum.SHIPPED);
 		}
 		
@@ -230,21 +237,24 @@ public class OrdersBean implements OrdersFacadeRemote, OrdersFacadeLocal {
 		try {
 			
 			orderDAO.setEm(em);
+			productDAO.setEm(em);
 			
 			Customer customer = customersFacadeEJB.getCustomer(orderDTO.getCustomer().getEmail());
 
 			Orders order = new Orders();
 			order.setComments(orderDTO.getComments());
 			
+			double price = Double.parseDouble(orderDTO.getPrice());
+			
 			if (customer.getStatus() == CustomerStatusEnum.PLATINUM
-					|| (customer.getStatus() == CustomerStatusEnum.GOLDEN && orderDTO.getPrice() < 120000D)) {
+					|| (customer.getStatus() == CustomerStatusEnum.GOLDEN && price < 120000)) {
 				order.setStatus(OrderStatusEnum.APPROVED);	
 				
 			}else{
 				order.setStatus(OrderStatusEnum.CREATED);				
 			}
 			
-			order.setPrice(orderDTO.getPrice());
+			order.setPrice(price);
 			order.setCustomer(customer);
 			order.setOrderDate(orderDTO.getOrderDate());
 			
@@ -253,7 +263,10 @@ public class OrdersBean implements OrdersFacadeRemote, OrdersFacadeLocal {
 			customer.addOrder(order);
 			
 			Item item;
+			Product prod;
 			for (ItemDTO itemDTO : orderDTO.getItems()) {
+				prod = productsEJB.getProduct(itemDTO.getProdId());
+				itemDTO.setProdId(prod.getId());
 				item = orderDAO.createOrderItem(itemDTO);
 				order.addItem(item);
 			}

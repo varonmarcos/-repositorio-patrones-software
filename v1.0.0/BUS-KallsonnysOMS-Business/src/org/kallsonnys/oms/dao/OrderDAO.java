@@ -214,7 +214,7 @@ public class OrderDAO implements BaseDAO {
 	public Item createOrderItem(final ItemDTO itemDTO) {
 		final Item item = new Item();
 		item.setPartNum(itemDTO.getPartNum());
-		item.setPrice(itemDTO.getPrice());
+		item.setPrice(Double.valueOf(itemDTO.getPrice()));
 		item.setProductName(itemDTO.getProductName());
 		item.setProdId(itemDTO.getProdId());
 		item.setQuantity(itemDTO.getQuantity());
