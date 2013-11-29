@@ -63,6 +63,9 @@ public class CustomerDTOLazyList extends LazyDataModel<CustomerDTO> {
 			messageHeader = "Registros Encontrados ";
 			messageBody = "";
 			severity = FacesMessage.SEVERITY_INFO;
+			
+			this.setRowCount(totalOfRecords);  
+			
 		}else{
 			messageHeader = "No se Encontraron Registros ";
 			messageBody = "";

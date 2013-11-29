@@ -22,4 +22,8 @@ public interface OrdersFacade {
 
 	OrderDTO sendOrder(OrderDTO orderDTO);
 	
+	void removeOrder(OrderDTO orderDTO);
+
+	OrderDTO approveOrder(OrderDTO orderDTO);
+	
 }

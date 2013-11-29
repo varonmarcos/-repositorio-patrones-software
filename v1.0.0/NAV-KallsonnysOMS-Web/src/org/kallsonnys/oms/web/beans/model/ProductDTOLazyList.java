@@ -4,30 +4,19 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.application.FacesMessage.Severity;
-
-import org.kallsonnys.oms.dto.FilterConstants;
 import org.kallsonnys.oms.dto.ProductDTO;
 import org.kallsonnys.oms.dto.TableFilterDTO;
 import org.kallsonnys.oms.dto.TableResultDTO;
-import org.kallsonnys.oms.utilities.Util;
-//import org.kallsonnys.oms.services.products.ProductsRemote;
+import org.kallsonnys.oms.services.products.ProductsRemote;
 import org.kallsonys.oms.commons.locator.ServiceLocator;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
-
-import test.DAO;
 
 public class ProductDTOLazyList extends LazyDataModel<ProductDTO> {
 
 	private static final long serialVersionUID = 1L;
 
 	private List<ProductDTO> products;
-	private int totalOfRecords;
-	private String messageHeader;
-	private String messageBody;
-	private Severity severity;
 	
 
 	public ProductDTOLazyList(List<ProductDTO> products) {
@@ -35,7 +24,8 @@ public class ProductDTOLazyList extends LazyDataModel<ProductDTO> {
 	}
 
 	@Override
-	public List<ProductDTO> load(int startingAt, int maxPerPage, String sortField, SortOrder sortOrder, Map<String, String> filters) {
+	public List<ProductDTO> load(int startingAt, int maxPerPage,
+			String sortField, SortOrder sortOrder, Map<String, String> filters) {
 
 		TableResultDTO<ProductDTO> result = null;
 		TableFilterDTO filterDTO = new TableFilterDTO();
@@ -46,35 +36,17 @@ public class ProductDTOLazyList extends LazyDataModel<ProductDTO> {
 		for (Entry<String, String> entryFilter : filters.entrySet()) {
 			filterDTO.addFilter(entryFilter.getKey(), entryFilter.getValue());
 		}
-		
-		DAO d = new DAO();
-		//ProductsRemote productsEJB = ServiceLocator.getInstance().getRemoteObject("ProductsBean");
-		//result = productsEJB.getProductsList(filterDTO);
-		result = d.getProducts(filterDTO);
+
+		ProductsRemote productsEJB = ServiceLocator.getInstance()
+				.getRemoteObject("ProductsBean");
+		result = productsEJB.getProductsList(filterDTO);
 
 		products = result.getResult();
-		totalOfRecords = result.getTotalOfRecords();	
-
-		if (getRowCount() <= 0) {
-
-			setRowCount(result.getTotalOfRecords());
-
-		}
-
-		setPageSize(maxPerPage);		
 		
-		if (totalOfRecords > 0){
-			messageHeader = "Registros Encontrados ";
-			messageBody = "";
-			severity = FacesMessage.SEVERITY_INFO;
-		}else{
-			messageHeader = "No se Encontraron Registros ";
-			messageBody = "";
-			severity = FacesMessage.SEVERITY_WARN;
-		}
+		this.setRowCount(result.getTotalOfRecords());  
 
-		Util.addMessage(severity, messageHeader, messageBody);
-		
+		setPageSize(maxPerPage);
+
 		return products;
 
 	}
@@ -87,9 +59,9 @@ public class ProductDTOLazyList extends LazyDataModel<ProductDTO> {
 	}
 
 	@Override
-	public ProductDTO getRowData(String playerId) {
+	public ProductDTO getRowData(String prouctId) {
 
-		Integer id = Integer.valueOf(playerId);
+		Integer id = Integer.valueOf(prouctId);
 
 		for (ProductDTO product : products) {
 

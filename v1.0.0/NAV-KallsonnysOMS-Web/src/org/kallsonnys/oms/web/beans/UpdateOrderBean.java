@@ -5,25 +5,20 @@ import java.util.Date;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
-import javax.faces.application.FacesMessage.Severity;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
-import org.kallsonnys.oms.dto.AddressDTO;
-import org.kallsonnys.oms.dto.CustomerDTO;
 import org.kallsonnys.oms.dto.ItemDTO;
 import org.kallsonnys.oms.dto.OrderDTO;
-import org.kallsonnys.oms.dto.ProductDTO;
+import org.kallsonnys.oms.dto.ShipmentCotizationDTO;
 import org.kallsonnys.oms.enums.AddressTypeEnum;
-import org.kallsonnys.oms.enums.CountryEnum;
-import org.kallsonnys.oms.enums.CustomerStatusEnum;
 import org.kallsonnys.oms.enums.OrderStatusEnum;
 import org.kallsonnys.oms.enums.ProducerTypeEnum;
+import org.kallsonnys.oms.services.orders.OrdersFacadeRemote;
 import org.kallsonnys.oms.utilities.Util;
-
-import test.DAO;
+import org.kallsonys.oms.commons.locator.ServiceLocator;
 
 @ManagedBean(name = "updateOrder")
 @ViewScoped
@@ -35,12 +30,14 @@ public class UpdateOrderBean implements Serializable {
 	private Date inputDate;
 	private Double inputPrice;
 	private OrderStatusEnum inputState;
+	private ShipmentCotizationDTO minCotization;
 	private String inputComments;
 	private String slCustomer;
 	private String slShipper;
 	private ProducerTypeEnum slProduccer;
 	private OrderDTO orden;
 	private List<ItemDTO> items;
+	private String shipTo;
 	
 	private boolean disCotizar;
 	private boolean disApprove;
@@ -60,25 +57,31 @@ public class UpdateOrderBean implements Serializable {
 		if (req != null) {
 			String idOrd = req.getParameter("id");
 			if (idOrd != null) {
-
-				System.out.println("id " + idOrd);
-				DAO d = new DAO();
 				
-				//invocacion EJB
-				// orden = d.editCliente();
+				OrdersFacadeRemote ordersFacadeEJB = ServiceLocator.getInstance().getRemoteObject("OrdersBean");
+				orden = ordersFacadeEJB.getOrderDetail(Long.parseLong(idOrd));
+
 
 				inputId = orden.getId();
 				inputDate = orden.getOrderDate();
 				inputPrice = orden.getPrice();
 				inputState = orden.getStatus();
 				inputComments = orden.getComments();
-				slCustomer = orden.getCustomer().getName();
+				slCustomer = orden.getCustomer().getName()+" "+orden.getCustomer().getSurname();
+				shipTo = Util.buildAdderss(orden.getCustomer(), AddressTypeEnum.SHIPPING_ADDRESS);
 				slShipper = orden.getShippingProvider();
 				slProduccer = orden.getProducer();
+				items = orden.getItems();
 			}
 
 		}
 		
+		setStatusButtoms();
+		
+		
+	}
+
+	private void setStatusButtoms() {
 		if (inputState.equals(OrderStatusEnum.CREATED)){
 			setDisApprove(true);
 		}
@@ -91,38 +94,74 @@ public class UpdateOrderBean implements Serializable {
 		if (inputState.equals(OrderStatusEnum.PROCESSING)){
 			setDisSend(true);
 		}
-		
-		
 	}
 	
 	public void approve(){
+		try {
+			OrdersFacadeRemote ordersFacadeEJB = ServiceLocator.getInstance().getRemoteObject("OrdersBean");
+			orden = ordersFacadeEJB.approveOrder(orden);
+			inputState = orden.getStatus();
+			
+			setStatusButtoms();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			Util.addMessage(FacesMessage.SEVERITY_ERROR, "Ocurrio un error aprobar la order "+orden.getId(), "");
+		}
 		
 	}
 	
 	public void factory(){
-			
+		try {
+			OrdersFacadeRemote ordersFacadeEJB = ServiceLocator.getInstance().getRemoteObject("OrdersBean");
+			ordersFacadeEJB.fabricOrder(orden, minCotization);
+			setStatusButtoms();
+		} catch (Exception e) {
+			e.printStackTrace();
+			Util.addMessage(FacesMessage.SEVERITY_ERROR, "Ocurrio un error fabricar la order "+orden.getId(), "");
+		}
+		
 	}
 	
 	public void send(){
-		
+		setStatusButtoms();
 	}
 	
 	
 	public void cotizar(){
-		String resultCotizaSony = null;
-		String resultCotizaRapid = null;
 		
-		
-		if (Double.parseDouble(resultCotizaSony) > Double.parseDouble(resultCotizaRapid)){
-			setStyleCotizaRapidService("color:#FF0000; font-weight: bold;");
-			setStyleCotizaSony("");
-		}else{
-			setStyleCotizaRapidService("");
-			setStyleCotizaSony("color:#FF0000; font-weight: bold;");
+		try {
+			OrdersFacadeRemote ordersFacadeEJB = ServiceLocator.getInstance().getRemoteObject("OrdersBean");
+			List<ShipmentCotizationDTO> orderCotization = ordersFacadeEJB.getOrderCotization(orden.getId());
+
+			if (orderCotization.size() == 2) {
+
+				ShipmentCotizationDTO resultCotizaSony = orderCotization.get(0);
+				ShipmentCotizationDTO resultCotizaRapid = orderCotization.get(1);
+
+				if (resultCotizaSony.getPrice() > resultCotizaRapid.getPrice()) {
+					minCotization = resultCotizaRapid;
+					setStyleCotizaRapidService("color:#FF0000; font-weight: bold;");
+					setStyleCotizaSony("");
+				} else {
+					minCotization = resultCotizaSony;
+					setStyleCotizaRapidService("");
+					setStyleCotizaSony("color:#FF0000; font-weight: bold;");
+				}
+				// invocacion ejb
+				setCotizaSony(resultCotizaSony.getPrice().toString());
+				setCotizaRapidService(resultCotizaRapid.getPrice().toString());
+
+				setStatusButtoms();
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			Util.addMessage(
+					FacesMessage.SEVERITY_ERROR,
+					"Ocurrio un error al obtener las cotizaciones de los fabricantes", "");
 		}
-		//invocacion ejb
-		setCotizaSony(resultCotizaSony);
-		setCotizaRapidService(resultCotizaRapid);
+		
 		
 	}
 
@@ -268,6 +307,14 @@ public class UpdateOrderBean implements Serializable {
 
 	public void setStyleCotizaRapidService(String styleCotizaRapidService) {
 		this.styleCotizaRapidService = styleCotizaRapidService;
+	}
+
+	public String getShipTo() {
+		return shipTo;
+	}
+
+	public void setShipTo(String shipTo) {
+		this.shipTo = shipTo;
 	}
 	
 	

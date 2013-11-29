@@ -13,7 +13,8 @@ public enum ErrorCodesEnum {
 	PARSING_DATE_ERROR("ERR003","Ocurrio un error al intentar parsea una fecha formato aceptado: yyyy-MM-dd"),
 	USER_ALREADY_EXISTS("ERR004","EL cliente que se desea registrar ya se encuentra registrado en el sistema"),
 	PASSWORD_ERROR("ERR005","Ocurrio un error al crear el hash del password"),
-	ERROR_PROCESSING_ORDER("ERR006","Ocurrio un error inesperado en el procesamiento de la orden");
+	ERROR_PROCESSING_ORDER("ERR006","Ocurrio un error inesperado en el procesamiento de la orden"),
+	SECURITY_INITIAL_INVALID("ERR005","La contraseña o el login estan invalidos ");
 
 	private String code;
 	private String msg;

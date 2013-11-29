@@ -24,8 +24,8 @@ public class LoadTcParameters implements Processor {
 		
 		Element el = new XmlConverter().toDOMElement(elements.get(0));
 		
-		Node creditCardType = el.getElementsByTagName("typ:creditCardType").item(0);
-		Node creditCardToken = el.getElementsByTagName("typ:creditCardToken").item(0);
+		Node creditCardType = el.getElementsByTagName("creditCardType").item(0);
+		Node creditCardToken = el.getElementsByTagName("creditCardToken").item(0);
 		
 		
 		exchange.getIn().setHeader("creditCardType", creditCardType.getTextContent());

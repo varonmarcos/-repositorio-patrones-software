@@ -1,32 +1,21 @@
 package org.kallsonnys.oms.web.beans;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
 
-import org.kallsonnys.oms.dto.AddressDTO;
-import org.kallsonnys.oms.dto.CampaignDTO;
-import org.kallsonnys.oms.dto.CustomerDTO;
 import org.kallsonnys.oms.dto.OrderDTO;
-import org.kallsonnys.oms.dto.ProductDTO;
-import org.kallsonnys.oms.dto.TableResultDTO;
-import org.kallsonnys.oms.dto.UserDTO;
-import org.kallsonnys.oms.enums.AddressTypeEnum;
-import org.kallsonnys.oms.enums.CustomerStatusEnum;
+import org.kallsonnys.oms.enums.OrderStatusEnum;
+import org.kallsonnys.oms.services.orders.OrdersFacadeRemote;
 import org.kallsonnys.oms.utilities.Util;
-import org.kallsonnys.oms.web.beans.model.CustomerDTOLazyList;
 import org.kallsonnys.oms.web.beans.model.OrderDTOLazyList;
+import org.kallsonys.oms.commons.locator.ServiceLocator;
 import org.primefaces.event.RowEditEvent;
 import org.primefaces.model.LazyDataModel;
-
-import test.DAO;
 
 @ManagedBean(name = "manageOrder")
 @ViewScoped
@@ -39,7 +28,6 @@ public class ManageOrderBean implements Serializable {
 	private List<OrderDTO> list; 
 	
 	private String messageHeader;
-	private String messageBody;
 	private Severity severity;
 	
 	
@@ -48,11 +36,32 @@ public class ManageOrderBean implements Serializable {
 	}
 
 	public void onCancel(RowEditEvent event) {  
-        messageHeader = "Orden Eliminado";
-		messageBody = ((OrderDTO) event.getObject()).getId().toString();
-		severity = FacesMessage.SEVERITY_INFO;
 		
-		Util.addMessage(severity, messageHeader, messageBody);  
+		OrderDTO orderDTO = (OrderDTO) event.getObject();
+		try {
+			
+			if(orderDTO.getStatus() == OrderStatusEnum.CREATED){
+				
+				OrdersFacadeRemote ordersFacadeEJB = ServiceLocator.getInstance().getRemoteObject("OrdersBean");
+				ordersFacadeEJB.removeOrder(orderDTO);
+				
+				messageHeader = "La Orden ha sido Eliminada "+orderDTO.getId()+" con exito";
+				severity = FacesMessage.SEVERITY_INFO;
+				
+				Util.addMessage(severity, messageHeader, "");  
+			}else{
+				messageHeader = "La Orden Id."+orderDTO.getId()+" no fue eliminada porque su estado es diferente de Creada";
+				severity = FacesMessage.SEVERITY_WARN;
+				Util.addMessage(severity, messageHeader, "");  
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			messageHeader = "Ocurrio un error al Eliminar la Orden "+ orderDTO.getId();
+			severity = FacesMessage.SEVERITY_ERROR;
+			Util.addMessage(severity, messageHeader, "");
+		}
+
     } 
 	
 	public OrderDTO getOrden() {

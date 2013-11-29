@@ -21,6 +21,10 @@ import org.kallsonys.oms.entities.products.Top5;
 public class ProductsBean implements ProductsRemote, ProductsLocal {
 	
 	
+//	private final static String  FULL_IMG_PREFIX = "_full";
+//	private final static String  THUMB_IMG_PREFIX = "_thumb";
+	
+	
 	@PersistenceContext(unitName = "kallsonnysProducts")
 	private EntityManager em;
 	
@@ -33,7 +37,7 @@ public class ProductsBean implements ProductsRemote, ProductsLocal {
 	public ProductDTO getProductDetail(Long prodId){
 		productDAO.setEm(em);
 		Product product = productDAO.getProduct(prodId);
-		Top5 productTop5 = productDAO.getProductTop5(prodId);
+		Top5 productTop5 = productDAO.getProductTop5(product.getId());
 		
 		ProductDTO productDTO = OMSMapper.mapProduct(product);
 		if(productTop5!=null){
@@ -47,6 +51,7 @@ public class ProductsBean implements ProductsRemote, ProductsLocal {
 	public ProductDTO createProduct(ProductDTO productDTO){
 		
 		Product product = new Product();
+		product.setProdId(productDTO.getProdId());
 		product.setName(productDTO.getName());
 		product.setDescription(productDTO.getDescription());
 		product.setCategory(productDTO.getCategory());
@@ -55,14 +60,22 @@ public class ProductsBean implements ProductsRemote, ProductsLocal {
 		
 		String image_full_url = null;
 		if(productDTO.getImage_full_bytes().length>0){
-			image_full_url = ImagesLoadManager.getInstance().uploadJPG(productDTO.getImage_full_bytes(), productDTO.getName());
+//			image_full_url = ImagesLoadManager.getInstance().uploadJPG(
+//					productDTO.getImage_full_bytes(),
+//					productDTO.getName() + FULL_IMG_PREFIX);
+			
+			image_full_url = ImagesLoadManager.getInstance().loadRadomImage(false);
 		}
 		
 		product.setImage_url_full(image_full_url);
 		
 		String image_full_thumbl = null;
 		if(productDTO.getImage_thumb_bytes().length>0){
-			image_full_thumbl = ImagesLoadManager.getInstance().uploadJPG(productDTO.getImage_thumb_bytes(), productDTO.getName());
+//			image_full_thumbl = ImagesLoadManager.getInstance().uploadJPG(
+//					productDTO.getImage_thumb_bytes(),
+//					productDTO.getName() + THUMB_IMG_PREFIX);
+			image_full_thumbl = ImagesLoadManager.getInstance().loadRadomImage(true);
+			
 		}
 		
 		product.setImage_url_thumb(image_full_thumbl);
@@ -74,40 +87,46 @@ public class ProductsBean implements ProductsRemote, ProductsLocal {
 		
 	}
 	
+	public void removeProduct(ProductDTO productDTO){
+		
+		productDAO.setEm(em);
+		
+		Product product = em.find(Product.class, productDTO.getId());
+		
+		productDAO.removeTop5(product.getId());
+		
+		em.remove(product);	
+	}
+	
 	public ProductDTO updateProduct(ProductDTO productDTO){
 		
 		Product product = em.find(Product.class, productDTO.getId());
 		
-		
-		if(!product.getName().equals(productDTO.getName())){
-			
-		}
-		
+		product.setProdId(productDTO.getProdId());
 		product.setName(productDTO.getName());
 		product.setDescription(productDTO.getDescription());
 		product.setCategory(productDTO.getCategory());
 		product.setPrice(productDTO.getPrice());
 		product.setProducer(productDTO.getProducer());
 		
-		String image_full_url = null;
-		if(productDTO.getImage_full_bytes().length>0){
-			image_full_url = ImagesLoadManager.getInstance().uploadJPG(productDTO.getImage_full_bytes(), productDTO.getName());
+		if(productDTO.getImage_full_bytes()!=null&&productDTO.getImage_full_bytes().length>0){
+//			image_full_url = ImagesLoadManager.getInstance().uploadJPG(
+//					productDTO.getImage_full_bytes(),
+//					productDTO.getName() + FULL_IMG_PREFIX);
+			String image_full_url = ImagesLoadManager.getInstance().loadRadomImage(false);
+			productDTO.setImage_url_full(image_full_url);
+			productDTO.setImage_full_bytes(null);
 		}
 		
-		product.setImage_url_full(image_full_url);
-		productDTO.setImage_url_full(image_full_url);
-		productDTO.setImage_url_full(null);
-		
-		String image_full_thumbl = null;
-		if(productDTO.getImage_thumb_bytes().length>0){
-			image_full_thumbl = ImagesLoadManager.getInstance().uploadJPG(productDTO.getImage_thumb_bytes(), productDTO.getName());
+		if(productDTO.getImage_thumb_bytes()!=null&&productDTO.getImage_thumb_bytes().length>0){
+			// image_full_thumbl =
+			// ImagesLoadManager.getInstance().uploadJPG(productDTO.getImage_thumb_bytes(),
+			// productDTO.getName()+THUMB_IMG_PREFIX);
+			
+			String image_full_thumbl = ImagesLoadManager.getInstance().loadRadomImage(true);
+			product.setImage_url_thumb(image_full_thumbl);
+			productDTO.setImage_thumb_bytes(null);
 		}
-		
-		product.setImage_url_thumb(image_full_thumbl);
-		productDTO.setImage_url_full(image_full_thumbl);
-		productDTO.setImage_thumb_bytes(null);
-		
-		em.persist(product);
 		
 		return productDTO;
 		

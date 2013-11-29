@@ -7,9 +7,9 @@
 	<ui:define name="metadata">
 	</ui:define>
 		<ui:define name="content">
-			<p:panel id="pnEdit" header="Detalle Orden #{detailOrder.inputName}" toggleable="true" closable="true"  toggleSpeed="500" closeSpeed="500" widgetVar="panel2">
+			<p:panel id="pnEdit" header="Detalle Orden #{detailOrder.inputId}" toggleable="true" closable="true"  toggleSpeed="500" closeSpeed="500" widgetVar="panel2">
 				<h:panelGrid columns="2" cellpadding="5">
-					<h:outputText id="labelCliId" value="ID" /> 
+					<h:outputText id="labelCliId" value="Id" /> 
 					<h:outputText value="#{detailOrder.inputId}" />
 					
 					<h:outputText id="labelName" value="Fecha" /> 
@@ -24,14 +24,17 @@
 			    	<h:outputText id="labelEmail" value="Observación" /> 
 			    	<h:outputText value="#{detailOrder.inputComments}" />			 
 			    				    	
-			    	<h:outputText id="labelState" value="Cliente" />  
+			    	<h:outputText id="labelCustomer" value="Cliente" />  
 			    	<h:outputText value="#{detailOrder.slCustomer}" /> 
 			    	
-			    	<h:outputText id="labelState" value="Envio" />  
+			    	<h:outputText id="labelShipTo" value="Dirección de Envio" />  
+			    	<h:outputText escape="false" value="#{detailOrder.shipTo}" /> 
+			    	
+			    	<h:outputText id="labelShipper" value="Envio" />  
 			    	<h:outputText value="#{detailOrder.slShipper}" />
 			    	
-			    	<h:outputText id="labelState" value="Fabricante" />  
-			    	<h:outputText value="#{detailOrder.slProvider}" />			    	
+			    	<h:outputText id="labelProducer" value="Fabricante" />  
+			    	<h:outputText value="#{detailOrder.slProduccer}" />			    	
 			    	
 			    	<h:outputText id="labelAddShip" value="Items Orden" /> 
 			    	<p:dataTable id="dataTableOrder" var="prd" value="#{detailOrder.items}"  
@@ -62,7 +65,7 @@
 				        </p:column>
 				        
 				        <p:column headerText="Cliente" style="width:15%"> 
-			                <h:outputText value="#{prd.customer.price}" /> 
+			                <h:outputText value="#{prd.price}" /> 
 				        </p:column>
 				    	
 				    </p:dataTable>

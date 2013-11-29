@@ -2,7 +2,6 @@ package test;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import org.kallsonnys.oms.ProfileDTO;
 import org.kallsonnys.oms.dto.AddressDTO;
@@ -304,7 +303,7 @@ public class DAO {
         	cli.setSurname(getRandomNames());
         	cli.setPhoneNumber(getRandomLong().toString());
         	cli.setEmail("varonmarcos@gmail.com");
-        	cli.setCardType(CreditCardTypeEnum.MASTERD_CARD);
+        	cli.setCardType(CreditCardTypeEnum.MASTERDCARD);
         	cli.setStatus(CustomerStatusEnum.PLATINUM);   	
         	
         	cli.setCustomerAddress(getClientAddress());
@@ -319,7 +318,7 @@ public class DAO {
     	cli.setSurname(getRandomNames());
     	cli.setPhoneNumber(getRandomLong().toString());
     	cli.setEmail("varonmarcos@gmail.com");
-    	cli.setCardType(CreditCardTypeEnum.MASTERD_CARD);
+    	cli.setCardType(CreditCardTypeEnum.MASTERDCARD);
     	cli.setStatus(CustomerStatusEnum.PLATINUM);   	
     	
     	cli.setCustomerAddress(getClientAddress());
