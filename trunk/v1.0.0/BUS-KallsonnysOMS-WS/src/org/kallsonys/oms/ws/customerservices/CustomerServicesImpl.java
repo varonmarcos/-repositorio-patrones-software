@@ -13,7 +13,6 @@ import org.kallsonnys.oms.services.customers.CustomersFacadeRemote;
 import org.kallsonys.oms.commons.Exception.OMSException;
 import org.kallsonys.oms.commons.locator.ServiceLocator;
 import org.kallsonys.oms.ws.mapper.WSMapper;
-import org.kallsonys.oms.ws.orderservices.GetOrdersFault;
 
 import com.integration.kallsonys.kallsonysschema.types.Customer;
 import com.integration.kallsonys.kallsonysschema.types.CustomerInfoEmail;
@@ -48,11 +47,7 @@ public class CustomerServicesImpl implements CustomerServices {
 
 			InitialLoginDTO initialLoginDTO = new InitialLoginDTO();
 
-			Customer customer = new Customer();
-			customer.setEmail(customerLogin.getCustomer().getEmail());
-			customer.setName(customerLogin.getCustomer().getName() + " "
-					+ customerLogin.getCustomer().getSurname());
-			initialLoginDTO.setCustomerInfo(customer);
+			initialLoginDTO.setCustomerInfo(WSMapper.mapCustomer(customerLogin.getCustomer()));
 			initialLoginDTO.setTgt(customerLogin.getServiceTicket());
 
 			return initialLoginDTO;

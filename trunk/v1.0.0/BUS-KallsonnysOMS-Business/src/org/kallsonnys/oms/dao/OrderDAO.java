@@ -110,23 +110,29 @@ public class OrderDAO implements BaseDAO {
 			jpql.append("AND item.prodId :prodId ");
 		}
 		
-		switch (orderFilter) {
-		case ALL_ORDERS_OPEN_RANKING:
-			jpql.append("AND ord.status != :shippedStatus ");
-			break;
-		case ALL_ORDER_CLOSED_MONTH:
-		case  ALL_ORDER_CLOSED_RANKING:	
-			jpql.append("(AND ord.status = :shippedStatus AND ord.orderDate BETWEEN :startDate AND :startDate) ");
-			break;
+		if(orderFilter!=null){
+			switch (orderFilter) {
+			case ALL_ORDERS_OPEN_RANKING:
+				jpql.append("AND ord.status != :shippedStatus ");
+				break;
+			case ALL_ORDER_CLOSED_MONTH:
+			case  ALL_ORDER_CLOSED_RANKING:	
+				jpql.append("(AND ord.status = :shippedStatus AND ord.orderDate BETWEEN :startDate AND :startDate) ");
+				break;
+			}			
 		}
 		
-		if(orderFilter == OrderFilterEnum.ALL_ORDER_CLOSED_RANKING){
-			jpql.append(" ORDER BY ord.price ASC ");
-		}else if (orderFilter == OrderFilterEnum.ALL_ORDERS_OPEN_RANKING){
-			jpql.append(" ORDER BY ord.orderDate DESC ");
+		if(orderFilter!=null){
+			if(orderFilter == OrderFilterEnum.ALL_ORDER_CLOSED_RANKING){
+				jpql.append(" ORDER BY ord.price ASC ");
+			}else if (orderFilter == OrderFilterEnum.ALL_ORDERS_OPEN_RANKING){
+				jpql.append(" ORDER BY ord.orderDate DESC ");
+			}else{
+				jpql.append(" ORDER BY ").append(columnSorter).append(" ").append(sorterType);			
+			}			
 		}else{
 			jpql.append(" ORDER BY ").append(columnSorter).append(" ").append(sorterType);			
-		}
+		}	
 		
 		// Create count query
 		final StringBuilder jpqlCount = new StringBuilder(jpql.toString());
@@ -165,22 +171,24 @@ public class OrderDAO implements BaseDAO {
 			queryCount.setParameter("prodId", prodId);
 		}
 		
-		switch (orderFilter) {
-		case ALL_ORDERS_OPEN_RANKING:
-			query.setParameter("shippedStatus", OrderStatusEnum.SHIPPED);
-			queryCount.setParameter("shippedStatus", OrderStatusEnum.SHIPPED);
-			break;
-		case ALL_ORDER_CLOSED_MONTH:
-		case  ALL_ORDER_CLOSED_RANKING:	
-			query.setParameter("shippedStatus", OrderStatusEnum.SHIPPED);
-			queryCount.setParameter("shippedStatus", OrderStatusEnum.SHIPPED);
-			
-			query.setParameter("startDate", startDate);
-			queryCount.setParameter("startDate", startDate);
-			
-			query.setParameter("endDate", endDate);
-			queryCount.setParameter("endDate", endDate);
-			break;
+		if(orderFilter!=null){
+			switch (orderFilter) {
+			case ALL_ORDERS_OPEN_RANKING:
+				query.setParameter("shippedStatus", OrderStatusEnum.SHIPPED);
+				queryCount.setParameter("shippedStatus", OrderStatusEnum.SHIPPED);
+				break;
+			case ALL_ORDER_CLOSED_MONTH:
+			case  ALL_ORDER_CLOSED_RANKING:	
+				query.setParameter("shippedStatus", OrderStatusEnum.SHIPPED);
+				queryCount.setParameter("shippedStatus", OrderStatusEnum.SHIPPED);
+				
+				query.setParameter("startDate", startDate);
+				queryCount.setParameter("startDate", startDate);
+				
+				query.setParameter("endDate", endDate);
+				queryCount.setParameter("endDate", endDate);
+				break;
+			}
 		}
 		
 		if(orderId==null){
@@ -212,6 +220,11 @@ public class OrderDAO implements BaseDAO {
 		item.setQuantity(itemDTO.getQuantity());
 		em.persist(item);
 		return item;
+	}
+	
+
+	public void deleteOrderItems(Long orderId){
+		em.createQuery("DELETE FROM Item WHERE order.id = :orderId").setParameter("orderId", orderId).executeUpdate();
 	}
 
 	public Orders getOrder(Long orderId) {

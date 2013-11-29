@@ -39,7 +39,7 @@
 						<configuration>
 							<tasks>
 								<copy file="${project.build.directory}/${module.name}.war"
-									tofile="C:\jboss-6.1.0.Final\server\default\deploy\${module.name}.war" />
+									tofile="/usr/local/jboss-6.1.0.Final/server/default/deploy/${module.name}.war" />
 							</tasks>
 						</configuration>
 						<goals>
@@ -88,8 +88,19 @@
 		</dependency>
 
 		<dependency>
+			<groupId>org.kallsonys.oms.security</groupId>
+			<artifactId>COM-KallsonnysOMS-Security</artifactId>
+			<type>ejb-client</type>
+		</dependency>
+
+		<dependency>
 			<groupId>org.kallsonys.oms.dto</groupId>
 			<artifactId>ENT-KallsonnysOMS-DTO</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.kallsonys.oms.entities</groupId>
+			<artifactId>ENT-KallsonnysOMS-Entities</artifactId>
 		</dependency>
 
 		<dependency>
@@ -127,11 +138,11 @@
 		</dependency>
 
 		<dependency>
-	    	<groupId>javax.servlet</groupId>
-	      	<artifactId>servlet-api</artifactId>
-	      	<version>2.5</version>
-	    </dependency>
-    
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
+		</dependency>
+
 		<dependency>
 			<groupId>rome</groupId>
 			<artifactId>rome</artifactId>
@@ -153,7 +164,7 @@
 			<groupId>commons-fileupload</groupId>
 			<artifactId>commons-fileupload</artifactId>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>

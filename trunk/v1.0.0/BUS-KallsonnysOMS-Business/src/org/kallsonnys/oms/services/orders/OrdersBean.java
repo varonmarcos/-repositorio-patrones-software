@@ -14,6 +14,7 @@ import org.kallsonnys.integration.agent.ServiceAgentSOAP;
 import org.kallsonnys.oms.dao.CustomerDAO;
 import org.kallsonnys.oms.dao.OrderDAO;
 import org.kallsonnys.oms.dao.ServientregaDAO;
+import org.kallsonnys.oms.dto.FilterConstants;
 import org.kallsonnys.oms.dto.ItemDTO;
 import org.kallsonnys.oms.dto.OrderDTO;
 import org.kallsonnys.oms.dto.ShipmentCotizationDTO;
@@ -22,6 +23,7 @@ import org.kallsonnys.oms.dto.TableResultDTO;
 import org.kallsonnys.oms.enums.AddressTypeEnum;
 import org.kallsonnys.oms.enums.CustomerStatusEnum;
 import org.kallsonnys.oms.enums.OrderStatusEnum;
+import org.kallsonnys.oms.enums.ProducerTypeEnum;
 import org.kallsonnys.oms.mapper.OMSMapper;
 import org.kallsonnys.oms.services.customers.CustomersFacadeLocal;
 import org.kallsonys.oms.commons.Exception.ErrorCodesEnum;
@@ -52,9 +54,50 @@ public class OrdersBean implements OrdersFacadeRemote, OrdersFacadeLocal {
     
     
     public List<ShipmentCotizationDTO> getOrderCotization(Long orderId){
-    	//TODO Obtener las cotizaciones de los fabricantes
-    	return null;
+    
+    	orderDAO.setEm(em);
     	
+    	Orders order = orderDAO.getOrder(orderId);
+    	
+    	ServiceAgentSOAP agentSOAP = new ServiceAgentSOAP();
+    	
+    	List<ShipmentCotizationDTO> shipmentCotizationDTOs = new ArrayList<ShipmentCotizationDTO>();
+    	
+    	ShipmentCotizationDTO cotizationDTO1 = new ShipmentCotizationDTO();
+    	cotizationDTO1.setProducer( ProducerTypeEnum.SONY);
+    	
+    	String supplierPrice = (String) agentSOAP.sendSOAPMessage(OMSMapper.createProducerMessageForQuote(order, ProducerTypeEnum.SONY));
+    	
+    	cotizationDTO1.setPrice(Double.parseDouble(supplierPrice));
+    	
+    	shipmentCotizationDTOs.add(cotizationDTO1);
+    	
+    	ShipmentCotizationDTO cotizationDTO2 = new ShipmentCotizationDTO();
+    	cotizationDTO2.setProducer( ProducerTypeEnum.RAPID_SERVICE);
+		
+    	supplierPrice = (String) agentSOAP.sendSOAPMessage(OMSMapper.createProducerMessageForQuote(order, ProducerTypeEnum.RAPID_SERVICE));
+    	
+    	cotizationDTO2.setPrice(Double.parseDouble(supplierPrice));
+    	
+    	shipmentCotizationDTOs.add(cotizationDTO2);
+    	
+    	return shipmentCotizationDTOs;
+    	
+    }
+    
+    public OrderDTO approveOrder(OrderDTO orderDTO){
+    	
+    	orderDAO.setEm(em);
+    	
+    	Orders order = orderDAO.getOrder(orderDTO.getId());
+    	order.setStatus(OrderStatusEnum.APPROVED);	
+    	em.flush();
+
+    	orderDTO.setStatus(OrderStatusEnum.APPROVED);
+    	
+		SendMailTxListener.getInstance().sendAsyncMailOnCommit(OMSMapper.createOrderEmail(order));
+		
+    	return orderDTO;
     }
     
     public OrderDTO fabricOrder(OrderDTO orderDTO, ShipmentCotizationDTO shipmentCotizationDTO){
@@ -64,14 +107,15 @@ public class OrdersBean implements OrdersFacadeRemote, OrdersFacadeLocal {
     	
     	Orders order = orderDAO.getOrder(orderDTO.getId());
     	
+    	ServiceAgentSOAP agentSOAP = new ServiceAgentSOAP();
     	
     	switch (shipmentCotizationDTO.getProducer()) {
 		case RAPID_SERVICE:
-			//Operacion de inicio de fabricacion
+			agentSOAP.sendSOAPMessage(OMSMapper.createProducerMessageForFabric(order, ProducerTypeEnum.RAPID_SERVICE));
 			break;
 
 		case SONY:
-			//Operacion de inicio de fabricacion
+			agentSOAP.sendSOAPMessage(OMSMapper.createProducerMessageForFabric(order, ProducerTypeEnum.SONY));
 			break;
 		}
     	
@@ -93,13 +137,16 @@ public class OrdersBean implements OrdersFacadeRemote, OrdersFacadeLocal {
     	Address customerAddress = customerDAO.getCustomerAddress(order.getCustomer().getId(), AddressTypeEnum.SHIPPING_ADDRESS);
     	
     	if(customerAddress.getCountry().isInternational()){
-    		//DHL
     		order.setShippingProvider("DHL");
+    		ServiceAgentSOAP agentSOAP = new ServiceAgentSOAP();
+    		agentSOAP.sendSOAPMessage(OMSMapper.createShipmentProviderMessageForFullfill(order, ProducerTypeEnum.RAPID_SERVICE));
     	}else if(!customerAddress.getCountry().isInternational()){
     		switch (order.getProducer()) {
 			case RAPID_SERVICE:
 				//SERVIENTREGA WS
 				order.setShippingProvider("SERV");
+				servientregaDAO.setEm(em);
+				servientregaDAO.insertShipment(order, customerAddress, order.getCustomer());
 				break;
 			case SONY:
 				//DESPRISA WS
@@ -111,6 +158,16 @@ public class OrdersBean implements OrdersFacadeRemote, OrdersFacadeLocal {
     	order.setStatus(OrderStatusEnum.IN_TRANSIT);
     	
     	return OMSMapper.mapOrder(order);
+    }
+    
+    public void removeOrder(OrderDTO orderDTO){
+    	
+    	orderDAO.setEm(em);
+    	Orders order = orderDAO.getOrder(orderDTO.getId());
+    	orderDAO.deleteOrderItems(orderDTO.getId());
+    	em.remove(order);
+    	
+    	SendMailTxListener.getInstance().sendAsyncMailOnCommit(OMSMapper.createOrderDeletedEmail(order));
     }
     
     public OrderDTO getOrderDetail(Long orderId){
@@ -141,6 +198,13 @@ public class OrdersBean implements OrdersFacadeRemote, OrdersFacadeLocal {
     public TableResultDTO<OrderDTO> getOrdersList(final TableFilterDTO filter){
     	
     	orderDAO.setEm(em);
+    	customerDAO.setEm(em);
+    	
+    	String customerEmail = filter.getVal(FilterConstants.CUSTOMER_EMAIL);
+    	if(customerEmail!=null){
+    		Customer customer = customerDAO.getCustomer(customerEmail);
+    		filter.addFilter(FilterConstants.CUSTOMER_ID, customer.getId().toString());    		
+    	}
     	
     	TableResultDTO<Orders> orders = orderDAO.getOrders(filter);
     	

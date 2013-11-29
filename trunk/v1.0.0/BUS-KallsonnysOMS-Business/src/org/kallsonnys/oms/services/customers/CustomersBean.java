@@ -129,10 +129,10 @@ public class CustomersBean implements CustomersFacadeRemote,
 		
 		final CasTokensDTO casTokensDTO = securityGuardFacade.getCustomerLogin(email, password);
 		
-		final CustomerDTO customerBasicInfo = getCustomerBasicInfo(email);
+		final CustomerDTO customerDTO = getCustomerDetail(email);
 
 		final IntialCustomerLoginDTO loginDTO = new IntialCustomerLoginDTO(
-				customerBasicInfo, casTokensDTO.getTgt(),
+				customerDTO, casTokensDTO.getTgt(),
 				casTokensDTO.getServiceTicket());
 		
 		return loginDTO;

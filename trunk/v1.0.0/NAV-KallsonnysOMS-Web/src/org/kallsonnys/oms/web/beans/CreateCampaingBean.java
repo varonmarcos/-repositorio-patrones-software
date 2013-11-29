@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.kallsonnys.oms.dto.CampaignDTO;
 import org.kallsonnys.oms.dto.ProductDTO;
+import org.kallsonnys.oms.services.campaigns.CampaignFacadeRemote;
 import org.kallsonnys.oms.utilities.Util;
+import org.kallsonys.oms.commons.locator.ServiceLocator;
 
 import test.DAO;
 
@@ -45,8 +47,7 @@ public class CreateCampaingBean implements Serializable{
 				DAO d = new DAO();
 				producto = d.getProduct();
 				inputProId = producto.getProdId();
-				inputName = producto.getName();
-				inputDesc = producto.getDescription();
+				inputProName = producto.getName();
 				image_url_full = producto.getImage_url_full();		    	
 			}
 			
@@ -64,10 +65,17 @@ public class CreateCampaingBean implements Serializable{
 			campaing.setProductName(inputProName);
 			campaing.setStartDate(dateInit);
 			campaing.setEndDate(dateEnd);
+			campaing.setImage_url_full(image_url_full);
 			
-			//invocacion al EJB
+			CampaignFacadeRemote campaignFacadeEJB = ServiceLocator.getInstance().getRemoteObject("CampaignBean");
+			campaignFacadeEJB.createCampaign(campaing);
 			
-			FacesContext.getCurrentInstance().getExternalContext().redirect("manageCampaing.xhtml?id="+campaing.getId()+"&state=OK");
+			if(campaing.getId()==null){
+				FacesContext.getCurrentInstance().getExternalContext().redirect("manageCampaing.xhtml?id="+campaing.getName()+"&state=ERROR");
+			}else{
+				FacesContext.getCurrentInstance().getExternalContext().redirect("manageCampaing.xhtml?id="+campaing.getId()+"&state=OK");
+			}
+			
 			
 		}catch (Exception e) {
 			e.printStackTrace();

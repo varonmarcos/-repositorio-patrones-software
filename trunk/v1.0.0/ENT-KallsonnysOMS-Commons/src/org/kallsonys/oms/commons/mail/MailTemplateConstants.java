@@ -12,6 +12,8 @@ public interface MailTemplateConstants {
 	
 	static final String ORDER_APPROVED_TEMPL = "Order_Approved_Template.vm";
 	
+	static final String ORDER_DELETED_TEMPL = "Order_Deleted_Template.vm";
+	
 	static final String ORDER_SHIPPED_TEMPL = "Order_Shipped_Template.vm";
 	
 	static final String ORDER_ERROR_TEMPL = "Order_Error_Template.vm";

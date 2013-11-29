@@ -6,50 +6,73 @@
 	template="/templates/template.xhtml">
 	<ui:define name="metadata">
 	</ui:define>
-		<ui:define name="content">
-			<p:panel id="pnCreate" header="Crear Producto" toggleable="true" closable="true"  toggleSpeed="500" closeSpeed="500" widgetVar="panel2">
+	<ui:define name="content">
+		<h:form>
+			<p:panel id="pnCreate" header="Crear Producto" toggleable="true"
+				closable="true" toggleSpeed="500" closeSpeed="500"
+				widgetVar="panel2">
 				<h:panelGrid columns="2" cellpadding="5">
-					<h:outputText id="labelProId" value="ID Producto" /> 
-			    	<p:inputText id="inputProId" size="30" maxlength="10" required="true" value="#{createProduct.inputProId}" 
-			    				 requiredMessage="Ingrese el Id del producto" converterMessage="El campo es numerico">
-			    		<f:validateDoubleRange minimum="1" maximum="999999999" /> 
-			    	</p:inputText>			
-					
-					<h:outputText id="labelName" value="Nombre Producto" /> 
-			    	<p:inputText id="inputName" size="30" maxlength="50" required="true" value="#{createProduct.inputName}" 
-			    				 requiredMessage="Ingrese el nombre del producto" />
-			    	
-			    	<h:outputText id="labelDesc" value="Descipción Producto" /> 
-			    	<p:inputText id="inputDesc" size="30" maxlength="200" required="true" value="#{createProduct.inputDesc}" 
-			    				 requiredMessage="Ingrese la descripción del producto" />
-			    				    	
-			    	<h:outputText id="labelCat" value="Categoria Producto" />                 
-	                <p:selectOneMenu value="#{createProduct.slCategory}" required="true" id="slCategory" requiredMessage="Selecciones Categoria">  
-			            <f:selectItem itemLabel="Seleccione Uno" itemValue="" />  
-			            <f:selectItems value="#{createProduct.categorys}" />  
-			        </p:selectOneMenu>
-			    	
-			    	<h:outputText id="labelPrice" value="Precio Producto" /> 
-			    	<p:inputText id="inputPrice" size="30" required="true" value="#{createProduct.inputPrice}" 
-			    				 requiredMessage="Ingrese el precio del producto" converterMessage="El campo es decimal">
-			    		<f:validateDoubleRange minimum="100000.0" maximum="10000000.99" /> 
-			    	</p:inputText>
-			    	
-			    	<h:outputText id="labelProducer" value="Proveedor" /> 
-	                <p:selectOneMenu value="#{createProduct.slProveedor}" required="true" id="slProveedor" requiredMessage="Seleccione un Proveedor">  
-			            <f:selectItem itemLabel="Seleccione Uno" itemValue="" />  
-			            <f:selectItems value="#{createProduct.producers}" />  
-			        </p:selectOneMenu>
-			    	
-			    	<h:outputText id="labelFileFull" value="Cargar Imagenes Grande y Pequeño " />	    			
-	    			<p:fileUpload fileUploadListener="#{createProduct.uploadFile}" mode="advanced" dragDropSupport="false"
-            					  update=":mainForm:msgs" auto="true" sizeLimit="100000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
-            					  multiple="true"/>	  
-						          
-					<br/> 
-					<p:commandButton value="Registrar" update=":mainForm:msgs" id="btRegProduct" actionListener="#{createProduct.create}"/> 
-				    	
+					<h:outputText id="labelProId" value="ID Producto" />
+					<p:inputText id="inputProId" size="30" maxlength="10"
+						required="true" value="#{createProduct.inputProId}"
+						requiredMessage="Ingrese el Id del producto"
+						converterMessage="El campo es numerico">
+						<f:validateDoubleRange minimum="1" maximum="999999999" />
+					</p:inputText>
+
+					<h:outputText id="labelName" value="Nombre Producto" />
+					<p:inputText id="inputName" size="30" maxlength="50"
+						required="true" value="#{createProduct.inputName}"
+						requiredMessage="Ingrese el nombre del producto" />
+
+					<h:outputText id="labelDesc" value="Descipción Producto" />
+					<p:inputText id="inputDesc" size="30" maxlength="200"
+						required="true" value="#{createProduct.inputDesc}"
+						requiredMessage="Ingrese la descripción del producto" />
+
+					<h:outputText id="labelCat" value="Categoria Producto" />
+					<p:selectOneMenu value="#{createProduct.slCategory}"
+						required="true" id="slCategory"
+						requiredMessage="Selecciones Categoria">
+						<f:selectItem itemLabel="Seleccione Uno" itemValue="" />
+						<f:selectItems value="#{createProduct.categorys}" />
+					</p:selectOneMenu>
+
+					<h:outputText id="labelPrice" value="Precio Producto" />
+					<p:inputText id="inputPrice" size="30" required="true"
+						value="#{createProduct.inputPrice}"
+						requiredMessage="Ingrese el precio del producto"
+						converterMessage="El campo es decimal">
+						<f:validateDoubleRange minimum="100000.0" maximum="10000000.99" />
+					</p:inputText>
+
+					<h:outputText id="labelProducer" value="Proveedor" />
+					<p:selectOneMenu value="#{createProduct.slProveedor}"
+						required="true" id="slProveedor"
+						requiredMessage="Seleccione un Proveedor">
+						<f:selectItem itemLabel="Seleccione Uno" itemValue="" />
+						<f:selectItems value="#{createProduct.producers}" />
+					</p:selectOneMenu>
+
+					<h:outputText id="labelFileFull" value="Cargar Imagenes Grande" />
+					<p:fileUpload fileUploadListener="#{createProduct.uploadFileFull}"
+						mode="advanced" dragDropSupport="false" update=":mainForm:msgs"
+						auto="true" sizeLimit="100000"
+						allowTypes="/(\.|\/)(gif|jpe?g|png)$/" multiple="false" />
+						
+					<h:outputText id="labelFileThumb" value="Cargar Imagenes Pequeña" />
+					<p:fileUpload fileUploadListener="#{createProduct.uploadFileThumb}"
+						mode="advanced" dragDropSupport="false" update=":mainForm:msgs"
+						auto="true" sizeLimit="100000"
+						allowTypes="/(\.|\/)(gif|jpe?g|png)$/" multiple="true" />
+
+					<br />
+		
+					<p:commandButton value="Registrar" update=":mainForm:msgs"
+						id="btRegProduct" actionListener="#{createProduct.create}" />
+
 				</h:panelGrid>
 			</p:panel>
-		</ui:define>
+		</h:form>
+	</ui:define>
 </ui:composition>

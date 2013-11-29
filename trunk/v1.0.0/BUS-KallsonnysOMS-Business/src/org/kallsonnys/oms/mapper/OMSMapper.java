@@ -17,6 +17,7 @@ import org.kallsonnys.oms.dto.Top5DTO;
 import org.kallsonnys.oms.dto.agent.SoapMessageDTO;
 import org.kallsonnys.oms.enums.AddressTypeEnum;
 import org.kallsonnys.oms.enums.OrderStatusEnum;
+import org.kallsonnys.oms.enums.ProducerTypeEnum;
 import org.kallsonnys.oms.services.customers.CustomersFacadeLocal;
 import org.kallsonys.oms.commons.locator.ServiceLocator;
 import org.kallsonys.oms.commons.mail.MailTemplateConstants;
@@ -40,6 +41,10 @@ public class OMSMapper {
 		customerDTO.setSurname(customer.getSurname());
 		customerDTO.setEmail(customer.getEmail());
 		customerDTO.setStatus(customer.getStatus());
+		customerDTO.setCardType(customer.getCardType());
+		customerDTO.setPhoneNumber(customer.getPhoneNumber());
+		customerDTO.setCreditCardToken(customer.getCreditCardToken());
+
 		return customerDTO;
 
 	}
@@ -120,7 +125,7 @@ public class OMSMapper {
 	}
 
 	public static Top5DTO mapTop5(final List<Product> list) {
-		if(list.size() > 0){
+		if(list.size() == 5){
 			final Top5DTO top5dto = new Top5DTO();
 			top5dto.setTop1(mapProduct(list.get(0)));
 			top5dto.setTop2(mapProduct(list.get(1)));
@@ -142,6 +147,7 @@ public class OMSMapper {
 		orderDTO.setComments(order.getComments());
 		orderDTO.setOrderDate(order.getOrderDate());
 		orderDTO.setPrice(order.getPrice());
+		orderDTO.setCustomer(mapCustomerBasicInfo(order.getCustomer()));
 		
 		return orderDTO;
 	}
@@ -154,7 +160,7 @@ public class OMSMapper {
 		orderDTO.setComments(order.getComments());
 		orderDTO.setOrderDate(order.getOrderDate());
 		orderDTO.setPrice(order.getPrice());
-		orderDTO.setCustomer(mapCustomerBasicInfo(order.getCustomer()));
+		orderDTO.setCustomer(mapCustomer(order.getCustomer()));
 		orderDTO.setItems(mapOrderItems(order.getItems()));
 		return orderDTO;
 	}
@@ -187,6 +193,134 @@ public class OMSMapper {
 		
 		return soapMessageDTO;
 		
+	}
+	
+	public static SoapMessageDTO createShipmentProviderMessageForFullfill(Orders order, ProducerTypeEnum producer){
+		
+		SoapMessageDTO soapMessageDTO = new SoapMessageDTO();
+		
+		soapMessageDTO.setServiceDir(WSConstants.DHL_SERVICE_URI);
+		soapMessageDTO.setServiceOp(WSConstants.DHL_SERVICE_OP_FULLFILL_SHIPMENT);
+		soapMessageDTO.setServiceTempl(WSConstants.DHL_SERVICE_TEMPL_FULLFILL_SHIPMENT);
+		
+		
+		final List<Map<String, String>> itemsList = new ArrayList<Map<String, String>>();
+		for (final Item item : order.getItems()) {
+			final Map<String, String> itemMap = new HashMap<String, String>();
+			itemMap.put("itemId", item.getProdId().toString());
+			itemMap.put("prodId", item.getProdId().toString());
+			itemMap.put("productName", item.getProductName().toString());
+			itemMap.put("partNumber", item.getPartNum().toString());
+			itemMap.put("price", item.getPrice().toString());
+			itemMap.put("quantity", item.getQuantity().toString());
+			itemsList.add(itemMap);
+		}
+	
+		soapMessageDTO.addParam("itemList", itemsList);
+		soapMessageDTO.addParam("orderId", order.getId());
+		soapMessageDTO.addParam("partner", "Kallsonys");
+		soapMessageDTO.addParam("supplier", producer.name());
+		
+		
+		final Customer customer = order.getCustomer();
+		
+		soapMessageDTO.addParam("addresseeName", customer.getName());
+		soapMessageDTO.addParam("addresseeLastName", customer.getSurname());
+		
+		final CustomersFacadeLocal customersFacadeLocal =  ServiceLocator.getInstance().getLocalObject("CustomersBean");
+		final Address customerAddress = customersFacadeLocal.getCustomerAddress(customer.getId(), AddressTypeEnum.SHIPPING_ADDRESS);
+		
+		soapMessageDTO.addParam("country", customerAddress.getCountry());
+		soapMessageDTO.addParam("city", customerAddress.getCity().getName());
+		soapMessageDTO.addParam("street", customerAddress.getStreet());
+		soapMessageDTO.addParam("state", customerAddress.getState().getName());
+		soapMessageDTO.addParam("zipcode", customerAddress.getZip());
+		
+		return soapMessageDTO;
+		
+	}
+	
+	public static SoapMessageDTO createProducerMessageForQuote(Orders order, ProducerTypeEnum producer){
+		
+		SoapMessageDTO soapMessageDTO = new SoapMessageDTO();
+		
+		if(producer == ProducerTypeEnum.SONY){
+			soapMessageDTO.setServiceDir(WSConstants.SONY_SERVICE_URI);
+			soapMessageDTO.setServiceOp(WSConstants.SONY_SERVICE_OP_INITIATE);
+			soapMessageDTO.setServiceTempl(WSConstants.SONY_SERVICE_TEMPL_INITIATE);
+		}else{
+			soapMessageDTO.setServiceDir(WSConstants.RAPIDSERVICE_SERVICE_URI);
+			soapMessageDTO.setServiceOp(WSConstants.RAPIDSERVICE_OP_PROCESSQUOTE);
+			soapMessageDTO.setServiceTempl(WSConstants.RAPIDSERVICE_TEMPL_PROCESSQUOTE);
+		}
+		
+		final List<Map<String, String>> itemsList = new ArrayList<Map<String, String>>();
+		for (final Item item : order.getItems()) {
+			final Map<String, String> itemMap = new HashMap<String, String>();
+			itemMap.put("itemId", item.getProdId().toString());
+			itemMap.put("quantity", item.getQuantity().toString());
+			itemsList.add(itemMap);
+		}
+	
+		soapMessageDTO.addParam("itemList", itemsList);
+		soapMessageDTO.addParam("orderId", order.getId());
+		
+		return soapMessageDTO;
+		
+	}
+	
+	public static SoapMessageDTO createProducerMessageForFabric(Orders order, ProducerTypeEnum producer){
+		
+		SoapMessageDTO soapMessageDTO = new SoapMessageDTO();
+		
+		if(producer == ProducerTypeEnum.SONY){
+			soapMessageDTO.setServiceDir(WSConstants.SONY_SERVICE_URI);
+			soapMessageDTO.setServiceOp(WSConstants.SONY_SERVICE_OP_ORDERQUOTE);
+			soapMessageDTO.setServiceTempl(WSConstants.SONY_SERVICE_TEMPL_ORDERQUOTE);
+		}else{
+			soapMessageDTO.setServiceDir(WSConstants.RAPIDSERVICE_SERVICE_URI);
+			soapMessageDTO.setServiceOp(WSConstants.RAPIDSERVICE_OP_ORDERQUOTE);
+			soapMessageDTO.setServiceTempl(WSConstants.RAPIDSERVICE_TEMPL_ORDERQUOTE);
+		}
+		
+		soapMessageDTO.addParam("orderId", order.getId());
+		
+		return soapMessageDTO;
+		
+	}
+	
+	public static MailDTO createOrderDeletedEmail(final Orders order) {
+		
+		final MailDTO mailDTO = new MailDTO();
+		mailDTO.setTemplateName(MailTemplateConstants.ORDER_DELETED_TEMPL);	
+		mailDTO.setSubject("Kallsony's - Su Orden ha sido eliminada");
+		mailDTO.setFrom(MailTemplateConstants.ORDERS_MAIL_ACCOUNT);
+		final Customer customer = order.getCustomer();
+		
+		mailDTO.addRecipient(customer.getEmail());
+		
+		mailDTO.addParam("orderId", order.getId());
+		mailDTO.addParam("customerName", customer.getName() +" "+ customer.getSurname());
+		mailDTO.addParam("customerEmail", customer.getEmail());
+		if(customer.getCardType() !=null && customer.getCreditCardToken()!=null){
+			mailDTO.addParam("credicCardType", customer.getCardType().toString());
+			final String numbers = customer.getCreditCardToken();
+			mailDTO.addParam("credicCardNum", numbers.substring(numbers.length()-4, numbers.length()));
+		}
+		
+		final List<Map<String, String>> itemsList = new ArrayList<Map<String, String>>();
+		for (final Item item : order.getItems()) {
+			final Map<String, String> itemMap = new HashMap<String, String>();
+			itemMap.put("productName", item.getProductName());
+			itemMap.put("quantity", item.getQuantity().toString());
+			itemMap.put("price", item.getPrice().toString());
+			itemsList.add(itemMap);
+		}
+	
+		mailDTO.addParam("itemList", itemsList);
+		
+		
+		return mailDTO;
 	}
 
 	public static MailDTO createOrderEmail(final Orders order) {

@@ -11,7 +11,9 @@ import javax.faces.event.ActionEvent;
 import org.kallsonnys.oms.dto.UserDTO;
 import org.kallsonnys.oms.dto.security.IntialUserLoginDTO;
 import org.kallsonnys.oms.utilities.Util;
+import org.kallsonnys.security.services.SecurityGuardFacadeRemote;
 import org.kallsonys.oms.commons.Exception.OMSException;
+import org.kallsonys.oms.commons.locator.SecurityLocator;
 import org.primefaces.context.RequestContext;
 
 import test.DAO;
@@ -57,7 +59,9 @@ public class LoginBean implements Serializable {
 		logeado = true;	
 		
 		try {
-			ini = d.getUser(inputUserName, inputPassword);
+			
+			SecurityGuardFacadeRemote securityGuardEJB = SecurityLocator.getInstance().getRemoteObject("SecurityGuardBean");
+			ini = securityGuardEJB.getIntialUserLogin(inputUserName, inputPassword);
 			userDto = ini.getUser();
 			messageHeader = "Bienvenido";
 			messageBody = userDto.getName();

@@ -10,10 +10,10 @@ import java.util.Date;
 import org.kallsonys.oms.commons.Exception.OMSException;
 
 public class DateUtil {
-	
-	private static final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
-	
+	private static final SimpleDateFormat format = new SimpleDateFormat(
+			"yyyy-MM-dd");
+
 	public static Date formatDate(String dateParam) {
 		if (dateParam == null)
 			return null;
@@ -50,6 +50,47 @@ public class DateUtil {
 		formatedDate.set(Calendar.MILLISECOND, 999);
 
 		return formatedDate.getTime();
+	}
+
+	public static Date getFirstDayOfWeek(Date dueDate) {
+
+		Calendar date = Calendar.getInstance();
+		date.setTime(dueDate);
+		date.set(Calendar.HOUR_OF_DAY, 0);
+		date.set(Calendar.MINUTE, 0);
+		date.set(Calendar.SECOND, 0);
+		date.set(Calendar.MILLISECOND, 0);
+
+		int currentDay = date.get(Calendar.DAY_OF_WEEK);
+
+		if (currentDay != Calendar.SUNDAY) {
+
+			int day = currentDay - 1;
+			date.add(Calendar.DAY_OF_YEAR, -day);
+
+		}
+
+		return date.getTime();
+
+	}
+
+	public static Date getLastDayOfWeek(Date dueDate) {
+
+		Calendar date = Calendar.getInstance();
+		date.setTime(dueDate);
+		date.set(Calendar.HOUR_OF_DAY, 23);
+		date.set(Calendar.MINUTE, 59);
+		date.set(Calendar.SECOND, 59);
+
+		int currentDay = date.get(Calendar.DAY_OF_WEEK);
+		if (currentDay != Calendar.SATURDAY) {
+
+			int lastDay = 7 - currentDay;
+			date.add(Calendar.DAY_OF_YEAR, lastDay);
+		}
+
+		return date.getTime();
+
 	}
 
 	public static String parseDate(Date startDate) {

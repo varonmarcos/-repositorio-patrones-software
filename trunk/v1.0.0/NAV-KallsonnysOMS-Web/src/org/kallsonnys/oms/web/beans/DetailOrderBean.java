@@ -4,26 +4,19 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.application.FacesMessage.Severity;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
-import org.kallsonnys.oms.dto.AddressDTO;
-import org.kallsonnys.oms.dto.CustomerDTO;
 import org.kallsonnys.oms.dto.ItemDTO;
 import org.kallsonnys.oms.dto.OrderDTO;
-import org.kallsonnys.oms.dto.ProductDTO;
 import org.kallsonnys.oms.enums.AddressTypeEnum;
-import org.kallsonnys.oms.enums.CountryEnum;
-import org.kallsonnys.oms.enums.CustomerStatusEnum;
 import org.kallsonnys.oms.enums.OrderStatusEnum;
 import org.kallsonnys.oms.enums.ProducerTypeEnum;
+import org.kallsonnys.oms.services.orders.OrdersFacadeRemote;
 import org.kallsonnys.oms.utilities.Util;
-
-import test.DAO;
+import org.kallsonys.oms.commons.locator.ServiceLocator;
 
 @ManagedBean(name = "detailOrder")
 @ViewScoped
@@ -37,6 +30,7 @@ public class DetailOrderBean implements Serializable {
 	private OrderStatusEnum inputState;
 	private String inputComments;
 	private String slCustomer;
+	private String shipTo;
 	private String slShipper;
 	private ProducerTypeEnum slProduccer;
 	private OrderDTO orden;
@@ -50,20 +44,19 @@ public class DetailOrderBean implements Serializable {
 			String idOrd = req.getParameter("id");
 			if (idOrd != null) {
 
-				System.out.println("id " + idOrd);
-				DAO d = new DAO();
-				
-				//invocacion EJB
-				// orden = d.editCliente();
+				OrdersFacadeRemote ordersFacadeEJB = ServiceLocator.getInstance().getRemoteObject("OrdersBean");
+				orden = ordersFacadeEJB.getOrderDetail(Long.parseLong(idOrd));
 
 				inputId = orden.getId();
 				inputDate = orden.getOrderDate();
 				inputPrice = orden.getPrice();
 				inputState = orden.getStatus();
 				inputComments = orden.getComments();
-				slCustomer = orden.getCustomer().getName();
+				slCustomer = orden.getCustomer().getName()+" "+orden.getCustomer().getSurname();
+				shipTo = Util.buildAdderss(orden.getCustomer(), AddressTypeEnum.SHIPPING_ADDRESS);
 				slShipper = orden.getShippingProvider();
 				slProduccer = orden.getProducer();
+				items = orden.getItems();
 			}
 
 		}
@@ -147,6 +140,14 @@ public class DetailOrderBean implements Serializable {
 
 	public void setSlProduccer(ProducerTypeEnum slProduccer) {
 		this.slProduccer = slProduccer;
+	}
+
+	public String getShipTo() {
+		return shipTo;
+	}
+
+	public void setShipTo(String shipTo) {
+		this.shipTo = shipTo;
 	}
 	
 	

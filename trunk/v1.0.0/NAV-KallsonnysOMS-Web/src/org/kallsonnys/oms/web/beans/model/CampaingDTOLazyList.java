@@ -8,17 +8,14 @@ import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
 
 import org.kallsonnys.oms.dto.CampaignDTO;
-import org.kallsonnys.oms.dto.FilterConstants;
-import org.kallsonnys.oms.dto.ProductDTO;
 import org.kallsonnys.oms.dto.TableFilterDTO;
 import org.kallsonnys.oms.dto.TableResultDTO;
+import org.kallsonnys.oms.services.campaigns.CampaignFacadeRemote;
 import org.kallsonnys.oms.utilities.Util;
-//import org.kallsonnys.oms.services.products.ProductsRemote;
 import org.kallsonys.oms.commons.locator.ServiceLocator;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
-
-import test.DAO;
+//import org.kallsonnys.oms.services.products.ProductsRemote;
 
 public class CampaingDTOLazyList extends LazyDataModel<CampaignDTO> {
 
@@ -48,11 +45,10 @@ public class CampaingDTOLazyList extends LazyDataModel<CampaignDTO> {
 			filterDTO.addFilter(entryFilter.getKey(), entryFilter.getValue());
 		}
 		
-		DAO d = new DAO();
-		//ProductsRemote productsEJB = ServiceLocator.getInstance().getRemoteObject("ProductsBean");
-		//result = productsEJB.getProductsList(filterDTO);
-		result = d.getCampañas(filterDTO);
-
+		
+		CampaignFacadeRemote  campaignFacadeEJB =  ServiceLocator.getInstance().getRemoteObject("CampaignBean");
+		result = campaignFacadeEJB.getCampaigns(filterDTO);
+		
 		campañas = result.getResult();
 		totalOfRecords = result.getTotalOfRecords();	
 
@@ -68,6 +64,9 @@ public class CampaingDTOLazyList extends LazyDataModel<CampaignDTO> {
 			messageHeader = "Registros Encontrados ";
 			messageBody = "";
 			severity = FacesMessage.SEVERITY_INFO;
+			
+			this.setRowCount(totalOfRecords);  
+			
 		}else{
 			messageHeader = "No se Encontraron Registros ";
 			messageBody = "";

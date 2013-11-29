@@ -14,6 +14,7 @@ import javax.persistence.Query;
 import org.kallsonnys.oms.dto.FilterConstants;
 import org.kallsonnys.oms.dto.TableFilterDTO;
 import org.kallsonnys.oms.dto.TableResultDTO;
+import org.kallsonnys.oms.enums.ProductCategoryEnum;
 import org.kallsonys.oms.commons.Exception.OMSException;
 import org.kallsonys.oms.entities.products.Product;
 import org.kallsonys.oms.entities.products.Top5;
@@ -55,6 +56,8 @@ public class ProductDAO implements BaseDAO {
 		if(filter.getStringVal(FilterConstants.PROD_ID)!=null){
 			prodId = Long.parseLong(filter.getStringVal(FilterConstants.PROD_ID));						
 		}
+		
+		final ProductCategoryEnum category = filter.getVal(FilterConstants.PROD_CAT);
 		final String prodName = filter.getStringVal(FilterConstants.NAME);
 		final String desc = filter.getStringVal(FilterConstants.DESCRIPTION);
 
@@ -74,6 +77,10 @@ public class ProductDAO implements BaseDAO {
 
 		if(desc != null){
 			jpql.append("AND UPPER(prod.description) LIKE UPPER(:desc) ");
+		}
+		
+		if(category != null){
+			jpql.append("AND prod.category = :category");
 		}
 		
 		jpql.append(" ORDER BY ").append(columnSorter).append(" ").append(sorterType);
@@ -99,8 +106,13 @@ public class ProductDAO implements BaseDAO {
 		}
 
 		if(desc != null && !desc.equals("")){
-			query.setParameter("desc", "%" + prodName + "%");
-			queryCount.setParameter("desc", "%" + prodName + "%");
+			query.setParameter("desc", "%" + desc + "%");
+			queryCount.setParameter("desc", "%" + desc + "%");
+		}
+		
+		if(category != null){
+			query.setParameter("category", category);
+			queryCount.setParameter("category", category);
 		}
 		
 		if(prodId==null){
@@ -115,6 +127,8 @@ public class ProductDAO implements BaseDAO {
 			maxResults = (resultListCount.size() == 0) ? 0 : resultListCount.get(0).intValue();
 		}
 		
+	
+		
 		final TableResultDTO<Product> tableResultDTO = new TableResultDTO<Product>();
 		tableResultDTO.setResult(resultList);
 		tableResultDTO.setTotalOfRecords(maxResults);
@@ -127,7 +141,7 @@ public class ProductDAO implements BaseDAO {
 		try {
 			
 			final Top5 top5 = (Top5) em
-					.createQuery("SELECT tp FROM Top5 tp WHERE tp.prodId = :prodId")
+					.createQuery("SELECT tp FROM Top5 tp WHERE tp.id = :prodId")
 					.setParameter("prodId", prodId).getSingleResult();
 			
 			return top5;
@@ -137,6 +151,12 @@ public class ProductDAO implements BaseDAO {
 		}
     	
     }
+	
+	public void removeTop5(Long prodId){
+		
+		em.createQuery(
+				"DELETE FROM Top5 tp WHERE  tp.id = :prodId").setParameter("prodId", prodId).executeUpdate();
+	}
 	
 	@SuppressWarnings("unchecked")
 	public List<Product> getTopProducts(Top5 top5) {
